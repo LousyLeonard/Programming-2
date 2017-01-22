@@ -10,10 +10,16 @@ import javax.swing.JRadioButton;
 
 import core.IEntryPanelProvider;
 import core.util.EnumUtils;
+import transports.Transportable;
 
 public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider {
 
-    private javax.swing.JLabel titleLabel;
+    /**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -1018923824893329575L;
+	
+	private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel selectionPanel;
 	
 	private javax.swing.ButtonGroup buttonGroup;
@@ -22,10 +28,10 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 	
     private String title;
 	
-	public GenericExclusiveSelectionPanel(String title, ArrayList<Object> arrayList) {
+	public GenericExclusiveSelectionPanel(String title, ArrayList<?> arrayList) {
 		this.title = title;
 		
-		init(arrayList);
+		init((ArrayList<Object>) arrayList);
 	}
 	
 	public <E extends Enum<E>> GenericExclusiveSelectionPanel(String title, Class<E> enumClass) {
@@ -35,7 +41,7 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 		
 		init(selections);
 	}
-	
+
 	private void init(ArrayList<Object> selections) {
 		titleLabel = new javax.swing.JLabel();
 		selectionPanel = new javax.swing.JPanel();

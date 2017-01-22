@@ -1,5 +1,7 @@
 package tripTracker;
 
+import java.util.ArrayList;
+
 import core.IAddDialog;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
@@ -9,6 +11,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import events.AddStudentEvent;
 import events.AddTripEvent;
 import events.GetTripTypeEvent;
+import transports.TransportEntryPanel;
 import transports.TransportManager;
 
 public abstract class DialogFactory {

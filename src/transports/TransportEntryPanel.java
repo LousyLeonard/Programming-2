@@ -1,9 +1,8 @@
-package tripTracker;
+package transports;
 
 import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
-import transports.NoTransport;
 
 public class TransportEntryPanel implements IEntryPanelProvider {
 	

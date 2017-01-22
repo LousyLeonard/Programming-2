@@ -22,7 +22,8 @@ public class Main {
     	ArrayList<UIBuilder<Student>> trips = new ArrayList<UIBuilder<Student>>();
     	
     	trips.add(TripFactory.getTripDayExternalProviderObject("test-day-EP", 230.0, new NoTransport()));
-    	trips.add(TripFactory.getTripResidentialExternalProviderObject("test-res-EP", 230.0, new BusTransport(new Date(), new Date())));
+//    	trips.add(TripFactory.getTripResidentialExternalProviderObject("test-res-EP", 230.0, new BusTransport(new Date(), new Date())));
+    	trips.add(TripFactory.getTripResidentialExternalProviderObject("test-res-EP", 230.0, new BusTransport("default", "default")));
     	trips.add(TripFactory.getTripDayTeacherOrganisedObject("test-day-teach", 230.0, new NoTransport(), new NoBooking()));
     	trips.add(TripFactory.getTripResidentialTeacherOrganisedObject("test-res-teach", 230.0, new NoTransport(), new NoBooking()));
     	
