@@ -1,6 +1,7 @@
 package transports;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -87,6 +88,27 @@ public class BusTransport implements Transportable {
 	@Override
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
+	}
+
+	@Override
+	public String getTitle() {
+		return TYPE;
+	}
+
+	@Override
+	public Object getContent() {
+		ArrayList<Object> contents = new ArrayList<Object>();
+		contents.add(TYPE);
+		contents.add(departureTime);
+		contents.add(arrivalTime);
+
+		return contents;
+	}
+
+	@Override
+	public JPanel getPanel() {
+		// TODO Auto-generated method stub
+		return new GenericStringEntryPanel("test");
 	}
 
 }

@@ -1,18 +1,24 @@
 package tripTracker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JPanel;
 
 import core.IAddDialog;
+import core.IEntryPanelProvider;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.ui.entrypanels.GenericNumberEntryPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
+import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import events.AddStudentEvent;
 import events.AddTripEvent;
 import events.GetTripTypeEvent;
 import transports.TransportEntryPanel;
 import transports.TransportManager;
+import transports.Transportable;
 
 public abstract class DialogFactory {
 	
@@ -34,8 +40,19 @@ public abstract class DialogFactory {
 	private static DialogBuilder getTripDayTeacherOrganisedDialog(IAddDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
-		GenericExclusiveSelectionPanel transport = 
-				new GenericExclusiveSelectionPanel(StringConstants.TRANSPORT, TransportManager.getInstance().getTransportTypes());
+		
+		ArrayList<Transportable> transports = TransportManager.getInstance().getTransports();
+		HashMap<Transportable, JPanel> transportPanels = new HashMap<Transportable, JPanel>();
+		
+		// TODO this needs work
+		for (Transportable transport : transports) {
+			transportPanels.put(transport, ((IEntryPanelProvider)transport).getPanel());
+		}
+		
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+
+//		GenericExclusiveSelectionPanel transport = 
+//				new GenericExclusiveSelectionPanel(StringConstants.TRANSPORT, TransportManager.getInstance().getTransportTypes());
 		VenueBookingEntryPanel venueBooking = new VenueBookingEntryPanel(StringConstants.VENUE_BOOKING);
 		
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);

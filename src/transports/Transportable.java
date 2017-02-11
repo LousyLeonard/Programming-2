@@ -2,7 +2,9 @@ package transports;
 
 import java.util.concurrent.CountDownLatch;
 
-public interface Transportable{
+import core.IEntryPanelProvider;
+
+public interface Transportable extends IEntryPanelProvider {
 
 	public String getType();
 	public String getDepartureTime();

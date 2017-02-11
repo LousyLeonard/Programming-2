@@ -1,9 +1,12 @@
 package core.ui.entrypanels;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -57,7 +60,7 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 			buttonRepresentationMap.put(tempButton, selection);
 			selectionPanel.add(tempButton);
 		}
-		
+				
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
 		
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -101,6 +104,14 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 	@Override
 	public JPanel getPanel() {
 		return this;
+	}
+	
+	public void addActionListener(ActionListener listener) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            
+            button.addActionListener(listener);
+        }
 	}
 
 }

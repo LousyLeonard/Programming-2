@@ -21,10 +21,13 @@ public class TransportManager {
 	private static TransportManager instance;
 	
 	private ArrayList<Class<Transportable>> transportTypes;
+	private ArrayList<Transportable> transports;
+
 	
 	private TransportManager() {
 		// private for singleton
 		transportTypes = new ArrayList<Class<Transportable>>();
+		transports = new ArrayList<Transportable>();
 		
 		String path = System.getProperties().getProperty("java.class.path", null);
 		List<String> fileNames = new ArrayList<String>();
@@ -44,6 +47,18 @@ public class TransportManager {
 				}
 		    }
 		}
+		
+		for (Class<Transportable> transtype : transportTypes) {
+			try {
+				transports.add(transtype.newInstance());
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static TransportManager getInstance() {
@@ -55,6 +70,10 @@ public class TransportManager {
 	
 	public ArrayList<Class<Transportable>> getTransportTypes() {
 		return transportTypes;
+	}
+	
+	public ArrayList<Transportable> getTransports() {
+		return transports;
 	}
 	
 	private List<String> getFileNames(List<String> fileNames, Path dir) {
