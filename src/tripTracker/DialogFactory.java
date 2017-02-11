@@ -42,11 +42,11 @@ public abstract class DialogFactory {
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 		
 		ArrayList<Transportable> transports = TransportManager.getInstance().getTransports();
-		HashMap<Transportable, JPanel> transportPanels = new HashMap<Transportable, JPanel>();
+		HashMap<Transportable, IEntryPanelProvider> transportPanels = new HashMap<Transportable, IEntryPanelProvider>();
 		
 		// TODO this needs work
 		for (Transportable transport : transports) {
-			transportPanels.put(transport, ((IEntryPanelProvider)transport).getPanel());
+			transportPanels.put(transport, ((IEntryPanelProvider)transport));
 		}
 		
 		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);

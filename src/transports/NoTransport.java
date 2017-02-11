@@ -1,7 +1,5 @@
 package transports;
 
-import java.util.concurrent.CountDownLatch;
-
 import javax.swing.JPanel;
 
 @Transport
@@ -20,12 +18,6 @@ public class NoTransport implements Transportable {
 	@Override
 	public String getArrivalTime() {
 		return "N/A";
-	}
-
-	@Override
-	public void setup(CountDownLatch latch) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -56,6 +48,11 @@ public class NoTransport implements Transportable {
 	public JPanel getPanel() {
 		// TODO Auto-generated method stub
 		return new JPanel();
+	}
+	
+	@Override
+	public String toString() {
+		return "No Transport";
 	}
 
 }

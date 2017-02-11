@@ -28,7 +28,7 @@ public abstract class TripFactory {
 				return getTripDayTeacherOrganisedObject(
 						(String)args.get(StringConstants.TITLE), 
 						(Double)args.get(StringConstants.ENTRY_FEE), 
-						fromClass((Class)args.get(StringConstants.TRANSPORT)),
+						(Transportable)args.get(StringConstants.TRANSPORT),
 						(VenueBookingable)args.get(StringConstants.VENUE_BOOKING));
 			case RESIDENTIAL_TRIP_TEACHER : 
 				return getTripResidentialTeacherOrganisedObject(
@@ -106,29 +106,6 @@ public abstract class TripFactory {
     	trip.registerAddDialog(DialogFactory.getAddStudentDialog(trip));
 
 		return trip; 
-	}
-	
-	private static Transportable fromClass(Class transportClass) {
-		try {
-			Transportable transport = (Transportable) transportClass.newInstance();
-			final CountDownLatch latch = new CountDownLatch(1);
-			transport.setup(latch);
-			try {
-				latch.await();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return transport;
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		Constructor constructor = transportClass.getConstructor(null);
-		return new NoTransport();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
@@ -18,9 +19,14 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 public class BusTransport implements Transportable {
 	
 	private final static String TYPE = "Bus";
+	private final static String DEPARTURE_TIME = "Departure Time";
+	private final static String ARRIVAL_TIME = "Arrival Time";
 
 	private String departureTime;
 	private String arrivalTime;
+	
+	private GenericStringEntryPanel depPanel;
+	private GenericStringEntryPanel arrPanel;
 	
 //	private Date departureTime;
 //	private Date arrivalTime;
@@ -28,11 +34,17 @@ public class BusTransport implements Transportable {
 	public BusTransport() {
 		this.departureTime = "";
 		this.arrivalTime = "";
+		
+		depPanel = new GenericStringEntryPanel(DEPARTURE_TIME);
+		arrPanel = new GenericStringEntryPanel(ARRIVAL_TIME);
 	}
 	
 	public BusTransport(String departureTime, String arrivalTime) {
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
+		
+		depPanel = new GenericStringEntryPanel(DEPARTURE_TIME);
+		arrPanel = new GenericStringEntryPanel(ARRIVAL_TIME);
 	}
 
 	@Override
@@ -56,31 +68,6 @@ public class BusTransport implements Transportable {
 	}
 
 	@Override
-	public void setup(CountDownLatch latch) {
-//		new Thread(new Runnable() {
-//				public void run() {
-					DialogBuilder dialog = new DialogBuilder("Add Transport");
-					dialog.addPanel(new GenericStringEntryPanel("Arrival Date"));
-					dialog.addPanel(new GenericStringEntryPanel("Departure Date"));
-					
-					dialog.registerYesEvent(new SetupTransport(latch, this));
-					dialog.registerNoEvent(new IYesNoEvent() {
-
-						@Override
-						public void doEvent(DialogBuilder builder) {
-							builder.dispose();							
-						}
-						
-					});
-							
-					dialog.setVisible(true);	
-//				}
-//		}).start();
-
-		
-	}
-
-	@Override
 	public void setDepartureTime(String departureTime) {
 		this.departureTime = departureTime;		
 	}
@@ -97,18 +84,30 @@ public class BusTransport implements Transportable {
 
 	@Override
 	public Object getContent() {
-		ArrayList<Object> contents = new ArrayList<Object>();
-		contents.add(TYPE);
-		contents.add(departureTime);
-		contents.add(arrivalTime);
+		setDepartureTime((String)depPanel.getContent());
+		setArrivalTime((String)arrPanel.getContent());
+		
+//		ArrayList<Object> contents = new ArrayList<Object>();
+//		contents.add(TYPE);
+//		contents.add(getDepartureTime());
+//		contents.add(getArrivalTime());
 
-		return contents;
+		return this;
 	}
 
 	@Override
 	public JPanel getPanel() {
-		// TODO Auto-generated method stub
-		return new GenericStringEntryPanel("test");
+		JPanel busPanel = new JPanel();
+		BoxLayout layout = new BoxLayout(busPanel, BoxLayout.PAGE_AXIS);
+		busPanel.setLayout(layout);
+		busPanel.add(depPanel);
+		busPanel.add(arrPanel);
+		return busPanel;
+	}
+	
+	@Override
+	public String toString() {
+		return TYPE;
 	}
 
 }
