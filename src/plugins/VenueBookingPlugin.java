@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import core.ILabelPlugin;
 import transports.Transportable;
-import tripTracker.VenueBookingable;
+import venueBookings.VenueBookingable;
 
 public class VenueBookingPlugin implements ILabelPlugin {
 
@@ -32,7 +32,7 @@ public class VenueBookingPlugin implements ILabelPlugin {
 		infoBoxes.put(TYPE_TITLE, booking.getType());
 		infoBoxes.put(DEPARTURE_DATE_TITLE, booking.getDepartureDate().toString());
 		infoBoxes.put(ARRIVAL_DATE_TITLE, booking.getArrivalDate().toString());
-		infoBoxes.put(LENGTH_OF_STAY, booking.getLengthofStay());
+		infoBoxes.put(LENGTH_OF_STAY, booking.getLengthOfStay());
 
 		return infoBoxes;
 	}

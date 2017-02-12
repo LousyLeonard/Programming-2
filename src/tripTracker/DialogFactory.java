@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import core.CustomClassLoader;
 import core.IAddDialog;
 import core.IEntryPanelProvider;
 import core.events.HideWindowEvent;
@@ -13,12 +14,12 @@ import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.ui.entrypanels.GenericNumberEntryPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
+import core.util.ArrayCastingUtils;
 import events.AddStudentEvent;
 import events.AddTripEvent;
 import events.GetTripTypeEvent;
-import transports.TransportEntryPanel;
-import transports.TransportManager;
 import transports.Transportable;
+import venueBookings.VenueBookingable;
 
 public abstract class DialogFactory {
 	
@@ -41,19 +42,15 @@ public abstract class DialogFactory {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 		
-		ArrayList<Transportable> transports = TransportManager.getInstance().getTransports();
-		HashMap<Transportable, IEntryPanelProvider> transportPanels = new HashMap<Transportable, IEntryPanelProvider>();
-		
-		// TODO this needs work
-		for (Transportable transport : transports) {
-			transportPanels.put(transport, ((IEntryPanelProvider)transport));
-		}
-		
+		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
+		ArrayList<Transportable> transports = transportLoader.getElements();		
+		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
 		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
 
-//		GenericExclusiveSelectionPanel transport = 
-//				new GenericExclusiveSelectionPanel(StringConstants.TRANSPORT, TransportManager.getInstance().getTransportTypes());
-		VenueBookingEntryPanel venueBooking = new VenueBookingEntryPanel(StringConstants.VENUE_BOOKING);
+		CustomClassLoader<VenueBookingable> venueLoader = new CustomClassLoader<VenueBookingable>(VenueBookingable.class);
+		ArrayList<VenueBookingable> venues = venueLoader.getElements();		
+		ArrayList<IEntryPanelProvider> venuePanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, venues);	
+		SmartExclusiveSelectionPanel venueBooking = new SmartExclusiveSelectionPanel(StringConstants.VENUE_BOOKING, venuePanels);
 		
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
 
@@ -71,8 +68,12 @@ public abstract class DialogFactory {
 	private static DialogBuilder getTripDayExternalProviderDialog(IAddDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
-		TransportEntryPanel transport = new TransportEntryPanel(StringConstants.TRANSPORT);
-		
+
+		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
+		ArrayList<Transportable> transports = transportLoader.getElements();		
+		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+	
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
 
 		builder.addPanel(title);
@@ -88,8 +89,16 @@ public abstract class DialogFactory {
 	private static DialogBuilder getTripResidentialTeacherOrganisedDialog(IAddDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
-		TransportEntryPanel transport = new TransportEntryPanel(StringConstants.TRANSPORT);
-		VenueBookingEntryPanel venueBooking = new VenueBookingEntryPanel(StringConstants.VENUE_BOOKING);
+
+		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
+		ArrayList<Transportable> transports = transportLoader.getElements();		
+		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+
+		CustomClassLoader<VenueBookingable> venueLoader = new CustomClassLoader<VenueBookingable>(VenueBookingable.class);
+		ArrayList<VenueBookingable> venues = venueLoader.getElements();		
+		ArrayList<IEntryPanelProvider> venuePanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, venues);	
+		SmartExclusiveSelectionPanel venueBooking = new SmartExclusiveSelectionPanel(StringConstants.VENUE_BOOKING, venuePanels);
 		
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
 
@@ -107,7 +116,11 @@ public abstract class DialogFactory {
 	private static DialogBuilder getTripResidentialExternalProviderDialog(IAddDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
-		TransportEntryPanel transport = new TransportEntryPanel(StringConstants.TRANSPORT);
+
+		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
+		ArrayList<Transportable> transports = transportLoader.getElements();		
+		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
 		
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
 

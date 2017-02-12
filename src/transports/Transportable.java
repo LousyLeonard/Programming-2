@@ -9,6 +9,5 @@ public interface Transportable extends IEntryPanelProvider {
 	public String getArrivalTime();
 	public void setDepartureTime(String departureTime);
 	public void setArrivalTime(String arrivalTime);
-	public String toString();
 
 }

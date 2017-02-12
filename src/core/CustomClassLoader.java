@@ -1,7 +1,7 @@
 /**
  * 
  */
-package transports;
+package core;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -15,30 +15,40 @@ import java.util.List;
  * @author Lawrence
  *
  */
-public class TransportManager {
+public class CustomClassLoader<T> {
 	
-	// Instance of the TransportManager
-	private static TransportManager instance;
-	
-	private ArrayList<Class<Transportable>> transportTypes;
-	private ArrayList<Transportable> transports;
+	// The type of the classloader, likely an interface
+	private Class<T> typeClass;
 
+	// All the classes that extend the class loader type
+	private ArrayList<Class<T>> types;
 	
-	private TransportManager() {
+	// Objects of the classes that extend the class loader type
+	// They must have a default constructor
+	private ArrayList<T> elements;
+
+	public CustomClassLoader(Class<T> typeClass) {
 		// private for singleton
-		transportTypes = new ArrayList<Class<Transportable>>();
-		transports = new ArrayList<Transportable>();
+		this.types = new ArrayList<Class<T>>();
+		this.elements = new ArrayList<T>();
+		this.typeClass = typeClass;
 		
+		init(typeClass.getPackage().getName());
+	}
+	
+	private void init(String packageName) {
 		String path = System.getProperties().getProperty("java.class.path", null);
 		List<String> fileNames = new ArrayList<String>();
-		fileNames = getFileNames(fileNames, Paths.get(path + "//transports"));
+
+		fileNames = getFileNames(fileNames, Paths.get(path + "//" + packageName));
 		
 		for (String fileName : fileNames) {
 		    if (fileName.endsWith(".class")) {
 		        try {
-					Class classObject = Class.forName("transports." + fileName.substring(0, fileName.lastIndexOf('.')));
-					if (classObject.isAnnotationPresent(Transport.class)) {
-						transportTypes.add(classObject);
+					Class classObject = Class.forName(packageName + "." + fileName.substring(0, fileName.lastIndexOf('.')));
+					if (typeClass.isAssignableFrom(classObject)
+							&& !typeClass.equals(classObject)) {
+						types.add(classObject);
 					}
 
 				} catch (ClassNotFoundException e1) {
@@ -48,32 +58,24 @@ public class TransportManager {
 		    }
 		}
 		
-		for (Class<Transportable> transtype : transportTypes) {
+		for (Class<T> transtype : types) {
 			try {
-				transports.add(transtype.newInstance());
+				elements.add(transtype.newInstance());
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Anything that needs to be class loaded needs a default constructor.");
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	public static TransportManager getInstance() {
-		if (instance == null) {
-			instance = new TransportManager();
-		}
-		return instance;
+	public ArrayList<Class<T>> getTypes() {
+		return types;
 	}
 	
-	public ArrayList<Class<Transportable>> getTransportTypes() {
-		return transportTypes;
-	}
-	
-	public ArrayList<Transportable> getTransports() {
-		return transports;
+	public ArrayList<T> getElements() {
+		return elements;
 	}
 	
 	private List<String> getFileNames(List<String> fileNames, Path dir) {
@@ -90,5 +92,4 @@ public class TransportManager {
 	    }
 	    return fileNames;
 	} 
-
 }

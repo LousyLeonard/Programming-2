@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
+import core.util.ArrayCastingUtils;
 
 public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider{
 
@@ -23,25 +25,29 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 	
 	private ButtonGroup buttonGroup;
 	
-	private Map<String, IEntryPanelProvider> contents;
-	private String current;
+	private List<IEntryPanelProvider> contents;
+	private IEntryPanelProvider current;
 	
-	public SmartExclusiveSelectionPanel(String title, Map<?,IEntryPanelProvider> selectionToDisplays) {
+	public SmartExclusiveSelectionPanel(String title, List<IEntryPanelProvider> selectionToDisplays) {
 		this.title = title;
-		this.contents = new HashMap<String, IEntryPanelProvider>();
+		this.contents = selectionToDisplays;
 		
-		init((Map<Object, IEntryPanelProvider>) selectionToDisplays);
+		init();
 	}
 	
-	private void init(Map<Object, IEntryPanelProvider> selectionToDisplays) {
+	private void init() {
 		buttonGroup = new javax.swing.ButtonGroup();
 		displayPanel = new JPanel(new CardLayout());
 		
-		ArrayList<Object> entries = new ArrayList<Object>();
-		for (Map.Entry<Object, IEntryPanelProvider> entry : selectionToDisplays.entrySet()) {
-			entries.add(entry.getKey());
-			contents.put(entry.getKey().getClass().getName(), entry.getValue());
-			displayPanel.add(entry.getValue().getPanel(), entry.getKey().getClass().getName());
+		ArrayList<Object> entries = ArrayCastingUtils.convertArray(Object.class, contents);
+
+		Boolean first = true;
+		for (IEntryPanelProvider entry : contents) {
+			displayPanel.add(entry.getPanel(), entry.getTitle());
+			if (first) {
+				current = entry;
+				first = false;
+			}
 		}
 		
 		selectionPanel = new GenericExclusiveSelectionPanel(title, entries);
@@ -50,8 +56,8 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				CardLayout cl = (CardLayout)(displayPanel.getLayout());
-				current = selectionPanel.getContent().getClass().getName();
-			    cl.show(displayPanel, current);
+				current = (IEntryPanelProvider)selectionPanel.getContent();
+			    cl.show(displayPanel, current.getTitle());
 			}	
 		});
 		
@@ -69,7 +75,7 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 
 	@Override
 	public Object getContent() {
-		return contents.get(current).getContent();
+		return current.getContent();
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
 import transports.NoTransport;
-import venueBookings.NoBooking;
+import venueBookings.NoVenue;
 
 public class VenueBookingEntryPanel implements IEntryPanelProvider {
 
@@ -21,7 +21,7 @@ public class VenueBookingEntryPanel implements IEntryPanelProvider {
 
 	@Override
 	public Object getContent() {
-		return new NoBooking();
+		return new NoVenue();
 	}
 
 	@Override

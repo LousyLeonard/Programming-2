@@ -15,7 +15,6 @@ import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
 
-@Transport
 public class BusTransport implements Transportable {
 	
 	private final static String TYPE = "Bus";
@@ -99,6 +98,8 @@ public class BusTransport implements Transportable {
 	public JPanel getPanel() {
 		JPanel busPanel = new JPanel();
 		BoxLayout layout = new BoxLayout(busPanel, BoxLayout.PAGE_AXIS);
+		depPanel = new GenericStringEntryPanel(DEPARTURE_TIME);
+		arrPanel = new GenericStringEntryPanel(ARRIVAL_TIME);
 		busPanel.setLayout(layout);
 		busPanel.add(depPanel);
 		busPanel.add(arrPanel);

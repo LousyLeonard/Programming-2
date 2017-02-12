@@ -54,13 +54,18 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 				
 		buttonRepresentationMap = new HashMap<JRadioButton, Object>();
 		
+		Boolean first = true;
 		for(Object selection : selections) {
 			javax.swing.JRadioButton tempButton = new javax.swing.JRadioButton(selection.toString());
 			buttonGroup.add(tempButton);
 			buttonRepresentationMap.put(tempButton, selection);
 			selectionPanel.add(tempButton);
+			if (first) { 
+				tempButton.setSelected(true); 
+				first = false;
+			}
 		}
-				
+						
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.PAGE_AXIS));
 		
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -14,6 +14,7 @@ import plugins.TripFeePlugin;
 import plugins.VenueBookingPlugin;
 import transports.NoTransport;
 import transports.Transportable;
+import venueBookings.VenueBookingable;
 
 public abstract class TripFactory {
 		
