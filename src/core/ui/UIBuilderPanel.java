@@ -187,7 +187,6 @@ public class UIBuilderPanel<T> extends javax.swing.JPanel {
     private JPanel generatePanels(UIBuilder<T> builder) {
     	javax.swing.JPanel panel = new javax.swing.JPanel();
     	panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-    	panel.setBorder(BorderFactory.createLineBorder(Color.black));
     	
     	for( ILabelPlugin plugin : builder.getLabelPlugins()) {
     		panel.add(new InfoLabel(plugin.getTitle(), plugin.getInfo()));

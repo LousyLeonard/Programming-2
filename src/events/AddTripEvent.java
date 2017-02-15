@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import core.IAddDialog;
+import core.IAddTreeDialog;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.IYesNoEvent;
@@ -16,10 +17,10 @@ import tripTracker.TripTypes;
 
 public class AddTripEvent implements IYesNoEvent {
 
-	private IAddDialog addable;
+	private IAddTreeDialog addable;
 	private TripTypes tripType;
 
-	public AddTripEvent(IAddDialog addable, TripTypes tripType) {
+	public AddTripEvent(IAddTreeDialog addable, TripTypes tripType) {
 		this.addable = addable;
 		this.tripType = tripType;
 	}
@@ -27,7 +28,7 @@ public class AddTripEvent implements IYesNoEvent {
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		try {
-			addable.addEntry(parse(builder.getEntrys()).getPanel());
+			addable.addEntry(addable.getFolder("Trips"), parse(builder.getEntrys()).getPanel(), true);
 			
 			// Get rid of the entry dialog.
 			builder.dispose();

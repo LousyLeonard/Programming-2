@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import core.IAddDialog;
+import core.IAddTreeDialog;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.IYesNoEvent;
@@ -19,9 +20,9 @@ import tripTracker.TripTypes;
 
 public class GetTripTypeEvent implements IYesNoEvent {
 
-	private IAddDialog addable;
+	private IAddTreeDialog addable;
 	
-	public GetTripTypeEvent(IAddDialog addable) {
+	public GetTripTypeEvent(IAddTreeDialog addable) {
 		this.addable = addable;
 	}
 	

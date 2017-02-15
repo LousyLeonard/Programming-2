@@ -1,6 +1,7 @@
 package core.ui;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -11,9 +12,11 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import core.IAddDialog;
+import core.IAddTreeDialog;
 import core.NoDialogRegisteredException;
 import core.NotUniqueEntryException;
 import core.events.HideWindowEvent;
@@ -21,7 +24,7 @@ import core.util.GraphicUtils;
 import tripTracker.StringConstants;
 import tripTracker.ToolTipConstants;
 
-public class TreeNavigator extends JPanel implements IAddDialog {
+public class TreeNavigator extends JPanel implements IAddTreeDialog {
 
 	private JPanel displayPanel;
 	private List<UIBuilderPanel> panels;
@@ -35,34 +38,39 @@ public class TreeNavigator extends JPanel implements IAddDialog {
     private DialogBuilder addDialog;
     
 	private DefaultMutableTreeNode root;
+	private DefaultTreeModel model;
 	
-	public TreeNavigator(JPanel displayPanel, List<UIBuilderPanel> panels) {
+	public TreeNavigator(JPanel displayPanel) {
 		this.displayPanel = displayPanel;
-		this.panels = panels;
+		this.panels = new ArrayList<UIBuilderPanel>();
+		
+		this.root = new DefaultMutableTreeNode("rootTreeNode");
+		this.model = new DefaultTreeModel(root);
 		
 		init();
 		createTree();
 	}
 	
 	private void createTree() {	
-		root = new DefaultMutableTreeNode("Trips");
+		tree.expandRow(0);
+		tree.setRootVisible(false);
 
-		tree.setModel(null); //this removes all nodes
+		//tree.setModel(null); //this removes all nodes
 	    
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
 		//Listen for when the selection changes.
 		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
 					
-	    DefaultMutableTreeNode tempChild = null;
+//	    DefaultMutableTreeNode tempChild = null;
+//	    
+//	    for(JPanel entry : panels) {
+//		    tempChild = new DefaultMutableTreeNode(entry);
+//		    root.add(tempChild);
+//		    displayPanel.add(entry, entry.toString());
+//	    }
 	    
-	    for(JPanel entry : panels) {
-		    tempChild = new DefaultMutableTreeNode(entry);
-		    root.add(tempChild);
-		    displayPanel.add(entry, entry.toString());
-	    }
-	    
-		TreeModel model = new DefaultTreeModel(root);
+//		TreeModel model = new DefaultTreeModel(root);
 		tree.setModel(model);
 
 	}
@@ -132,27 +140,64 @@ public class TreeNavigator extends JPanel implements IAddDialog {
         );
 	}
 	
-	@Override
-	public void addEntry(Object entry) throws NotUniqueEntryException {
+	public void addEntry(Object entry) {
 		UIBuilderPanel newPanel = (UIBuilderPanel)entry;
-		for(UIBuilderPanel panel : panels) {
-			if(panel.toString().equals(newPanel.toString())) {
-				throw new NotUniqueEntryException();
+		
+		DefaultMutableTreeNode parentNode = null;
+	    TreePath parentPath = tree.getSelectionPath();
+
+	    if (parentPath == null) {
+	        //There is no selection. Default to the root node.
+	        parentNode = root;
+	    } else {
+	        parentNode = (DefaultMutableTreeNode)
+	                     (parentPath.getLastPathComponent());
+	    }
+
+	    addEntry(parentNode, newPanel, true);
+	}
+
+	@Override
+	public void addEntry(DefaultMutableTreeNode parent,
+	                                        Object entry,
+	                                        boolean shouldBeVisible) {
+		UIBuilderPanel newPanel = (UIBuilderPanel)entry;
+
+	    DefaultMutableTreeNode childNode =
+	            new DefaultMutableTreeNode(newPanel);
+
+	    model.insertNodeInto(childNode, parent, parent.getChildCount());
+		
+	    panels.add(newPanel);
+	    displayPanel.add(newPanel, newPanel.toString());
+
+	    //Make sure the user can see the lovely new node.
+	    if (shouldBeVisible) {
+	        tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+	    }
+	}
+
+	public void addFolderEntry(String folderName) {
+		DefaultMutableTreeNode folder = new DefaultMutableTreeNode(folderName);
+	    model.insertNodeInto(folder, root, root.getChildCount());
+	}
+
+	public DefaultMutableTreeNode getFolder(String folderName) {
+		DefaultMutableTreeNode result = null;
+		
+		for (int i = 0; i < root.getChildCount(); ++i) {
+			if(((DefaultMutableTreeNode)root.getChildAt(i)).getUserObject().equals(folderName)) {
+				result = (DefaultMutableTreeNode) root.getChildAt(i);
 			}
 		}
 		
-		DefaultMutableTreeNode tempChild = new DefaultMutableTreeNode(newPanel);
-		root.add(tempChild);
-		panels.add(newPanel);
-	    displayPanel.add(newPanel, newPanel.toString());
-		createTree();
+		return result;
 	}
 
 	public void removeEntry(DefaultMutableTreeNode node) {
-		node.setParent(null);
 		panels.remove((JPanel)node.getUserObject());
 		displayPanel.remove((JPanel)node.getUserObject());
-		createTree();
+		model.removeNodeFromParent(node);
 	}
 	
     private void removeButtonActionPerformed(ActionEvent evt) {

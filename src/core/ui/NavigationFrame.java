@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import core.IAddDialog;
+import core.NotUniqueEntryException;
 import core.UIBuilder;
 
 public class NavigationFrame extends javax.swing.JFrame {
@@ -23,17 +24,8 @@ public class NavigationFrame extends javax.swing.JFrame {
      * Creates new form NavigationFrame
      * @param panels
      */
-    public <T> NavigationFrame(UIBuilder<T> builder) {
-    	ArrayList<UIBuilder<T>> builders = new ArrayList<UIBuilder<T>>();
-    	builders.add(builder);
-        initComponents(builders);
-    }
-    /**
-     * Creates new form NavigationFrame
-     * @param panels
-     */
-    public <T> NavigationFrame(List<UIBuilder<T>> builders) {
-        initComponents(builders);
+    public <T> NavigationFrame() {
+        initComponents();
     }
 
     /**
@@ -43,12 +35,10 @@ public class NavigationFrame extends javax.swing.JFrame {
      * @param <T>
      */
     @SuppressWarnings("unchecked")
-    private <T> void initComponents(List<UIBuilder<T>> builders) {
+    private <T> void initComponents() {
 
         displayPanel = new javax.swing.JPanel(new CardLayout());
-        treeNavigator = new TreeNavigator(displayPanel, getPanelsfromList(builders));
-
-        displayPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        treeNavigator = new TreeNavigator(displayPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
@@ -67,6 +57,23 @@ public class NavigationFrame extends javax.swing.JFrame {
     	}
     	return panels;
     }
+	
+	public void addEntry(Object panel) throws NotUniqueEntryException {
+		treeNavigator.addEntry(panel);
+	}
+	public void addObject(DefaultMutableTreeNode parent,
+            UIBuilderPanel child,
+            boolean shouldBeVisible) {
+		treeNavigator.addEntry(parent, child, shouldBeVisible);
+	}
+	
+	public void addFolder(String folderName) {
+		treeNavigator.addFolderEntry(folderName);
+	}
+	
+	public DefaultMutableTreeNode getFolder(String folderName) {
+		return treeNavigator.getFolder(folderName);
+	}
 
 	public TreeNavigator getTreeNavigator() {
 		return treeNavigator;
