@@ -38,7 +38,8 @@ public class NavigationFrame extends javax.swing.JFrame {
     private <T> void initComponents() {
 
         displayPanel = new javax.swing.JPanel(new CardLayout());
-        treeNavigator = new TreeNavigator(displayPanel);
+        treeNavigator = new TreeNavigator();
+        treeNavigator.setDisplayPanel(displayPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
@@ -67,8 +68,8 @@ public class NavigationFrame extends javax.swing.JFrame {
 		treeNavigator.addEntry(parent, child, shouldBeVisible);
 	}
 	
-	public void addFolder(String folderName) {
-		treeNavigator.addFolderEntry(folderName);
+	public void addFolder(String folderName, DialogBuilder dialog) {
+		treeNavigator.addFolderEntry(folderName, dialog);
 	}
 	
 	public DefaultMutableTreeNode getFolder(String folderName) {

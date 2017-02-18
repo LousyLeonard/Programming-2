@@ -34,11 +34,9 @@ public class Main {
             public void run() {
             	NavigationFrame frame = new NavigationFrame();
             	frame.setVisible(true);
-                DialogBuilder addDialog = DialogFactory.getTripTypeDialog(frame.getTreeNavigator());
-                frame.getTreeNavigator().registerAddDialog(addDialog);
                 
-                frame.addFolder("Trips");
-                frame.addFolder("Classes");
+                frame.addFolder("Trips", DialogFactory.getTripTypeDialog(frame.getTreeNavigator()));
+                frame.addFolder("Classes", DialogFactory.getTripTypeDialog(frame.getTreeNavigator()));
                 
             	for (UIBuilder<Student> trip : trips) {
                     frame.addObject(frame.getFolder("Trips"), trip.getPanel(), true);

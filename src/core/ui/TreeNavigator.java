@@ -11,22 +11,27 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import core.IAddDialog;
 import core.IAddTreeDialog;
 import core.NoDialogRegisteredException;
 import core.NotUniqueEntryException;
+import core.CoreConstants;
+import core.events.GetElementTypeEvent;
 import core.events.HideWindowEvent;
+import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.util.GraphicUtils;
+import core.util.Pair;
 import tripTracker.StringConstants;
-import tripTracker.ToolTipConstants;
 
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
+	
+	public static final String ELEMENT_TYPE = "Element Type";
 
-	private JPanel displayPanel;
+	public static final String NEW_ELEMENT = "New Element";
+
+	//private JPanel displayPanel;
 	private List<UIBuilderPanel> panels;
 
     private JScrollPane scrollPane;
@@ -35,18 +40,22 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
     private JButton addButton;
     private JButton removeButton;
     
+    private JPanel displayPanel;
+    
     private DialogBuilder addDialog;
     
 	private DefaultMutableTreeNode root;
 	private DefaultTreeModel model;
 	
-	public TreeNavigator(JPanel displayPanel) {
-		this.displayPanel = displayPanel;
+	private ArrayList<Pair<String, DialogBuilder>> topLevelElements;
+	
+	public TreeNavigator() {
+		this.topLevelElements = new ArrayList<Pair<String, DialogBuilder>>();
 		this.panels = new ArrayList<UIBuilderPanel>();
 		
 		this.root = new DefaultMutableTreeNode("rootTreeNode");
 		this.model = new DefaultTreeModel(root);
-		
+				
 		init();
 		createTree();
 	}
@@ -54,23 +63,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	private void createTree() {	
 		tree.expandRow(0);
 		tree.setRootVisible(false);
-
-		//tree.setModel(null); //this removes all nodes
 	    
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-
-		//Listen for when the selection changes.
-		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
 					
-//	    DefaultMutableTreeNode tempChild = null;
-//	    
-//	    for(JPanel entry : panels) {
-//		    tempChild = new DefaultMutableTreeNode(entry);
-//		    root.add(tempChild);
-//		    displayPanel.add(entry, entry.toString());
-//	    }
-	    
-//		TreeModel model = new DefaultTreeModel(root);
 		tree.setModel(model);
 
 	}
@@ -82,16 +77,16 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
         removeButton = new javax.swing.JButton();
         
         ImageIcon addIcon = GraphicUtils.createImageIcon(
-        		StringConstants.ADD_BUTTON_IMAGE_PATH,
-        		StringConstants.ADD_BUTTON_DESCRIPTION);
+        		CoreConstants.ADD_BUTTON_IMAGE_PATH,
+        		CoreConstants.ADD_BUTTON_DESCRIPTION);
         addButton.setIcon(addIcon);
-        addButton.setToolTipText(ToolTipConstants.ADD_ELEMENT_TOOLTIP);
+        addButton.setToolTipText(CoreConstants.ADD_ELEMENT_TOOLTIP);
         
         ImageIcon removeIcon = GraphicUtils.createImageIcon(
-        		StringConstants.REMOVE_BUTTON_IMAGE_PATH,
-        		StringConstants.REMOVE_BUTTON_DESCRIPTION);
+        		CoreConstants.REMOVE_BUTTON_IMAGE_PATH,
+        		CoreConstants.REMOVE_BUTTON_DESCRIPTION);
         removeButton.setIcon(removeIcon);
-        removeButton.setToolTipText(ToolTipConstants.REMOVE_ELEMENT_TOOLTIP);
+        removeButton.setToolTipText(CoreConstants.REMOVE_ELEMENT_TOOLTIP);
         
         scrollPane.setViewportView(tree);
         
@@ -177,9 +172,10 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	    }
 	}
 
-	public void addFolderEntry(String folderName) {
+	public void addFolderEntry(String folderName, DialogBuilder dialog) {
 		DefaultMutableTreeNode folder = new DefaultMutableTreeNode(folderName);
 	    model.insertNodeInto(folder, root, root.getChildCount());
+	    topLevelElements.add(new Pair<String, DialogBuilder>(folderName, dialog));
 	}
 
 	public DefaultMutableTreeNode getFolder(String folderName) {
@@ -213,7 +209,8 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	}
     
 	private void addButtonActionPerformed(ActionEvent evt) throws NoDialogRegisteredException {
-		getAddDialog().setVisible(true);	
+		addDialog = getElementTypeDialog(this);
+		addDialog.setVisible(true);	
 	}
 	
 	public void registerAddDialog(DialogBuilder addDialog) {
@@ -225,5 +222,43 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 			throw new NoDialogRegisteredException();
 		}
 		return addDialog;
+	}
+	
+	public DialogBuilder getAddDialogForString(String folder) {		
+		for(Pair<String,DialogBuilder> element : topLevelElements) {
+			if(element.getFirst().equals(folder)) {
+				return element.getSecond();
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<String> getTopLevelElements() {
+		ArrayList<String> elements = new ArrayList<String>();
+		
+		for (Pair<String, DialogBuilder> element : topLevelElements) {
+			elements.add(element.getFirst());
+		}
+		
+		return elements;
+	}
+	
+	public void setDisplayPanel(JPanel displayPanel) {
+		this.displayPanel = displayPanel;
+		//Listen for when the selection changes.
+		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
+	}
+	
+	public static DialogBuilder getElementTypeDialog(IAddTreeDialog addable) {
+		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(ELEMENT_TYPE, addable.getTopLevelElements());
+
+		DialogBuilder builder = new DialogBuilder(NEW_ELEMENT);		
+		
+		builder.addPanel(selections);
+		
+		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerYesEvent(new GetElementTypeEvent(addable));
+
+		return builder;
 	}
 }

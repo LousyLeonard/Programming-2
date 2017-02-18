@@ -33,16 +33,7 @@ public abstract class StringConstants {
 	public static final String PHONE_NUMBER = "Phone Number";
 	
 	public static final String PAYMENTS = "Payments";
-	
-	public static final String ADD_BUTTON_IMAGE_PATH = "Images/add.png";
-	
-	public static final String ADD_BUTTON_DESCRIPTION = "Add";
-	
-	public static final String REMOVE_BUTTON_IMAGE_PATH = "Images/remove.png";
-	
-	public static final String REMOVE_BUTTON_DESCRIPTION = "Remove";
 
 	public static final String AUTHORISATION = "Authorisation";
-
 
 }

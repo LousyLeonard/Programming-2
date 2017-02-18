@@ -20,10 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import core.IColumnPlugin;
 import core.ILabelPlugin;
 import core.NoDialogRegisteredException;
+import core.CoreConstants;
 import core.UIBuilder;
 import core.util.GraphicUtils;
 import tripTracker.StringConstants;
-import tripTracker.ToolTipConstants;
 
 public class UIBuilderPanel<T> extends javax.swing.JPanel {
 		
@@ -62,16 +62,16 @@ public class UIBuilderPanel<T> extends javax.swing.JPanel {
         removeButton = new javax.swing.JButton();
         
         ImageIcon addIcon = GraphicUtils.createImageIcon(
-        		StringConstants.ADD_BUTTON_IMAGE_PATH,
-        		StringConstants.ADD_BUTTON_DESCRIPTION);
+        		CoreConstants.ADD_BUTTON_IMAGE_PATH,
+        		CoreConstants.ADD_BUTTON_DESCRIPTION);
         addButton.setIcon(addIcon);
-        addButton.setToolTipText(ToolTipConstants.ADD_ROW_TOOLTIP);
+        addButton.setToolTipText(CoreConstants.ADD_ROW_TOOLTIP);
         
         ImageIcon removeIcon = GraphicUtils.createImageIcon(
-        		StringConstants.REMOVE_BUTTON_IMAGE_PATH,
-        		StringConstants.REMOVE_BUTTON_DESCRIPTION);
+        		CoreConstants.REMOVE_BUTTON_IMAGE_PATH,
+        		CoreConstants.REMOVE_BUTTON_DESCRIPTION);
         removeButton.setIcon(removeIcon);
-        removeButton.setToolTipText(ToolTipConstants.REMOVE_ROW_TOOLTIP);
+        removeButton.setToolTipText(CoreConstants.REMOVE_ROW_TOOLTIP);
 
 
         scrollPane.setViewportView(table);
