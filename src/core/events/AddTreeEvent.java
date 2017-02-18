@@ -1,34 +1,33 @@
-package events;
+package core.events;
 
 import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import core.IAddDialog;
 import core.IAddTreeDialog;
+import core.IUIBuilderFactory;
+import core.IYesNoEvent;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
-import core.IYesNoEvent;
 import core.ui.DialogBuilder;
-import tripTracker.StringConstants;
-import tripTracker.NotATripTypeException;
-import tripTracker.TripFactory;
-import tripTracker.TripTypes;
+import factories.ClassFactory;
 
-public class AddTripEvent implements IYesNoEvent {
+public class AddTreeEvent implements IYesNoEvent {
+	
+	IAddTreeDialog addable;
+	IUIBuilderFactory factory;
+	String container;
 
-	private IAddTreeDialog addable;
-	private TripTypes tripType;
-
-	public AddTripEvent(IAddTreeDialog addable, TripTypes tripType) {
+	public AddTreeEvent(IAddTreeDialog addable, IUIBuilderFactory factory, String container) {
 		this.addable = addable;
-		this.tripType = tripType;
+		this.factory = factory;
+		this.container = container;
 	}
 	
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		try {
-			addable.addEntry(addable.getFolder("Trips"), parse(builder.getEntrys()).getPanel(), true);
+			addable.addEntry(addable.getFolder(container), parse(builder.getEntrys()).getPanel(), true);
 			
 			// Get rid of the entry dialog.
 			builder.dispose();
@@ -37,11 +36,12 @@ public class AddTripEvent implements IYesNoEvent {
 				    "An entry by this name already exists.",
 				    "Warning",
 				    JOptionPane.WARNING_MESSAGE);		
-		}
+		}		
+
 	}
 	
 	private UIBuilder parse(Map<String, Object> entries) {
-		return TripFactory.parse(tripType, entries);
+		return this.factory.getNewInstance(entries);
 	}
 
 }

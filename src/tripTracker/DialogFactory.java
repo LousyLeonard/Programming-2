@@ -9,6 +9,7 @@ import core.CustomClassLoader;
 import core.IAddDialog;
 import core.IAddTreeDialog;
 import core.IEntryPanelProvider;
+import core.events.AddTreeEvent;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
@@ -17,29 +18,19 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
 import events.AddStudentEvent;
-import events.AddTripEvent;
 import events.GetTripTypeEvent;
+import factories.ClassFactory;
+import factories.DayTripExtFactory;
+import factories.DayTripTeacherFactory;
+import factories.ResidentialTripExtFactory;
+import factories.ResidentialTripTeacherFactory;
+import factories.Trip;
 import transports.Transportable;
 import venueBookings.VenueBookingable;
 
 public abstract class DialogFactory {
-	
-	public static DialogBuilder parse(IAddTreeDialog addable, TripTypes tripType) throws NotATripTypeException {		
-		switch(tripType) {
-			case DAY_TRIP_EXTERNAL_PROVIDER : 
-				return getTripDayExternalProviderDialog(addable);
-			case DAY_TRIP_TEACHER : 
-				return getTripDayTeacherOrganisedDialog(addable);
-			case RESIDENTIAL_TRIP_TEACHER : 
-				return getTripResidentialTeacherOrganisedDialog(addable);
-			case RESIDENTIAL_TRIP_EXTERNAL_PROVIDER : 
-				return getTripResidentialExternalProviderDialog(addable);
-			default :
-				throw new NotATripTypeException();
-		}
-	}
 
-	private static DialogBuilder getTripDayTeacherOrganisedDialog(IAddTreeDialog addable) {
+	public static DialogBuilder getTripDayTeacherOrganisedDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 		
@@ -61,12 +52,12 @@ public abstract class DialogFactory {
 		builder.addPanel(venueBooking);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTripEvent(addable, TripTypes.DAY_TRIP_TEACHER));
+		builder.registerYesEvent(new AddTreeEvent(addable, new DayTripTeacherFactory(), StringConstants.TRIPS));
 		
 		return builder;
 	}
 	
-	private static DialogBuilder getTripDayExternalProviderDialog(IAddTreeDialog addable) {
+	public static DialogBuilder getTripDayExternalProviderDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 
@@ -82,12 +73,12 @@ public abstract class DialogFactory {
 		builder.addPanel(transport);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTripEvent(addable, TripTypes.DAY_TRIP_EXTERNAL_PROVIDER));
+		builder.registerYesEvent(new AddTreeEvent(addable, new DayTripExtFactory(), StringConstants.TRIPS));
 		
 		return builder;
 	}
 	
-	private static DialogBuilder getTripResidentialTeacherOrganisedDialog(IAddTreeDialog addable) {
+	public static DialogBuilder getTripResidentialTeacherOrganisedDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 
@@ -109,12 +100,12 @@ public abstract class DialogFactory {
 		builder.addPanel(venueBooking);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTripEvent(addable, TripTypes.RESIDENTIAL_TRIP_TEACHER));
+		builder.registerYesEvent(new AddTreeEvent(addable, new ResidentialTripTeacherFactory(), StringConstants.TRIPS));
 		
 		return builder;
 	}
 	
-	private static DialogBuilder getTripResidentialExternalProviderDialog(IAddTreeDialog addable) {
+	public static DialogBuilder getTripResidentialExternalProviderDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
 
@@ -130,7 +121,8 @@ public abstract class DialogFactory {
 		builder.addPanel(transport);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTripEvent(addable, TripTypes.RESIDENTIAL_TRIP_EXTERNAL_PROVIDER));
+		builder.registerYesEvent(new AddTreeEvent(addable, 
+				new ResidentialTripExtFactory(), StringConstants.TRIPS));
 		
 		return builder;
 	}
@@ -153,7 +145,9 @@ public abstract class DialogFactory {
 	}
 	
 	public static DialogBuilder getTripTypeDialog(IAddTreeDialog addable) {
-		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(StringConstants.TRIP_TYPE, TripTypes.class);
+		CustomClassLoader<Trip> tripLoader = new CustomClassLoader<Trip>(Trip.class);
+		ArrayList<Trip> trips = tripLoader.getElements();		
+		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(StringConstants.TRIP_TYPE, trips);
 
 		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);		
 		
@@ -165,4 +159,17 @@ public abstract class DialogFactory {
 		return builder;
 	}
 	
+	public static DialogBuilder getAddClassDialog(IAddTreeDialog addable) {
+		GenericStringEntryPanel selections = new GenericStringEntryPanel(StringConstants.NEW_CLASS);
+
+		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);		
+		
+		builder.addPanel(selections);
+		
+		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerYesEvent(new AddTreeEvent(addable, new ClassFactory(), StringConstants.CLASSES));
+
+		return builder;
+	}
+
 }

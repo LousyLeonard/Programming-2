@@ -36,4 +36,12 @@ public abstract class StringConstants {
 
 	public static final String AUTHORISATION = "Authorisation";
 
+	public static final String NEW_CLASS = "New Class";
+
+	public static final String STUDENTS = "Students";
+
+	public static final String CLASSES = "Classes";
+
+	public static final String TRIPS = "Trips";
+
 }
