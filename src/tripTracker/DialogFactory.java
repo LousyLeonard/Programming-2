@@ -22,6 +22,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
 import events.AddStudentEvent;
+import events.AddClassEvent;
 import events.GetTripTypeEvent;
 import factories.ClassFactory;
 import factories.DayTripExtFactory;
@@ -184,6 +185,7 @@ public abstract class DialogFactory {
 		builder.addPanel(selections);
 		
 		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerYesEvent(new AddClassEvent(addable));
 		
 		ClassManager.getInstance().registerListener(builder);
 		
