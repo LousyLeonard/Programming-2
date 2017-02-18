@@ -44,4 +44,8 @@ public abstract class StringConstants {
 
 	public static final String TRIPS = "Trips";
 
+	public static final String CLASS = "Class";
+
+	public static final String ADD_CLASS = "Add Class";
+
 }

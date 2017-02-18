@@ -3,11 +3,15 @@
  */
 package factories;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import core.IListener;
+import core.INotifier;
 import core.IUIBuilderFactory;
 import core.UIBuilder;
 import plugins.PhoneNumberPlugin;
+import tripTracker.ClassManager;
 import tripTracker.DialogFactory;
 import tripTracker.StringConstants;
 import tripTracker.Student;
@@ -17,7 +21,9 @@ import tripTracker.Student;
  * @author Lawrence
  *
  */
-public class ClassFactory implements IUIBuilderFactory {
+public class ClassFactory implements IUIBuilderFactory, INotifier {
+	
+	private static ArrayList<IListener> listeners = new ArrayList<IListener>();
 
 	public UIBuilder<Student> getClassObject(String title) {
     	UIBuilder<Student> trip = new UIBuilder<Student>(title, StringConstants.STUDENTS);
@@ -33,7 +39,23 @@ public class ClassFactory implements IUIBuilderFactory {
 	public UIBuilder getNewInstance(Map<String, Object> entries) {
 		String title = (String)entries.get(StringConstants.NEW_CLASS);
 		
-		return getClassObject(title);
+		UIBuilder result = getClassObject(title);
+		
+		notifyListeners(result);
+		
+		return result;
+	}
+
+	@Override
+	public void registerListener(IListener listener) {
+		listeners.add(listener);
+	}
+	
+	@Override
+	public void notifyListeners(Object element) {
+		for (IListener listener : listeners) {
+			listener.update(element);
+		}
 	}
 	
 }

@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import core.CustomClassLoader;
 import core.IAddDialog;
 import core.IAddTreeDialog;
 import core.IEntryPanelProvider;
+import core.UIBuilder;
 import core.events.AddTreeEvent;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
@@ -162,7 +166,7 @@ public abstract class DialogFactory {
 	public static DialogBuilder getAddClassDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel selections = new GenericStringEntryPanel(StringConstants.NEW_CLASS);
 
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);		
+		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_CLASS);		
 		
 		builder.addPanel(selections);
 		
@@ -172,4 +176,17 @@ public abstract class DialogFactory {
 		return builder;
 	}
 
+	public static DialogBuilder getClassSelectorDialog(IAddDialog addable) {
+		GenericExclusiveSelectionPanel selections = ClassManager.getInstance().getSelectionPanel();
+		
+		DialogBuilder builder = new DialogBuilder(StringConstants.ADD_CLASS);	
+		
+		builder.addPanel(selections);
+		
+		builder.registerNoEvent(new HideWindowEvent());
+		
+		ClassManager.getInstance().registerListener(builder);
+		
+		return builder;
+	}
 }

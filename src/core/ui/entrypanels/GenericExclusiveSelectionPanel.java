@@ -90,6 +90,13 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 	}
+	
+	public void addOption(Object element) {
+		javax.swing.JRadioButton tempButton = new javax.swing.JRadioButton(element.toString());
+		buttonGroup.add(tempButton);
+		buttonRepresentationMap.put(tempButton, element);
+		selectionPanel.add(tempButton);
+	}
 
 	@Override
 	public String getTitle() {

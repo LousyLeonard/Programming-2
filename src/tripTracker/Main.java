@@ -51,7 +51,7 @@ public class Main {
             	for (UIBuilder<Student> trip : trips) {
                     frame.addObject(frame.getFolder(StringConstants.TRIPS), trip.getPanel(), true);
             	}
-
+            	
             	frame.pack();
             }
         });

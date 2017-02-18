@@ -1,5 +1,6 @@
 package core.ui;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +11,11 @@ import javax.swing.JDialog;
 import core.IYesNoEvent;
 import core.ui.entrypanels.YesNoPanel;
 import core.IEntryPanelProvider;
+import core.IListener;
 import core.NoEventRegisteredException;
 import core.util.LabelFunctions;
 
-public class DialogBuilder extends JDialog {
+public class DialogBuilder extends JDialog implements IListener {
 	
 	private String title;
 
@@ -83,4 +85,30 @@ public class DialogBuilder extends JDialog {
     	
 		return fields;
     }
+
+	public void removePanel(IEntryPanelProvider panel) {
+
+		for (IEntryPanelProvider element : panelList) {
+			if (element.getTitle().equals(panel.getTitle())) {
+				panelList.remove(element);
+				break;
+			}
+		}
+		
+		for (Component element : formPanel.getComponents()) {
+			if (((IEntryPanelProvider)element).getTitle().equals(panel.getTitle())) {
+				formPanel.remove(element);
+				break;
+			}
+		}
+		pack();		
+	}
+
+	@Override
+	public void update(Object element) {
+		IEntryPanelProvider panel = (IEntryPanelProvider)element;
+		removePanel(panel);
+		addPanel(panel);
+	}
 }
+ 

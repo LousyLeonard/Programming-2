@@ -36,7 +36,7 @@ public class DayTripExtFactory implements IUIBuilderFactory, Trip {
     	trip.addLabelPlugin(new TripFeePlugin(entryFee));
     	trip.addLabelPlugin(new TransportPlugin(transport));
     	
-    	trip.registerAddDialog(DialogFactory.getAddStudentDialog(trip));
+    	trip.registerAddDialog(DialogFactory.getClassSelectorDialog(trip));
     	
 		return trip; 
 	}

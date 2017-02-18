@@ -15,5 +15,7 @@ public interface IAddTreeDialog<T> extends IAddDialog<T> {
 	public ArrayList<String> getTopLevelElements();
 
 	public DialogBuilder getAddDialogForString(String element);
+	
+	public void addFolderEntry(String folderName, DialogBuilder dialog);
 
 }

@@ -40,7 +40,7 @@ public class DayTripTeacherFactory implements IUIBuilderFactory, Trip {
     	trip.addLabelPlugin(new TransportPlugin(transport));
     	trip.addLabelPlugin(new VenueBookingPlugin(booking));
     	
-    	trip.registerAddDialog(DialogFactory.getAddStudentDialog(trip));
+    	trip.registerAddDialog(DialogFactory.getClassSelectorDialog(trip));
 
 		return trip; 
 	}
