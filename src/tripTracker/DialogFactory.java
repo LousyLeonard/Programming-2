@@ -1,18 +1,11 @@
 package tripTracker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 import core.CustomClassLoader;
 import core.IAddDialog;
 import core.IAddTreeDialog;
 import core.IEntryPanelProvider;
-import core.UIBuilder;
 import core.events.AddTreeEvent;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
@@ -33,6 +26,10 @@ import factories.Trip;
 import transports.Transportable;
 import venueBookings.VenueBookingable;
 
+/**
+*
+* @author Lawrence
+*/
 public abstract class DialogFactory {
 
 	public static DialogBuilder getTripDayTeacherOrganisedDialog(IAddTreeDialog addable) {

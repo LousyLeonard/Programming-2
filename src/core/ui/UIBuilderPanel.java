@@ -1,21 +1,13 @@
 package core.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
 
 import core.IColumnPlugin;
 import core.ILabelPlugin;
@@ -23,8 +15,11 @@ import core.NoDialogRegisteredException;
 import core.CoreConstants;
 import core.UIBuilder;
 import core.util.GraphicUtils;
-import tripTracker.StringConstants;
 
+/**
+*
+* @author Lawrence
+*/
 public class UIBuilderPanel<T> extends javax.swing.JPanel {
 		
     private javax.swing.JPanel labelContainer;

@@ -5,12 +5,15 @@ import java.text.NumberFormat;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+*
+* @author Lawrence
+*/
 public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer implements Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -2329509437115052270L;
 	
 	int precision = 0;

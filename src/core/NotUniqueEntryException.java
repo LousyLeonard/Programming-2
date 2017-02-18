@@ -1,5 +1,9 @@
 package core;
 
+/**
+*
+* @author Lawrence
+*/
 public class NotUniqueEntryException extends Exception {
 
 	private static String ERROR_MESSAGE = "This entry is not unique";

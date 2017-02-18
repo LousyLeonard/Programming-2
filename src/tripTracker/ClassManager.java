@@ -5,11 +5,9 @@ package tripTracker;
 
 import java.util.ArrayList;
 
-import core.IEntryPanelProvider;
 import core.IListener;
 import core.INotifier;
 import core.UIBuilder;
-import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import factories.ClassFactory;
 

@@ -16,7 +16,6 @@ import javax.swing.tree.TreeSelectionModel;
 
 import core.IAddTreeDialog;
 import core.NoDialogRegisteredException;
-import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.CoreConstants;
 import core.events.GetElementTypeEvent;
@@ -25,6 +24,10 @@ import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.util.GraphicUtils;
 import core.util.Pair;
 
+/**
+*
+* @author Lawrence
+*/
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
 	public static final String ELEMENT_TYPE = "Element Type";

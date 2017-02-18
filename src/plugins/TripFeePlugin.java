@@ -5,12 +5,15 @@ import java.util.HashMap;
 
 import core.ILabelPlugin;
 
+/**
+*
+* @author Lawrence
+*/
 public class TripFeePlugin implements ILabelPlugin, Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 3689524512617139254L;
 	
 	private static String PLUGIN_TITLE = "Trip Fee";

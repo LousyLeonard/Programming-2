@@ -1,5 +1,9 @@
 package plugins;
 
+/**
+*
+* @author Lawrence
+*/
 public enum OptionsEnum {
     NOT_YET("Not yet"), 
     YES("Yes");

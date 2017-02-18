@@ -9,6 +9,10 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+/**
+*
+* @author Lawrence
+*/
 public class TreeNavigatorSelectionListener implements TreeSelectionListener, Serializable {
 
 	/**

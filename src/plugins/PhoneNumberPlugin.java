@@ -10,11 +10,14 @@ import core.IColumnPlugin;
 import tripTracker.StringConstants;
 import tripTracker.Student;
 
+/**
+*
+* @author Lawrence
+*/
 public class PhoneNumberPlugin<T> implements IColumnPlugin<T>, Serializable {
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1394451573541155021L;
 
 	private static String DEFAULT_VALUE = StringConstants.PHONE_NO_NOT_SUPPLIED;

@@ -1,5 +1,9 @@
 package core.util;
 
+/**
+*
+* @author Lawrence
+*/
 public class Triplet<T1, T2, T3> {
 
 	private T1 first;

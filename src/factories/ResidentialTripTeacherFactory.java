@@ -19,6 +19,10 @@ import tripTracker.StringConstants;
 import tripTracker.Student;
 import venueBookings.VenueBookingable;
 
+/**
+*
+* @author Lawrence
+*/
 public class ResidentialTripTeacherFactory implements IUIBuilderFactory, Trip {
 
 	private static final String TYPE = "Residential Trip Teacher Organised";

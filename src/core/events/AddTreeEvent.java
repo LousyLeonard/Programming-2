@@ -10,13 +10,16 @@ import core.IYesNoEvent;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.ui.DialogBuilder;
-import factories.ClassFactory;
 
+/**
+*
+* @author Lawrence
+*/
 public class AddTreeEvent implements IYesNoEvent {
 	
-	IAddTreeDialog addable;
-	IUIBuilderFactory factory;
-	String container;
+	private IAddTreeDialog addable;
+	private IUIBuilderFactory factory;
+	private String container;
 
 	public AddTreeEvent(IAddTreeDialog addable, IUIBuilderFactory factory, String container) {
 		this.addable = addable;

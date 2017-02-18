@@ -5,6 +5,10 @@ import java.util.Date;
 
 import javax.swing.JPanel;
 
+/**
+*
+* @author Lawrence
+*/
 public class NoVenue implements VenueBookingable, Serializable {
 
 	/**

@@ -1,19 +1,19 @@
 package tripTracker;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import core.UIBuilder;
-import core.ui.DialogBuilder;
 import core.ui.NavigationFrame;
-import core.ui.UIBuilderPanel;
 import factories.ClassFactory;
 import factories.DayTripTeacherFactory;
-import transports.BusTransport;
 import transports.NoTransport;
 import venueBookings.NoVenue;
 
+/**
+*
+* @author Lawrence
+*/
 public class Main {
 
     /**

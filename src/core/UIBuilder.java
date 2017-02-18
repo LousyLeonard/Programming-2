@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import core.ui.DialogBuilder;
 import core.ui.UIBuilderPanel;
 
+/**
+*
+* @author Lawrence
+*/
 public class UIBuilder<T> implements IAddDialog<T>, Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -3207482223745481848L;
 
 	private String title;

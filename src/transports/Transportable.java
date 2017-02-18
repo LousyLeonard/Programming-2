@@ -2,6 +2,10 @@ package transports;
 
 import core.IEntryPanelProvider;
 
+/**
+*
+* @author Lawrence
+*/
 public interface Transportable extends IEntryPanelProvider {
 
 	public String getType();

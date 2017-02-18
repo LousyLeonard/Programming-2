@@ -4,6 +4,10 @@ import java.util.Date;
 
 import core.IEntryPanelProvider;
 
+/**
+*
+* @author Lawrence
+*/
 public interface VenueBookingable extends IEntryPanelProvider {
 
 	public String getType();

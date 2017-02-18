@@ -17,6 +17,10 @@ import tripTracker.DialogFactory;
 import tripTracker.StringConstants;
 import tripTracker.Student;
 
+/**
+*
+* @author Lawrence
+*/
 public class ResidentialTripExtFactory implements IUIBuilderFactory, Trip {
 
 	private static final String TYPE = "Residential Trip by External Provider";

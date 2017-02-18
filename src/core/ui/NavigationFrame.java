@@ -1,8 +1,6 @@
 package core.ui;
 
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,18 +10,18 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreeSelectionModel;
 
-import core.IAddDialog;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import tripTracker.StringConstants;
 
+/**
+*
+* @author Lawrence
+*/
 public class NavigationFrame extends javax.swing.JFrame {
 	
 	private javax.swing.JPanel displayPanel;

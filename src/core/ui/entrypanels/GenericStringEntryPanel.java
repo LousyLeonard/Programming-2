@@ -4,6 +4,10 @@ import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
 
+/**
+*
+* @author Lawrence
+*/
 public class GenericStringEntryPanel extends JPanel implements IEntryPanelProvider {
 	
     private javax.swing.JLabel titleLabel;

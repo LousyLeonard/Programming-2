@@ -10,13 +10,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import core.IColumnPlugin;
 import plugins.MoneyDoubleCellRenderer;
-import tripTracker.StringConstants;
 
+/**
+*
+* @author Lawrence
+*/
 public class DoublePlugin<T> implements IColumnPlugin<T>, Serializable {
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -2180477354906102067L;
 
 	private static Double DEFAULT_VALUE = 0.0;

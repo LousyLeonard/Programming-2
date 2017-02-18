@@ -16,6 +16,10 @@ import javax.swing.JPanel;
 import core.IEntryPanelProvider;
 import core.util.ArrayCastingUtils;
 
+/**
+*
+* @author Lawrence
+*/
 public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider{
 
 	private String title;

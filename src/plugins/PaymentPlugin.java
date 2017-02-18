@@ -19,7 +19,6 @@ public class PaymentPlugin<T> extends DoublePlugin<T> implements Serializable {
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 8967797405022944799L;
 
 	public PaymentPlugin(ArrayList<T> primaryKeySet, String title) {

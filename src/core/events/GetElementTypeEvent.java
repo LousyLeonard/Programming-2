@@ -7,9 +7,13 @@ import core.IYesNoEvent;
 import core.ui.DialogBuilder;
 import core.ui.TreeNavigator;
 
+/**
+*
+* @author Lawrence
+*/
 public class GetElementTypeEvent implements IYesNoEvent {
 	
-	IAddTreeDialog addable;
+	private IAddTreeDialog addable;
 	
 	public GetElementTypeEvent(IAddTreeDialog addable) {
 		this.addable = addable;

@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import javax.swing.JPanel;
 
+/**
+*
+* @author Lawrence
+*/
 public class NoTransport implements Transportable, Serializable {
 
 	/**

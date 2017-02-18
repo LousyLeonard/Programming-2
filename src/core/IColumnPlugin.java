@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+*
+* @author Lawrence
+*/
 public interface IColumnPlugin<T> {
 	
 	public DefaultCellEditor getCellEditor();

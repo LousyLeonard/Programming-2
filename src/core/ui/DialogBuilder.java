@@ -12,9 +12,12 @@ import core.IYesNoEvent;
 import core.ui.entrypanels.YesNoPanel;
 import core.IEntryPanelProvider;
 import core.IListener;
-import core.NoEventRegisteredException;
 import core.util.LabelFunctions;
 
+/**
+*
+* @author Lawrence
+*/
 public class DialogBuilder extends JDialog implements IListener {
 	
 	private String title;

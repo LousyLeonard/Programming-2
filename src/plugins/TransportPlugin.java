@@ -6,12 +6,15 @@ import java.util.HashMap;
 import core.ILabelPlugin;
 import transports.Transportable;
 
+/**
+*
+* @author Lawrence
+*/
 public class TransportPlugin implements ILabelPlugin, Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 3692854900708388166L;
 	
 	private static String PLUGIN_TITLE = "Transport";

@@ -15,6 +15,10 @@ import tripTracker.DialogFactory;
 import tripTracker.StringConstants;
 import tripTracker.Student;
 
+/**
+*
+* @author Lawrence
+*/
 public class DayTripExtFactory implements IUIBuilderFactory, Trip {
 
 	private static final String TYPE = "Day Trip by External Provider ";

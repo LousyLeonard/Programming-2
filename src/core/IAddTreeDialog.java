@@ -6,6 +6,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import core.ui.DialogBuilder;
 
+/**
+*
+* @author Lawrence
+*/
 public interface IAddTreeDialog<T> extends IAddDialog<T> {
 
 	public void addEntry(DefaultMutableTreeNode parent, T entry, boolean visible) throws NotUniqueEntryException;

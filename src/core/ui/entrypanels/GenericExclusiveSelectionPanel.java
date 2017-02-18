@@ -15,11 +15,6 @@ import core.IEntryPanelProvider;
 import core.util.EnumUtils;
 
 public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider {
-
-    /**
-	 * Appease the gods of serialisation.
-	 */
-	private static final long serialVersionUID = -1018923824893329575L;
 	
 	private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel selectionPanel;

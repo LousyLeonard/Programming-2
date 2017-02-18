@@ -1,21 +1,16 @@
 package transports;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import core.IEntryPanelProvider;
-import core.IYesNoEvent;
-import core.events.HideWindowEvent;
-import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
 
+/**
+*
+* @author Lawrence
+*/
 public class BusTransport implements Transportable, Serializable {
 	
 	/**

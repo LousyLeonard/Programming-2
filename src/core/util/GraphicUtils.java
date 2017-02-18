@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 
 import tripTracker.Main;
 
+/**
+*
+* @author Lawrence
+*/
 public abstract class GraphicUtils {
 
 	public static ImageIcon createImageIcon(String path, String description) {

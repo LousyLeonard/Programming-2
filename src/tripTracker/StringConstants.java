@@ -1,5 +1,9 @@
 package tripTracker;
 
+/**
+*
+* @author Lawrence
+*/
 public abstract class StringConstants {
 
 	public static final String TITLE = "Title";

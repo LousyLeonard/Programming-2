@@ -1,5 +1,9 @@
 package core;
 
+/**
+*
+* @author Lawrence
+*/
 public abstract class CoreConstants {
 
 	public static final String ADD_ROW_TOOLTIP = "Add a new row entry.";

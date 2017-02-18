@@ -2,22 +2,16 @@ package events;
 
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
-import core.IAddDialog;
 import core.IAddTreeDialog;
-import core.IUIBuilderFactory;
-import core.NotUniqueEntryException;
-import core.UIBuilder;
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
 import factories.Trip;
-import transports.NoTransport;
-import tripTracker.DialogFactory;
-import tripTracker.NotATripTypeException;
-import tripTracker.Student;
 import tripTracker.StringConstants;
 
+/**
+*
+* @author Lawrence
+*/
 public class GetTripTypeEvent implements IYesNoEvent {
 
 	private IAddTreeDialog addable;

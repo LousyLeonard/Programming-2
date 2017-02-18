@@ -11,6 +11,10 @@ import tripTracker.Student;
 import core.IAddDialog;
 import core.NotUniqueEntryException;
 
+/**
+*
+* @author Lawrence
+*/
 public class AddStudentEvent implements IYesNoEvent {
 
 	private IAddDialog addable;

@@ -4,6 +4,10 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
+/**
+*
+* @author Lawrence
+*/
 public abstract class LabelFunctions {
 	
 	public static void underLineLabel(final javax.swing.JLabel label) {

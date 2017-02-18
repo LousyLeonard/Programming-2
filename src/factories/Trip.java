@@ -7,6 +7,8 @@ import core.ui.DialogBuilder;
 /**
  * Customer class loader enabler
  * Also ensures an add dialog is present
+ * 
+ * @author Lawrence
  */
 public interface Trip extends IUIBuilderFactory{
 

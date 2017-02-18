@@ -10,12 +10,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+/**
+*
+* @author Lawrence
+*/
 public class ComboBoxEditor extends DefaultCellEditor implements Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -479956743050219449L;
 
 	// Declare a model that is used for adding the elements to the `ComboBox`
