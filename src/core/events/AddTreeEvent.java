@@ -27,7 +27,7 @@ public class AddTreeEvent implements IYesNoEvent {
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		try {
-			addable.addEntry(addable.getFolder(container), parse(builder.getEntrys()).getPanel(), true);
+			addable.addEntry(addable.getFolder(container), parse(builder.getEntrys()), true);
 			
 			// Get rid of the entry dialog.
 			builder.dispose();

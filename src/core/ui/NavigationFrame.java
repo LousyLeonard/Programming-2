@@ -3,6 +3,10 @@ package core.ui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +20,8 @@ import core.NotUniqueEntryException;
 import core.UIBuilder;
 
 public class NavigationFrame extends javax.swing.JFrame {
-		
-    private javax.swing.JPanel displayPanel;
+	
+	private javax.swing.JPanel displayPanel;
     private TreeNavigator treeNavigator;
 
     /**
@@ -62,8 +66,9 @@ public class NavigationFrame extends javax.swing.JFrame {
 	public void addEntry(Object panel) throws NotUniqueEntryException {
 		treeNavigator.addEntry(panel);
 	}
+	
 	public void addObject(DefaultMutableTreeNode parent,
-            UIBuilderPanel child,
+            UIBuilder child,
             boolean shouldBeVisible) {
 		treeNavigator.addEntry(parent, child, shouldBeVisible);
 	}
@@ -78,6 +83,25 @@ public class NavigationFrame extends javax.swing.JFrame {
 
 	public TreeNavigator getTreeNavigator() {
 		return treeNavigator;
+	}
+	
+	public void exportState() {
+		try {
+			FileOutputStream fout = new FileOutputStream("C:\\temp\\test.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(treeNavigator.getModel());
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void importState() {
+		//treeNavigator.setModel();
 	}
 }
 

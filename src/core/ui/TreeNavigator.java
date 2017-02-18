@@ -17,13 +17,13 @@ import javax.swing.tree.TreeSelectionModel;
 import core.IAddTreeDialog;
 import core.NoDialogRegisteredException;
 import core.NotUniqueEntryException;
+import core.UIBuilder;
 import core.CoreConstants;
 import core.events.GetElementTypeEvent;
 import core.events.HideWindowEvent;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.util.GraphicUtils;
 import core.util.Pair;
-import tripTracker.StringConstants;
 
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
@@ -31,7 +31,6 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 
 	public static final String NEW_ELEMENT = "New Element";
 
-	//private JPanel displayPanel;
 	private List<UIBuilderPanel> panels;
 
     private JScrollPane scrollPane;
@@ -135,8 +134,14 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
         );
 	}
 	
+	public void setDisplayPanel(JPanel displayPanel) {
+		this.displayPanel = displayPanel;
+		//Listen for when the selection changes.
+		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
+	}
+	
 	public void addEntry(Object entry) {
-		UIBuilderPanel newPanel = (UIBuilderPanel)entry;
+		UIBuilder newPanel = (UIBuilder)entry;
 		
 		DefaultMutableTreeNode parentNode = null;
 	    TreePath parentPath = tree.getSelectionPath();
@@ -156,15 +161,15 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	public void addEntry(DefaultMutableTreeNode parent,
 	                                        Object entry,
 	                                        boolean shouldBeVisible) {
-		UIBuilderPanel newPanel = (UIBuilderPanel)entry;
+		UIBuilder newPanel = (UIBuilder)entry;
 
 	    DefaultMutableTreeNode childNode =
 	            new DefaultMutableTreeNode(newPanel);
 
 	    model.insertNodeInto(childNode, parent, parent.getChildCount());
 		
-	    panels.add(newPanel);
-	    displayPanel.add(newPanel, newPanel.toString());
+	    panels.add(newPanel.getPanel());
+	    displayPanel.add(newPanel.getPanel(), newPanel.toString());
 
 	    //Make sure the user can see the lovely new node.
 	    if (shouldBeVisible) {
@@ -176,18 +181,6 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		DefaultMutableTreeNode folder = new DefaultMutableTreeNode(folderName);
 	    model.insertNodeInto(folder, root, root.getChildCount());
 	    topLevelElements.add(new Pair<String, DialogBuilder>(folderName, dialog));
-	}
-
-	public DefaultMutableTreeNode getFolder(String folderName) {
-		DefaultMutableTreeNode result = null;
-		
-		for (int i = 0; i < root.getChildCount(); ++i) {
-			if(((DefaultMutableTreeNode)root.getChildAt(i)).getUserObject().equals(folderName)) {
-				result = (DefaultMutableTreeNode) root.getChildAt(i);
-			}
-		}
-		
-		return result;
 	}
 
 	public void removeEntry(DefaultMutableTreeNode node) {
@@ -233,6 +226,18 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return null;
 	}
 	
+	public DefaultMutableTreeNode getFolder(String folderName) {
+		DefaultMutableTreeNode result = null;
+		
+		for (int i = 0; i < root.getChildCount(); ++i) {
+			if(((DefaultMutableTreeNode)root.getChildAt(i)).getUserObject().equals(folderName)) {
+				result = (DefaultMutableTreeNode) root.getChildAt(i);
+			}
+		}
+		
+		return result;
+	}
+	
 	public ArrayList<String> getTopLevelElements() {
 		ArrayList<String> elements = new ArrayList<String>();
 		
@@ -241,12 +246,6 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		}
 		
 		return elements;
-	}
-	
-	public void setDisplayPanel(JPanel displayPanel) {
-		this.displayPanel = displayPanel;
-		//Listen for when the selection changes.
-		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
 	}
 	
 	public static DialogBuilder getElementTypeDialog(IAddTreeDialog addable) {
@@ -260,5 +259,14 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		builder.registerYesEvent(new GetElementTypeEvent(addable));
 
 		return builder;
+	}
+	
+	public DefaultTreeModel getModel() {
+		return model;
+	}
+	
+	public void setModel(DefaultTreeModel model) {
+		this.model = model;
+		tree.setModel(model);
 	}
 }

@@ -25,7 +25,7 @@ public class ClassFactory implements IUIBuilderFactory, INotifier {
 	
 	private static ArrayList<IListener> listeners = new ArrayList<IListener>();
 
-	public UIBuilder<Student> getClassObject(String title) {
+	private static UIBuilder<Student> getClassObject(String title) {
     	UIBuilder<Student> trip = new UIBuilder<Student>(title, StringConstants.STUDENTS);
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
