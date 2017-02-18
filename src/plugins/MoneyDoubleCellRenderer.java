@@ -1,12 +1,18 @@
 package plugins;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer {
+public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = -2329509437115052270L;
+	
 	int precision = 0;
 	Number numberValue;
 	NumberFormat nf;

@@ -1,13 +1,20 @@
 package plugins;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import core.ILabelPlugin;
 import transports.Transportable;
 import venueBookings.VenueBookingable;
 
-public class VenueBookingPlugin implements ILabelPlugin {
+public class VenueBookingPlugin implements ILabelPlugin, Serializable {
 
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = -1614593008762956609L;
+	
 	private static String PLUGIN_TITLE = "Venue Booking";
 	private static String TYPE_TITLE = "Type";
 	private static String DEPARTURE_DATE_TITLE = "Departure Date";

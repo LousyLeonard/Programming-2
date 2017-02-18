@@ -1,11 +1,12 @@
 package core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import core.ui.DialogBuilder;
 import core.ui.UIBuilderPanel;
 
-public class UIBuilder<T> implements IAddDialog<T> {
+public class UIBuilder<T> implements IAddDialog<T>, Serializable {
 
 	/**
 	 *  Appease the gods of serialisation.
@@ -21,8 +22,8 @@ public class UIBuilder<T> implements IAddDialog<T> {
 	private ArrayList<IColumnPlugin<T>> columnPlugins;
 	private ArrayList<ILabelPlugin> labelPlugins;
 
-	private UIBuilderPanel<T> panel;
-	private DialogBuilder addDialog;
+	private transient UIBuilderPanel<T> panel;
+	private transient DialogBuilder addDialog;
 
 	public UIBuilder(String title, String primaryKeyTitle) {
 		this.title = title;
@@ -99,6 +100,9 @@ public class UIBuilder<T> implements IAddDialog<T> {
 	}
 	
 	public UIBuilderPanel<T> getPanel() {
+		if (panel == null) {
+			updatePanel();
+		}
 		return panel;
 	}
 	

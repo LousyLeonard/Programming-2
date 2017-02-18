@@ -1,8 +1,15 @@
 package transports;
 
+import java.io.Serializable;
+
 import javax.swing.JPanel;
 
-public class NoTransport implements Transportable {
+public class NoTransport implements Transportable, Serializable {
+
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -4169004375886307L;
 
 	@Override
 	public String getType() {

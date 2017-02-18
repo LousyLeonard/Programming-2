@@ -1,5 +1,6 @@
 package transports;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,12 @@ import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
 
-public class BusTransport implements Transportable {
+public class BusTransport implements Transportable, Serializable {
+	
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -2193386438643529730L;
 	
 	private final static String TYPE = "Bus";
 	private final static String DEPARTURE_TIME = "Departure Time";

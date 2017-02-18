@@ -3,9 +3,11 @@ package core.ui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import core.IAddDialog;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
+import tripTracker.StringConstants;
 
 public class NavigationFrame extends javax.swing.JFrame {
 	
@@ -101,7 +106,18 @@ public class NavigationFrame extends javax.swing.JFrame {
 	}
 	
 	public void importState() {
-		//treeNavigator.setModel();
+		try {
+			FileInputStream streamIn = new FileInputStream("C:\\temp\\test.ser");
+		    ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
+		    DefaultTreeModel readCase = (DefaultTreeModel) objectinputstream.readObject();
+		    treeNavigator.setModel(readCase);
+		 } catch (Exception e) {
+		     e.printStackTrace();
+		 }
+	}
+	
+	public void wipeModel() {
+		treeNavigator.setModel(new DefaultTreeModel(treeNavigator.getFolder(StringConstants.CLASSES)));
 	}
 }
 

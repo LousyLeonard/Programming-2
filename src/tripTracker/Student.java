@@ -1,5 +1,7 @@
 package tripTracker;
 
+import java.io.Serializable;
+
 /**
  * @author Lawrence Coles
  *
@@ -7,7 +9,12 @@ package tripTracker;
  * Additional attributes can be added but the equals method 
  * should be maintained.
  */
-public class Student {
+public class Student implements Serializable {
+	
+	/**
+	 * Appease the gods of serialisation
+	 */
+	private static final long serialVersionUID = -2624232937188221366L;
 	
 	private String firstName;
 	private String secondName;

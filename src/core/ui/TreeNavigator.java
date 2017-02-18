@@ -28,7 +28,6 @@ import core.util.Pair;
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
 	public static final String ELEMENT_TYPE = "Element Type";
-
 	public static final String NEW_ELEMENT = "New Element";
 
 	private List<UIBuilderPanel> panels;
@@ -184,8 +183,8 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	}
 
 	public void removeEntry(DefaultMutableTreeNode node) {
-		panels.remove((JPanel)node.getUserObject());
-		displayPanel.remove((JPanel)node.getUserObject());
+		panels.remove(((UIBuilder)node.getUserObject()).getPanel());
+		displayPanel.remove(((UIBuilder)node.getUserObject()).getPanel());
 		model.removeNodeFromParent(node);
 	}
 	
@@ -267,6 +266,8 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
 	public void setModel(DefaultTreeModel model) {
 		this.model = model;
+		this.root = (DefaultMutableTreeNode) model.getRoot();
+		
 		tree.setModel(model);
 	}
 }

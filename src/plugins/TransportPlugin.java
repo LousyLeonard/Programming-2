@@ -1,12 +1,19 @@
 package plugins;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import core.ILabelPlugin;
 import transports.Transportable;
 
-public class TransportPlugin implements ILabelPlugin {
+public class TransportPlugin implements ILabelPlugin, Serializable {
 
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 3692854900708388166L;
+	
 	private static String PLUGIN_TITLE = "Transport";
 	private static String TYPE_TITLE = "Type";
 	private static String DEPARTURE_TIME_TITLE = "Departure Time";

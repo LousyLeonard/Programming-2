@@ -1,11 +1,17 @@
 package venueBookings;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.JPanel;
 
-public class NoVenue implements VenueBookingable {
+public class NoVenue implements VenueBookingable, Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -1960870542684646614L;
+	
 	private static String TYPE = "No Venue Booking";
 	
 	@Override

@@ -1,6 +1,7 @@
 package core.ui;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
-public class ComboBoxEditor extends DefaultCellEditor {
+public class ComboBoxEditor extends DefaultCellEditor implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = -479956743050219449L;
 
 	// Declare a model that is used for adding the elements to the `ComboBox`
     private DefaultComboBoxModel model;

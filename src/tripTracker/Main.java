@@ -8,6 +8,7 @@ import core.UIBuilder;
 import core.ui.DialogBuilder;
 import core.ui.NavigationFrame;
 import core.ui.UIBuilderPanel;
+import factories.ClassFactory;
 import factories.DayTripTeacherFactory;
 import transports.BusTransport;
 import transports.NoTransport;
@@ -27,13 +28,12 @@ public class Main {
     	entries.put(StringConstants.ENTRY_FEE, 230.00);
     	entries.put(StringConstants.TRANSPORT, new NoTransport());
     	entries.put(StringConstants.VENUE_BOOKING, new NoVenue());
-
     	trips.add(fac.getNewInstance(entries));
-//    	trips.add(TripFactory.getTripDayExternalProviderObject("test-day-EP", 230.0, new NoTransport()));
-////    	trips.add(TripFactory.getTripResidentialExternalProviderObject("test-res-EP", 230.0, new BusTransport(new Date(), new Date())));
-//    	trips.add(TripFactory.getTripResidentialExternalProviderObject("test-res-EP", 230.0, new BusTransport("default", "default")));
-//    	trips.add(TripFactory.getTripDayTeacherOrganisedObject("test-day-teach", 230.0, new NoTransport(), new NoVenue()));
-//    	trips.add(TripFactory.getTripResidentialTeacherOrganisedObject("test-res-teach", 230.0, new NoTransport(), new NoVenue()));
+    	    	
+    	entries = new HashMap<String, Object>();
+    	entries.put(StringConstants.NEW_CLASS, "Default");
+    	ClassFactory factory = new ClassFactory();
+    	UIBuilder<Student> defaultClass = factory.getNewInstance(entries);
     	
     	for (UIBuilder<Student> trip : trips) {
         	addStudents(trip);
@@ -49,10 +49,19 @@ public class Main {
                 frame.addFolder(StringConstants.CLASSES, DialogFactory.getAddClassDialog(frame.getTreeNavigator()));
                 
             	for (UIBuilder<Student> trip : trips) {
-                    frame.addObject(frame.getFolder(StringConstants.TRIPS), trip.getPanel(), true);
+                    frame.addObject(frame.getFolder(StringConstants.TRIPS), trip, true);
             	}
             	
+            	frame.addObject(frame.getFolder(StringConstants.CLASSES), defaultClass, true);
+            	
             	frame.pack();
+            	
+            	frame.exportState();
+            	
+            	frame.wipeModel();
+            	
+            	frame.importState();
+
             }
         });
     }    

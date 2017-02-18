@@ -1,5 +1,6 @@
 package core.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -9,8 +10,14 @@ import javax.swing.JPanel;
 import core.util.LabelFunctions;
 import core.util.Triplet;
 
-public class InfoLabel extends JPanel {
+public class InfoLabel extends JPanel implements Serializable {
 
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2207704177048771867L;
+	
 	private javax.swing.JPanel titlePanel;
 	private javax.swing.JLabel titleLabel;
 	private javax.swing.JPanel infoPanel;

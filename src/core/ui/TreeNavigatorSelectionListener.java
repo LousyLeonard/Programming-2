@@ -1,6 +1,7 @@
 package core.ui;
 
 import java.awt.CardLayout;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JTree;
@@ -8,9 +9,15 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class TreeNavigatorSelectionListener implements TreeSelectionListener {
+public class TreeNavigatorSelectionListener implements TreeSelectionListener, Serializable {
 
-    private JTree parentTree;
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1560023016677523829L;
+	
+	private JTree parentTree;
 	private JPanel displayPanel;	
     
     public TreeNavigatorSelectionListener(JTree parentTree, JPanel displayPanel) {

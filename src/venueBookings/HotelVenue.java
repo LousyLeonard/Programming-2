@@ -3,6 +3,7 @@
  */
 package venueBookings;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
@@ -14,8 +15,13 @@ import core.ui.entrypanels.GenericStringEntryPanel;
  * @author Lawrence
  *
  */
-public class HotelVenue implements VenueBookingable {
+public class HotelVenue implements VenueBookingable, Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -1878446451628023625L;
+	
 	private static String TYPE = "Hotel Booking";
 	private static String LENGTH_OF_STAY_LABEL = "Length of Stay";
 	private static String ARR_DATE_LABEL = "Arrival Date";

@@ -1,5 +1,6 @@
 package core.plugins;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,13 @@ import core.IColumnPlugin;
 import plugins.MoneyDoubleCellRenderer;
 import tripTracker.StringConstants;
 
-public class DoublePlugin<T> implements IColumnPlugin<T> {
+public class DoublePlugin<T> implements IColumnPlugin<T>, Serializable {
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = -2180477354906102067L;
+
 	private static Double DEFAULT_VALUE = 0.0;
 		
 	private Map<T, Double> payments;

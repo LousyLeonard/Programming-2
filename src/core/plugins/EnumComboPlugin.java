@@ -1,5 +1,6 @@
 package core.plugins;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import core.IColumnPlugin;
 import plugins.MoneyDoubleCellRenderer;
 
-public class EnumComboPlugin<E extends Enum<E>, T> implements IColumnPlugin<T> {
+public class EnumComboPlugin<E extends Enum<E>, T> implements IColumnPlugin<T>, Serializable {
+	
+	/**
+	 *  Appease the gods of serialisation.
+	 */
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 7793807750956933880L;
 	
 	private Map<T, E> values;
 	private final Class<E> enumType;
