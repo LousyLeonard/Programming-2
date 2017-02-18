@@ -13,7 +13,6 @@ import javax.swing.JRadioButton;
 
 import core.IEntryPanelProvider;
 import core.util.EnumUtils;
-import transports.Transportable;
 
 public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider {
 
