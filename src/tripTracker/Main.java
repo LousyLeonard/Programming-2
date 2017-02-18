@@ -55,13 +55,6 @@ public class Main {
             	frame.addObject(frame.getFolder(StringConstants.CLASSES), defaultClass, true);
             	
             	frame.pack();
-            	
-            	frame.exportState();
-            	
-            	frame.wipeModel();
-            	
-            	frame.importState();
-
             }
         });
     }    

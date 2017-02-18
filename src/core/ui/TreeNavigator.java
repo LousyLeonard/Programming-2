@@ -272,5 +272,16 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		this.root = (DefaultMutableTreeNode) model.getRoot();
 		
 		tree.setModel(model);
+		expandAllNodes(0, tree.getRowCount());
+	}
+	
+	private void expandAllNodes(int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
+
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(rowCount, tree.getRowCount());
+	    }
 	}
 }

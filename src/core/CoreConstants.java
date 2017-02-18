@@ -22,4 +22,10 @@ public abstract class CoreConstants {
 	
 	public static final String REMOVE_BUTTON_DESCRIPTION = "Remove";
 
+	public static final String FILE_MENU = "File";
+
+	public static final String IMPORT_MENU = "Import";
+
+	public static final String EXPORT_MENU = "Export";
+
 }

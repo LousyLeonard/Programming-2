@@ -1,6 +1,8 @@
 package core.ui;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,9 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import core.CoreConstants;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import tripTracker.StringConstants;
@@ -26,6 +32,11 @@ public class NavigationFrame extends javax.swing.JFrame {
 	
 	private javax.swing.JPanel displayPanel;
     private TreeNavigator treeNavigator;
+    
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    
+    private JMenuItem importMenuItem, exportMenuItem;
 
     /**
      * Creates new form NavigationFrame
@@ -46,6 +57,32 @@ public class NavigationFrame extends javax.swing.JFrame {
 
         displayPanel = new javax.swing.JPanel(new CardLayout());
         treeNavigator = new TreeNavigator();
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu(CoreConstants.FILE_MENU);
+        importMenuItem = new JMenuItem(CoreConstants.IMPORT_MENU);
+        exportMenuItem = new JMenuItem(CoreConstants.EXPORT_MENU);
+
+        menuBar.add(fileMenu);
+        
+        fileMenu.add(importMenuItem);
+        fileMenu.add(exportMenuItem);
+        
+        importMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				importState();
+			}
+        });
+        
+        exportMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exportState();
+			}
+        });
+        
+        this.setJMenuBar(menuBar);
+        
         treeNavigator.setDisplayPanel(displayPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
