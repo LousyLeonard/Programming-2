@@ -1,11 +1,18 @@
 package core.util;
 
+import java.io.Serializable;
+
 /**
 *
 * @author Lawrence
 */
-public class Pair<T1, T2> {
+public class Pair<T1, T2> implements Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -1122944190523892457L;
+	
 	private T1 first;
 	private T2 second;
 	

@@ -20,6 +20,6 @@ public interface IAddTreeDialog<T> extends IAddDialog<T> {
 
 	public DialogBuilder getAddDialogForString(String element);
 	
-	public void addFolderEntry(String folderName, DialogBuilder dialog);
+	public void addFolderEntry(String folderName, IDialogCreator dialog);
 
 }

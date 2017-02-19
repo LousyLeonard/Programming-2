@@ -5,9 +5,11 @@ import java.util.HashMap;
 
 import core.UIBuilder;
 import core.ui.NavigationFrame;
-import factories.ClassFactory;
-import factories.DayTripTeacherFactory;
+import dialogs.AddClassDialogCreator;
+import dialogs.TripTypeDialogCreator;
 import transports.NoTransport;
+import uiBuilders.DayTripTeacherCreator;
+import uiBuilders.StudentClassCreator;
 import venueBookings.NoVenue;
 
 /**
@@ -20,9 +22,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+    	ClassManager.getInstance();
+    	
     	ArrayList<UIBuilder<Student>> trips = new ArrayList<UIBuilder<Student>>();
     	
-    	DayTripTeacherFactory fac = new DayTripTeacherFactory();
+    	DayTripTeacherCreator fac = new DayTripTeacherCreator();
     	HashMap<String, Object> entries = new HashMap<String, Object>();
     	entries.put(StringConstants.TITLE, "test-day-teach");
     	entries.put(StringConstants.ENTRY_FEE, 230.00);
@@ -32,7 +36,7 @@ public class Main {
     	    	
     	entries = new HashMap<String, Object>();
     	entries.put(StringConstants.NEW_CLASS, "Default");
-    	ClassFactory factory = new ClassFactory();
+    	StudentClassCreator factory = new StudentClassCreator();
     	UIBuilder<Student> defaultClass = factory.getNewInstance(entries);
     	
     	for (UIBuilder<Student> trip : trips) {
@@ -44,9 +48,9 @@ public class Main {
             public void run() {
             	NavigationFrame frame = new NavigationFrame();
             	frame.setVisible(true);
-                
-                frame.addFolder(StringConstants.TRIPS, DialogFactory.getTripTypeDialog(frame.getTreeNavigator()));
-                frame.addFolder(StringConstants.CLASSES, DialogFactory.getAddClassDialog(frame.getTreeNavigator()));
+            	                
+                frame.addFolder(StringConstants.TRIPS, new TripTypeDialogCreator());
+                frame.addFolder(StringConstants.CLASSES, new AddClassDialogCreator());
                 
             	for (UIBuilder<Student> trip : trips) {
                     frame.addObject(frame.getFolder(StringConstants.TRIPS), trip, true);

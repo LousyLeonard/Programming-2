@@ -1,7 +1,7 @@
-package factories;
+package uiBuilders;
 
 import core.IAddTreeDialog;
-import core.IUIBuilderFactory;
+import core.IUIBuilderCreator;
 import core.ui.DialogBuilder;
 
 /**
@@ -10,7 +10,7 @@ import core.ui.DialogBuilder;
  * 
  * @author Lawrence
  */
-public interface Trip extends IUIBuilderFactory{
+public interface Trip extends IUIBuilderCreator{
 
 	public DialogBuilder getAddDialog(IAddTreeDialog addable);
 

@@ -26,7 +26,7 @@ public class UIBuilder<T> implements IAddDialog<T>, Serializable {
 	private ArrayList<ILabelPlugin> labelPlugins;
 
 	private transient UIBuilderPanel<T> panel;
-	private transient DialogBuilder addDialog;
+	private transient IDialogCreator addDialogCreator;
 
 	public UIBuilder(String title, String primaryKeyTitle) {
 		this.title = title;
@@ -113,15 +113,15 @@ public class UIBuilder<T> implements IAddDialog<T>, Serializable {
 		panel = new UIBuilderPanel<T>(this);
 	}
 	
-	public void registerAddDialog(DialogBuilder addDialog) {
-		this.addDialog = addDialog;
+	public void registerAddDialog(IDialogCreator addDialogCreator) {
+		this.addDialogCreator = addDialogCreator;
 	}
 
 	public DialogBuilder getAddDialog() throws NoDialogRegisteredException {
-		if(addDialog == null) {
+		if(addDialogCreator == null) {
 			throw new NoDialogRegisteredException();
 		}
-		return addDialog;
+		return addDialogCreator.getNewInstance(this);
 	}
 	
 }

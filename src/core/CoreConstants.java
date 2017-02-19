@@ -28,4 +28,7 @@ public abstract class CoreConstants {
 
 	public static final String EXPORT_MENU = "Export";
 
+	public static final String ELEMENT_TYPE = "Element Type";
+	
+	public static final String NEW_ELEMENT = "New Element";
 }

@@ -123,8 +123,10 @@ public class UIBuilderPanel<T> extends javax.swing.JPanel {
     }           
     
     private void remove(ActionEvent evt) {
-		builder.removeEntry(table.getSelectedRow());
-		refreshModel();
+    	if (table.getSelectedRow() != -1) {
+    		builder.removeEntry(table.getSelectedRow());
+    		refreshModel();	
+    	}
 	}
 
 	private void add(java.awt.event.ActionEvent evt) {    

@@ -2,10 +2,10 @@ package core.events;
 
 import java.util.Map;
 
+import core.CoreConstants;
 import core.IAddTreeDialog;
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
-import core.ui.TreeNavigator;
 
 /**
 *
@@ -22,7 +22,7 @@ public class GetElementTypeEvent implements IYesNoEvent {
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		Map<String, Object> entries = builder.getEntrys();
-		String choice = (String)entries.get(TreeNavigator.ELEMENT_TYPE);
+		String choice = (String)entries.get(CoreConstants.ELEMENT_TYPE);
 
 		for (Object element : addable.getTopLevelElements()) {
 			if(choice.equals((String)element)) {

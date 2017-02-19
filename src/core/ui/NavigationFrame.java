@@ -23,6 +23,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import core.CoreConstants;
+import core.IDialogCreator;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.util.FileUtils;
@@ -112,6 +113,13 @@ public class NavigationFrame extends javax.swing.JFrame {
 			        if (returnVal == JFileChooser.APPROVE_OPTION) {
 			            File file = fileChooser.getSelectedFile();
 			            
+			            if (FileUtils.getExtension(file.getName()).equalsIgnoreCase(FileUtils.uib)) {
+			                // filename is OK as-is
+			            } else {
+			            	 // append .xml if "foo.jpg.uib" is OK
+			                file = new File(file.toString() + FileUtils.dot + FileUtils.uib); 
+			            }
+			            
 					    importState(file);
 			        } else {
 			        	//Do Nothing
@@ -177,7 +185,7 @@ public class NavigationFrame extends javax.swing.JFrame {
 		treeNavigator.addEntry(parent, child, shouldBeVisible);
 	}
 	
-	public void addFolder(String folderName, DialogBuilder dialog) {
+	public void addFolder(String folderName, IDialogCreator dialog) {
 		treeNavigator.addFolderEntry(folderName, dialog);
 	}
 	
@@ -193,8 +201,8 @@ public class NavigationFrame extends javax.swing.JFrame {
 		try {
 			FileOutputStream fout = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
-			oos.writeObject(treeNavigator.getModel());
-
+			oos.writeObject(treeNavigator.getExportData());
+			oos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,15 +216,12 @@ public class NavigationFrame extends javax.swing.JFrame {
 		try {
 			FileInputStream streamIn = new FileInputStream(file);
 		    ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
-		    DefaultTreeModel readCase = (DefaultTreeModel) objectinputstream.readObject();
-		    treeNavigator.setModel(readCase);
+		    ArrayList<Object> readCase = (ArrayList<Object>) objectinputstream.readObject();
+		    treeNavigator.importData(readCase);
+		    objectinputstream.close();
 		 } catch (Exception e) {
 		     e.printStackTrace();
 		 }
-	}
-	
-	public void wipeModel() {
-		treeNavigator.setModel(new DefaultTreeModel(treeNavigator.getFolder(StringConstants.CLASSES)));
 	}
 }
 

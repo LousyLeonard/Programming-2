@@ -1,5 +1,6 @@
 package core.ui;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,10 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import core.IAddTreeDialog;
+import core.IDialogCreator;
 import core.NoDialogRegisteredException;
 import core.UIBuilder;
+import core.dialogs.ElementTypeDialogCreator;
 import core.CoreConstants;
 import core.events.GetElementTypeEvent;
 import core.events.HideWindowEvent;
@@ -30,9 +33,6 @@ import core.util.Pair;
 */
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
-	public static final String ELEMENT_TYPE = "Element Type";
-	public static final String NEW_ELEMENT = "New Element";
-
 	private List<UIBuilderPanel> panels;
 
     private JScrollPane scrollPane;
@@ -43,20 +43,22 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
     
     private JPanel displayPanel;
     
-    private DialogBuilder addDialog;
+    private IDialogCreator addDialogCreator;
     
 	private DefaultMutableTreeNode root;
 	private DefaultTreeModel model;
 	
-	private ArrayList<Pair<String, DialogBuilder>> topLevelElements;
+	private ArrayList<Pair<String, IDialogCreator>> topLevelElements;
 	
 	public TreeNavigator() {
-		this.topLevelElements = new ArrayList<Pair<String, DialogBuilder>>();
+		this.topLevelElements = new ArrayList<Pair<String, IDialogCreator>>();
 		this.panels = new ArrayList<UIBuilderPanel>();
 		
 		this.root = new DefaultMutableTreeNode("rootTreeNode");
 		this.model = new DefaultTreeModel(root);
 				
+		this.addDialogCreator = new ElementTypeDialogCreator();
+		
 		init();
 		createTree();
 	}
@@ -179,10 +181,10 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	    }
 	}
 
-	public void addFolderEntry(String folderName, DialogBuilder dialog) {
+	public void addFolderEntry(String folderName, IDialogCreator dialog) {
 		DefaultMutableTreeNode folder = new DefaultMutableTreeNode(folderName);
 	    model.insertNodeInto(folder, root, root.getChildCount());
-	    topLevelElements.add(new Pair<String, DialogBuilder>(folderName, dialog));
+	    topLevelElements.add(new Pair<String, IDialogCreator>(folderName, dialog));
 	}
 
 	public void removeEntry(DefaultMutableTreeNode node) {
@@ -204,25 +206,24 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	}
     
 	private void addButtonActionPerformed(ActionEvent evt) throws NoDialogRegisteredException {
-		addDialog = getElementTypeDialog(this);
-		addDialog.setVisible(true);	
+		getAddDialog().setVisible(true);	
 	}
 	
-	public void registerAddDialog(DialogBuilder addDialog) {
-		this.addDialog = addDialog;
+	public void registerAddDialog(IDialogCreator addDialogCreator) {
+		this.addDialogCreator = addDialogCreator;
 	}
 
 	public DialogBuilder getAddDialog() throws NoDialogRegisteredException {
-		if(addDialog == null) {
+		if(addDialogCreator == null) {
 			throw new NoDialogRegisteredException();
 		}
-		return addDialog;
+		return addDialogCreator.getNewInstance(this);
 	}
 	
 	public DialogBuilder getAddDialogForString(String folder) {		
-		for(Pair<String,DialogBuilder> element : topLevelElements) {
+		for(Pair<String, IDialogCreator> element : topLevelElements) {
 			if(element.getFirst().equals(folder)) {
-				return element.getSecond();
+				return element.getSecond().getNewInstance(this);
 			}
 		}
 		return null;
@@ -243,36 +244,51 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	public ArrayList<String> getTopLevelElements() {
 		ArrayList<String> elements = new ArrayList<String>();
 		
-		for (Pair<String, DialogBuilder> element : topLevelElements) {
+		for (Pair<String, IDialogCreator> element : topLevelElements) {
 			elements.add(element.getFirst());
 		}
 		
 		return elements;
 	}
 	
-	public static DialogBuilder getElementTypeDialog(IAddTreeDialog addable) {
-		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(ELEMENT_TYPE, addable.getTopLevelElements());
-
-		DialogBuilder builder = new DialogBuilder(NEW_ELEMENT);		
-		
-		builder.addPanel(selections);
-		
-		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new GetElementTypeEvent(addable));
-
-		return builder;
-	}
-	
 	public DefaultTreeModel getModel() {
 		return model;
 	}
 	
-	public void setModel(DefaultTreeModel model) {
-		this.model = model;
+	public void importData(ArrayList<Object> data) {
+		this.model = (DefaultTreeModel) data.get(1);
+		this.topLevelElements = (ArrayList<Pair<String, IDialogCreator>>) data.get(0);
+		
 		this.root = (DefaultMutableTreeNode) model.getRoot();
 		
+		this.panels = new ArrayList<UIBuilderPanel>();
+		
+		for (int i = 0; i < root.getChildCount(); ++i) {
+			for (int j = 0; j < root.getChildAt(i).getChildCount(); ++j) {
+				this.panels.add(((UIBuilder)(
+									(DefaultMutableTreeNode)(
+											root.getChildAt(i).getChildAt(j)))
+									.getUserObject())
+								.getPanel());
+			}
+		}
+		
 		tree.setModel(model);
-		expandAllNodes(0, tree.getRowCount());
+		expandAllNodes(0, tree.getRowCount());	
+		
+		displayPanel.removeAll();
+		for (UIBuilderPanel panel : this.panels) {
+			displayPanel.add(panel, panel.toString());
+		}
+	}
+	
+	public ArrayList<Object> getExportData(){
+		ArrayList<Object> data = new ArrayList<Object>();
+		
+		data.add(topLevelElements);
+		data.add(model);
+		
+		return data;
 	}
 	
 	private void expandAllNodes(int startingIndex, int rowCount){

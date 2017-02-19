@@ -1,11 +1,18 @@
 package core.util;
 
+import java.io.Serializable;
+
 /**
 *
 * @author Lawrence
 */
-public class Triplet<T1, T2, T3> {
+public class Triplet<T1, T2, T3> implements Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -6567190356943785679L;
+	
 	private T1 first;
 	private T2 second;
 	private T3 third;

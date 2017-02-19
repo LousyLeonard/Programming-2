@@ -1,12 +1,14 @@
-package factories;
+package uiBuilders;
 
 import java.util.Map;
 
 import core.IAddTreeDialog;
-import core.IUIBuilderFactory;
+import core.IUIBuilderCreator;
 import core.UIBuilder;
 import core.plugins.EnumComboPlugin;
 import core.ui.DialogBuilder;
+import dialogs.ClassSelectorDialogCreator;
+import dialogs.TripResidentialTeacherOrganisedDialogCreator;
 import plugins.OptionsEnum;
 import plugins.PaymentPlugin;
 import plugins.PhoneNumberPlugin;
@@ -14,7 +16,6 @@ import plugins.TransportPlugin;
 import plugins.TripFeePlugin;
 import plugins.VenueBookingPlugin;
 import transports.Transportable;
-import tripTracker.DialogFactory;
 import tripTracker.StringConstants;
 import tripTracker.Student;
 import venueBookings.VenueBookingable;
@@ -23,7 +24,7 @@ import venueBookings.VenueBookingable;
 *
 * @author Lawrence
 */
-public class ResidentialTripTeacherFactory implements IUIBuilderFactory, Trip {
+public class ResidentialTripTeacherCreator implements IUIBuilderCreator, Trip {
 
 	private static final String TYPE = "Residential Trip Teacher Organised";
 	
@@ -48,14 +49,14 @@ public class ResidentialTripTeacherFactory implements IUIBuilderFactory, Trip {
     	trip.addLabelPlugin(new TransportPlugin(transport));
     	trip.addLabelPlugin(new VenueBookingPlugin(booking));
     	
-    	trip.registerAddDialog(DialogFactory.getClassSelectorDialog(trip));
+    	trip.registerAddDialog(new ClassSelectorDialogCreator());
 
 		return trip; 
 	}
 
 	@Override
 	public DialogBuilder getAddDialog(IAddTreeDialog addable) {
-		return DialogFactory.getTripResidentialTeacherOrganisedDialog(addable);
+		return new TripResidentialTeacherOrganisedDialogCreator().getNewInstance(addable);
 	}
 	
 	@Override

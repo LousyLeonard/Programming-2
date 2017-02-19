@@ -5,8 +5,8 @@ import java.util.Map;
 import core.IAddTreeDialog;
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
-import factories.Trip;
 import tripTracker.StringConstants;
+import uiBuilders.Trip;
 
 /**
 *

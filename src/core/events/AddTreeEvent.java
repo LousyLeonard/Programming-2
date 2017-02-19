@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import core.IAddTreeDialog;
-import core.IUIBuilderFactory;
+import core.IUIBuilderCreator;
 import core.IYesNoEvent;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
@@ -18,10 +18,10 @@ import core.ui.DialogBuilder;
 public class AddTreeEvent implements IYesNoEvent {
 	
 	private IAddTreeDialog addable;
-	private IUIBuilderFactory factory;
+	private IUIBuilderCreator factory;
 	private String container;
 
-	public AddTreeEvent(IAddTreeDialog addable, IUIBuilderFactory factory, String container) {
+	public AddTreeEvent(IAddTreeDialog addable, IUIBuilderCreator factory, String container) {
 		this.addable = addable;
 		this.factory = factory;
 		this.container = container;

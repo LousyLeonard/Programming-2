@@ -1,17 +1,17 @@
 /**
  * 
  */
-package factories;
+package uiBuilders;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import core.IListener;
 import core.INotifier;
-import core.IUIBuilderFactory;
+import core.IUIBuilderCreator;
 import core.UIBuilder;
+import dialogs.AddStudentDialogCreator;
 import plugins.PhoneNumberPlugin;
-import tripTracker.DialogFactory;
 import tripTracker.StringConstants;
 import tripTracker.Student;
 
@@ -20,7 +20,7 @@ import tripTracker.Student;
  * @author Lawrence
  *
  */
-public class ClassFactory implements IUIBuilderFactory, INotifier {
+public class StudentClassCreator implements IUIBuilderCreator, INotifier {
 	
 	private static ArrayList<IListener> listeners = new ArrayList<IListener>();
 
@@ -29,7 +29,7 @@ public class ClassFactory implements IUIBuilderFactory, INotifier {
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
     	
-    	trip.registerAddDialog(DialogFactory.getAddStudentDialog(trip));
+    	trip.registerAddDialog(new AddStudentDialogCreator());
     	
 		return trip; 
 	}

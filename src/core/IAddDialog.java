@@ -10,7 +10,7 @@ public interface IAddDialog<T> {
 
 	public void addEntry(T entry) throws NotUniqueEntryException;
 	
-	public void registerAddDialog(DialogBuilder addDialog);
+	public void registerAddDialog(IDialogCreator addDialogCreator);
 
 	public DialogBuilder getAddDialog() throws NoDialogRegisteredException;
 }
