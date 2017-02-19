@@ -3,6 +3,7 @@ package core.ui;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,15 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import core.CoreConstants;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
+import core.util.FileUtils;
 import tripTracker.StringConstants;
 
 /**
@@ -37,6 +41,8 @@ public class NavigationFrame extends javax.swing.JFrame {
     private JMenu fileMenu;
     
     private JMenuItem importMenuItem, exportMenuItem;
+    
+    private JFileChooser fileChooser;
 
     /**
      * Creates new form NavigationFrame
@@ -61,6 +67,35 @@ public class NavigationFrame extends javax.swing.JFrame {
         fileMenu = new JMenu(CoreConstants.FILE_MENU);
         importMenuItem = new JMenuItem(CoreConstants.IMPORT_MENU);
         exportMenuItem = new JMenuItem(CoreConstants.EXPORT_MENU);
+        fileChooser = new JFileChooser();
+        
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.addChoosableFileFilter(new FileFilter() {
+
+			@Override
+			public boolean accept(File file) {
+			    if (file.isDirectory()) {
+			        return true;
+			    }
+
+			    String extension = FileUtils.getExtension(file);
+			    if (extension != null) {
+			        if (extension.equals(FileUtils.uib)) {
+			                return true;
+			        } else {
+			            return false;
+			        }
+			    }
+
+			    return false;
+			}
+
+			@Override
+			public String getDescription() {
+			    return "UIBuilder Trees";
+			}
+        	
+		});
 
         menuBar.add(fileMenu);
         
@@ -70,14 +105,43 @@ public class NavigationFrame extends javax.swing.JFrame {
         importMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				importState();
+				//Handle open button action.
+				if (e.getSource() == importMenuItem) {
+			        int returnVal = fileChooser.showOpenDialog(NavigationFrame.this);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fileChooser.getSelectedFile();
+			            
+					    importState(file);
+			        } else {
+			        	//Do Nothing
+			        }
+			    }
 			}
         });
         
         exportMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				exportState();
+				//Handle open button action.
+				if (e.getSource() == exportMenuItem) {
+			        int returnVal = fileChooser.showSaveDialog(NavigationFrame.this);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fileChooser.getSelectedFile();
+			            
+			            if (FileUtils.getExtension(file.getName()).equalsIgnoreCase(FileUtils.uib)) {
+			                // filename is OK as-is
+			            } else {
+			            	 // append .xml if "foo.jpg.uib" is OK
+			                file = new File(file.toString() + FileUtils.dot + FileUtils.uib); 
+			            }
+			            
+					    exportState(file);
+			        } else {
+			        	//Do Nothing
+			        }
+			    }
 			}
         });
         
@@ -125,9 +189,9 @@ public class NavigationFrame extends javax.swing.JFrame {
 		return treeNavigator;
 	}
 	
-	public void exportState() {
+	public void exportState(File file) {
 		try {
-			FileOutputStream fout = new FileOutputStream("C:\\temp\\test.ser");
+			FileOutputStream fout = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(treeNavigator.getModel());
 
@@ -140,9 +204,9 @@ public class NavigationFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	public void importState() {
+	public void importState(File file) {
 		try {
-			FileInputStream streamIn = new FileInputStream("C:\\temp\\test.ser");
+			FileInputStream streamIn = new FileInputStream(file);
 		    ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
 		    DefaultTreeModel readCase = (DefaultTreeModel) objectinputstream.readObject();
 		    treeNavigator.setModel(readCase);
