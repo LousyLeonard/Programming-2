@@ -1,6 +1,7 @@
 package core.ui;
 
 import java.awt.CardLayout;
+import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -116,7 +117,6 @@ public class NavigationFrame extends javax.swing.JFrame {
 			            if (FileUtils.getExtension(file.getName()).equalsIgnoreCase(FileUtils.uib)) {
 			                // filename is OK as-is
 			            } else {
-			            	 // append .xml if "foo.jpg.uib" is OK
 			                file = new File(file.toString() + FileUtils.dot + FileUtils.uib); 
 			            }
 			            
@@ -222,6 +222,10 @@ public class NavigationFrame extends javax.swing.JFrame {
 		 } catch (Exception e) {
 		     e.printStackTrace();
 		 }
+	}
+	
+	public JMenuBar getJMenuBar() {
+		return menuBar;
 	}
 }
 

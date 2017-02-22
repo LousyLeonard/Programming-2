@@ -16,7 +16,7 @@ import venueBookings.NoVenue;
 *
 * @author Lawrence
 */
-public class Main {
+public class TripTrackerMain {
 
     /**
      * @param args the command line arguments
@@ -57,6 +57,7 @@ public class Main {
             	}
             	
             	frame.addObject(frame.getFolder(StringConstants.CLASSES), defaultClass, true);
+            	frame.getJMenuBar().add(new HelpMenu());
             	
             	frame.pack();
             }

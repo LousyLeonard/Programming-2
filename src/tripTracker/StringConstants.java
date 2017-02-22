@@ -52,4 +52,16 @@ public abstract class StringConstants {
 
 	public static final String ADD_CLASS = "Add Class";
 
+	public static final String HELP = "Help";
+	
+	public static final String HELP_INTRODUCTION = "help/help-introduction.png";
+	
+	public static final String HELP_ADD_AND_REMOVE = "help/help-addandremove.png";
+
+	public static final String HELP_ADD_AND_REMOVE_2 = "help/help-addandremove2.png";
+
+	public static final String NEXT = "Next";
+
+	public static final String PREV = "Previous";
+
 }
