@@ -12,7 +12,7 @@ import core.events.AddTreeEvent;
 import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.StudentClassCreator;
 
 /**
@@ -35,14 +35,14 @@ public class AddClassDialogCreator implements IDialogCreator, Serializable {
 	}
 
 	private static DialogBuilder getAddClassDialog(IAddTreeDialog addable) {
-		GenericStringEntryPanel selections = new GenericStringEntryPanel(StringConstants.NEW_CLASS);
+		GenericStringEntryPanel selections = new GenericStringEntryPanel(TripTrackerConstants.NEW_CLASS);
 
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_CLASS);		
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_CLASS);		
 		
 		builder.addPanel(selections);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTreeEvent(addable, new StudentClassCreator(), StringConstants.CLASSES));
+		builder.registerYesEvent(new AddTreeEvent(addable, new StudentClassCreator(), TripTrackerConstants.CLASSES));
 
 		return builder;
 	}

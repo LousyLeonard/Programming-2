@@ -19,7 +19,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
 import transports.Transportable;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.ResidentialTripExtCreator;
 
 /**
@@ -42,15 +42,15 @@ public class TripResidentialExternalProviderDialogCreator implements IDialogCrea
 	}
 
 	private static DialogBuilder getTripResidentialExternalProviderDialog(IAddTreeDialog addable) {
-		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
-		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
+		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
+		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
 
 		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
 		ArrayList<Transportable> transports = transportLoader.getElements();		
 		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
-		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(TripTrackerConstants.TRANSPORT, transportPanels);
 		
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_TRIP);
 
 		builder.addPanel(title);
 		builder.addPanel(entryFee);
@@ -58,7 +58,7 @@ public class TripResidentialExternalProviderDialogCreator implements IDialogCrea
 		
 		builder.registerNoEvent(new HideWindowEvent());
 		builder.registerYesEvent(new AddTreeEvent(addable, 
-				new ResidentialTripExtCreator(), StringConstants.TRIPS));
+				new ResidentialTripExtCreator(), TripTrackerConstants.TRIPS));
 		
 		return builder;
 	}

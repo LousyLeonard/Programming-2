@@ -7,7 +7,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import core.IColumnPlugin;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 /**
@@ -20,7 +20,7 @@ public class PhoneNumberPlugin<T> implements IColumnPlugin<T>, Serializable {
 	 */
 	private static final long serialVersionUID = 1394451573541155021L;
 
-	private static String DEFAULT_VALUE = StringConstants.PHONE_NO_NOT_SUPPLIED;
+	private static String DEFAULT_VALUE = TripTrackerConstants.PHONE_NO_NOT_SUPPLIED;
 
 	ArrayList<T> students;
 	
@@ -39,7 +39,7 @@ public class PhoneNumberPlugin<T> implements IColumnPlugin<T>, Serializable {
 
 	@Override
 	public String getTitle() {
-		return StringConstants.PHONE_NUMBER;
+		return TripTrackerConstants.PHONE_NUMBER;
 	}
 
 	@Override

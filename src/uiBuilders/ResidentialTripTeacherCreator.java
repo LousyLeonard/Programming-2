@@ -16,7 +16,7 @@ import plugins.TransportPlugin;
 import plugins.TripFeePlugin;
 import plugins.VenueBookingPlugin;
 import transports.Transportable;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 import venueBookings.VenueBookingable;
 
@@ -31,19 +31,19 @@ public class ResidentialTripTeacherCreator implements IUIBuilderCreator, Trip {
 	@Override
 	public UIBuilder getNewInstance(Map<String, Object> entries) {
 		return getTripResidentialTeacherOrganisedObject(
-				(String)entries.get(StringConstants.TITLE), 
-				(Double)entries.get(StringConstants.ENTRY_FEE), 
-				(Transportable)entries.get(StringConstants.TRANSPORT),
-				(VenueBookingable)entries.get(StringConstants.VENUE_BOOKING));
+				(String)entries.get(TripTrackerConstants.TITLE), 
+				(Double)entries.get(TripTrackerConstants.ENTRY_FEE), 
+				(Transportable)entries.get(TripTrackerConstants.TRANSPORT),
+				(VenueBookingable)entries.get(TripTrackerConstants.VENUE_BOOKING));
 	}
 
 	private static UIBuilder<Student> getTripResidentialTeacherOrganisedObject(String title, Double entryFee, Transportable transport, VenueBookingable booking) {
-    	UIBuilder<Student> trip = new UIBuilder<Student>(title, StringConstants.STUDENTS);
+    	UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
-    	trip.addPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), StringConstants.PAYMENTS));
+    	trip.addPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), TripTrackerConstants.PAYMENTS));
     	trip.addPlugin(new EnumComboPlugin<OptionsEnum, Student>(
-    			OptionsEnum.class, OptionsEnum.NOT_YET, trip.getPrimaryKeyList(), StringConstants.AUTHORISATION));
+    			OptionsEnum.class, OptionsEnum.NOT_YET, trip.getPrimaryKeyList(), TripTrackerConstants.AUTHORISATION));
     	
     	trip.addLabelPlugin(new TripFeePlugin(entryFee));
     	trip.addLabelPlugin(new TransportPlugin(transport));

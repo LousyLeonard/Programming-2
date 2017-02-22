@@ -19,7 +19,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
 import transports.Transportable;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.ResidentialTripTeacherCreator;
 import venueBookings.VenueBookingable;
 
@@ -43,20 +43,20 @@ public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCrea
 	}
 	
 	private static DialogBuilder getTripResidentialTeacherOrganisedDialog(IAddTreeDialog addable) {
-		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
-		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
+		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
+		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
 
 		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
 		ArrayList<Transportable> transports = transportLoader.getElements();		
 		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
-		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(TripTrackerConstants.TRANSPORT, transportPanels);
 
 		CustomClassLoader<VenueBookingable> venueLoader = new CustomClassLoader<VenueBookingable>(VenueBookingable.class);
 		ArrayList<VenueBookingable> venues = venueLoader.getElements();		
 		ArrayList<IEntryPanelProvider> venuePanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, venues);	
-		SmartExclusiveSelectionPanel venueBooking = new SmartExclusiveSelectionPanel(StringConstants.VENUE_BOOKING, venuePanels);
+		SmartExclusiveSelectionPanel venueBooking = new SmartExclusiveSelectionPanel(TripTrackerConstants.VENUE_BOOKING, venuePanels);
 		
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_TRIP);
 
 		builder.addPanel(title);
 		builder.addPanel(entryFee);
@@ -64,7 +64,7 @@ public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCrea
 		builder.addPanel(venueBooking);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTreeEvent(addable, new ResidentialTripTeacherCreator(), StringConstants.TRIPS));
+		builder.registerYesEvent(new AddTreeEvent(addable, new ResidentialTripTeacherCreator(), TripTrackerConstants.TRIPS));
 		
 		return builder;
 	}

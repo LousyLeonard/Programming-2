@@ -4,7 +4,7 @@ package tripTracker;
 *
 * @author Lawrence
 */
-public abstract class StringConstants {
+public abstract class TripTrackerConstants {
 
 	public static final String TITLE = "Title";
 	

@@ -36,7 +36,7 @@ public class Student implements Serializable {
 	 * @param secondName The second name of the student.
 	 */
 	public Student(String firstName, String secondName) {
-		this(firstName, secondName, StringConstants.PHONE_NO_NOT_SUPPLIED);
+		this(firstName, secondName, TripTrackerConstants.PHONE_NO_NOT_SUPPLIED);
 	}
 	
 	/**

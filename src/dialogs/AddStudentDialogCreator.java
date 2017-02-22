@@ -11,7 +11,7 @@ import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
 import events.AddStudentEvent;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 
 /**
  * @author Lawrence
@@ -33,11 +33,11 @@ public class AddStudentDialogCreator implements IDialogCreator, Serializable {
 	}
 	
 	private static DialogBuilder getAddStudentDialog(IAddDialog addable) {
-		GenericStringEntryPanel firstName = new GenericStringEntryPanel(StringConstants.FIRST_NAME);
-		GenericStringEntryPanel secondName = new GenericStringEntryPanel(StringConstants.SECOND_NAME);
-		GenericStringEntryPanel phoneNumber = new GenericStringEntryPanel(StringConstants.PHONE_NUMBER);
+		GenericStringEntryPanel firstName = new GenericStringEntryPanel(TripTrackerConstants.FIRST_NAME);
+		GenericStringEntryPanel secondName = new GenericStringEntryPanel(TripTrackerConstants.SECOND_NAME);
+		GenericStringEntryPanel phoneNumber = new GenericStringEntryPanel(TripTrackerConstants.PHONE_NUMBER);
 
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_STUDENT);
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_STUDENT);
 		
 		builder.addPanel(firstName);
 		builder.addPanel(secondName);

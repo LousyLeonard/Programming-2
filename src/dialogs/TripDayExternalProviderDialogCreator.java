@@ -19,7 +19,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
 import transports.Transportable;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.DayTripExtCreator;
 
 /**
@@ -42,22 +42,22 @@ public class TripDayExternalProviderDialogCreator implements IDialogCreator, Ser
 	}
 	
 	private static DialogBuilder getTripDayExternalProviderDialog(IAddTreeDialog addable) {
-		GenericStringEntryPanel title = new GenericStringEntryPanel(StringConstants.TITLE);
-		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(StringConstants.ENTRY_FEE);
+		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
+		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
 
 		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
 		ArrayList<Transportable> transports = transportLoader.getElements();		
 		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
-		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(StringConstants.TRANSPORT, transportPanels);
+		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(TripTrackerConstants.TRANSPORT, transportPanels);
 	
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_TRIP);
 
 		builder.addPanel(title);
 		builder.addPanel(entryFee);
 		builder.addPanel(transport);
 		
 		builder.registerNoEvent(new HideWindowEvent());
-		builder.registerYesEvent(new AddTreeEvent(addable, new DayTripExtCreator(), StringConstants.TRIPS));
+		builder.registerYesEvent(new AddTreeEvent(addable, new DayTripExtCreator(), TripTrackerConstants.TRIPS));
 		
 		return builder;
 	}

@@ -28,14 +28,14 @@ public class TripTrackerMain {
     	
     	DayTripTeacherCreator fac = new DayTripTeacherCreator();
     	HashMap<String, Object> entries = new HashMap<String, Object>();
-    	entries.put(StringConstants.TITLE, "test-day-teach");
-    	entries.put(StringConstants.ENTRY_FEE, 230.00);
-    	entries.put(StringConstants.TRANSPORT, new NoTransport());
-    	entries.put(StringConstants.VENUE_BOOKING, new NoVenue());
+    	entries.put(TripTrackerConstants.TITLE, "test-day-teach");
+    	entries.put(TripTrackerConstants.ENTRY_FEE, 230.00);
+    	entries.put(TripTrackerConstants.TRANSPORT, new NoTransport());
+    	entries.put(TripTrackerConstants.VENUE_BOOKING, new NoVenue());
     	trips.add(fac.getNewInstance(entries));
     	    	
     	entries = new HashMap<String, Object>();
-    	entries.put(StringConstants.NEW_CLASS, "Default");
+    	entries.put(TripTrackerConstants.NEW_CLASS, "Default");
     	StudentClassCreator factory = new StudentClassCreator();
     	UIBuilder<Student> defaultClass = factory.getNewInstance(entries);
     	
@@ -49,14 +49,14 @@ public class TripTrackerMain {
             	NavigationFrame frame = new NavigationFrame();
             	frame.setVisible(true);
             	                
-                frame.addFolder(StringConstants.TRIPS, new TripTypeDialogCreator());
-                frame.addFolder(StringConstants.CLASSES, new AddClassDialogCreator());
+                frame.addFolder(TripTrackerConstants.TRIPS, new TripTypeDialogCreator());
+                frame.addFolder(TripTrackerConstants.CLASSES, new AddClassDialogCreator());
                 
             	for (UIBuilder<Student> trip : trips) {
-                    frame.addObject(frame.getFolder(StringConstants.TRIPS), trip, true);
+                    frame.addObject(frame.getFolder(TripTrackerConstants.TRIPS), trip, true);
             	}
             	
-            	frame.addObject(frame.getFolder(StringConstants.CLASSES), defaultClass, true);
+            	frame.addObject(frame.getFolder(TripTrackerConstants.CLASSES), defaultClass, true);
             	frame.getJMenuBar().add(new HelpMenu());
             	
             	frame.pack();

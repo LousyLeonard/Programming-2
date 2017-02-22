@@ -37,8 +37,8 @@ public class HelpFrame extends JFrame {
 	public HelpFrame() {
 		super();
 		
-		this.nextButton = new JButton(StringConstants.NEXT);
-		this.prevButton = new JButton(StringConstants.PREV);
+		this.nextButton = new JButton(TripTrackerConstants.NEXT);
+		this.prevButton = new JButton(TripTrackerConstants.PREV);
 		
 		this.buttonPanel = new JPanel();
 		
@@ -53,19 +53,19 @@ public class HelpFrame extends JFrame {
 		
 		this.layoutPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		this.layoutPanel.add(StringConstants.HELP_INTRODUCTION, 
-				getImageLabel(StringConstants.HELP_INTRODUCTION));
-		this.current = new CyclicListNode<String>(StringConstants.HELP_INTRODUCTION);
+		this.layoutPanel.add(TripTrackerConstants.HELP_INTRODUCTION, 
+				getImageLabel(TripTrackerConstants.HELP_INTRODUCTION));
+		this.current = new CyclicListNode<String>(TripTrackerConstants.HELP_INTRODUCTION);
 
-		this.layoutPanel.add(StringConstants.HELP_ADD_AND_REMOVE, 
-				getImageLabel(StringConstants.HELP_ADD_AND_REMOVE));
+		this.layoutPanel.add(TripTrackerConstants.HELP_ADD_AND_REMOVE, 
+				getImageLabel(TripTrackerConstants.HELP_ADD_AND_REMOVE));
 		CyclicListNode<String> addandremove = 
-				new CyclicListNode<String>(StringConstants.HELP_ADD_AND_REMOVE);
+				new CyclicListNode<String>(TripTrackerConstants.HELP_ADD_AND_REMOVE);
 		
-		this.layoutPanel.add(StringConstants.HELP_ADD_AND_REMOVE_2, 
-				getImageLabel(StringConstants.HELP_ADD_AND_REMOVE_2));
+		this.layoutPanel.add(TripTrackerConstants.HELP_ADD_AND_REMOVE_2, 
+				getImageLabel(TripTrackerConstants.HELP_ADD_AND_REMOVE_2));
 		CyclicListNode<String> addandremove2 = 
-				new CyclicListNode<String>(StringConstants.HELP_ADD_AND_REMOVE_2);
+				new CyclicListNode<String>(TripTrackerConstants.HELP_ADD_AND_REMOVE_2);
 		
 		current.setNext(addandremove);
 		addandremove.setNext(addandremove2);

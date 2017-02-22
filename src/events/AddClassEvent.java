@@ -13,7 +13,7 @@ import core.IYesNoEvent;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.ui.DialogBuilder;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 /**
@@ -47,7 +47,7 @@ public class AddClassEvent implements IYesNoEvent {
 	}
 	
 	private ArrayList<Student> parse(Map<String, Object> entries) {
-		UIBuilder<Student> studentBuilder = (UIBuilder<Student>) entries.get(StringConstants.CLASS);
+		UIBuilder<Student> studentBuilder = (UIBuilder<Student>) entries.get(TripTrackerConstants.CLASS);
 		
 		ArrayList<Student> students = studentBuilder.getPrimaryKeyList();
 		

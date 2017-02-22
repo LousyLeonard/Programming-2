@@ -18,9 +18,9 @@ public class HelpMenu extends JMenu {
 	private JMenuItem helpMenuItem;
 	
 	public HelpMenu() {
-		super(StringConstants.HELP);
+		super(TripTrackerConstants.HELP);
 		
-		this.helpMenuItem = new JMenuItem(StringConstants.HELP);
+		this.helpMenuItem = new JMenuItem(TripTrackerConstants.HELP);
 		
 		this.add(this.helpMenuItem);
 		

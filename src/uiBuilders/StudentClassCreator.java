@@ -12,7 +12,7 @@ import core.IUIBuilderCreator;
 import core.UIBuilder;
 import dialogs.AddStudentDialogCreator;
 import plugins.PhoneNumberPlugin;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 
@@ -25,7 +25,7 @@ public class StudentClassCreator implements IUIBuilderCreator, INotifier {
 	private static ArrayList<IListener> listeners = new ArrayList<IListener>();
 
 	private static UIBuilder<Student> getClassObject(String title) {
-    	UIBuilder<Student> trip = new UIBuilder<Student>(title, StringConstants.STUDENTS);
+    	UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
     	
@@ -36,7 +36,7 @@ public class StudentClassCreator implements IUIBuilderCreator, INotifier {
 
 	@Override
 	public UIBuilder getNewInstance(Map<String, Object> entries) {
-		String title = (String)entries.get(StringConstants.NEW_CLASS);
+		String title = (String)entries.get(TripTrackerConstants.NEW_CLASS);
 		
 		UIBuilder result = getClassObject(title);
 		

@@ -12,7 +12,7 @@ import plugins.PhoneNumberPlugin;
 import plugins.TransportPlugin;
 import plugins.TripFeePlugin;
 import transports.Transportable;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 /**
@@ -26,16 +26,16 @@ public class DayTripExtCreator implements IUIBuilderCreator, Trip {
 	@Override
 	public UIBuilder getNewInstance(Map<String, Object> entries) {
 		return getTripDayExternalProviderObject(
-				(String)entries.get(StringConstants.TITLE), 
-				(Double)entries.get(StringConstants.ENTRY_FEE), 
-				(Transportable)entries.get(StringConstants.TRANSPORT));
+				(String)entries.get(TripTrackerConstants.TITLE), 
+				(Double)entries.get(TripTrackerConstants.ENTRY_FEE), 
+				(Transportable)entries.get(TripTrackerConstants.TRANSPORT));
 	}
 	
 	private static UIBuilder<Student> getTripDayExternalProviderObject(String title, Double entryFee, Transportable transport) {
-    	UIBuilder<Student> trip = new UIBuilder<Student>(title, StringConstants.STUDENTS);
+    	UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
-    	trip.addPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), StringConstants.PAYMENTS));
+    	trip.addPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), TripTrackerConstants.PAYMENTS));
     	
     	trip.addLabelPlugin(new TripFeePlugin(entryFee));
     	trip.addLabelPlugin(new TransportPlugin(transport));

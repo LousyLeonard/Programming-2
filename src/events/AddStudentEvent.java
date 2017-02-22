@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 import core.IAddDialog;
 import core.NotUniqueEntryException;
@@ -36,8 +36,8 @@ public class AddStudentEvent implements IYesNoEvent {
 
 	private Student parse(Map<String, Object> entries) {
 		return new Student(
-				(String)entries.get(StringConstants.FIRST_NAME), 
-				(String)entries.get(StringConstants.SECOND_NAME),
-				(String)entries.get(StringConstants.PHONE_NUMBER));
+				(String)entries.get(TripTrackerConstants.FIRST_NAME), 
+				(String)entries.get(TripTrackerConstants.SECOND_NAME),
+				(String)entries.get(TripTrackerConstants.PHONE_NUMBER));
 	}
 }

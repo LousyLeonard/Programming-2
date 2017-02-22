@@ -12,7 +12,7 @@ import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import events.AddClassEvent;
 import tripTracker.ClassManager;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 
 /**
  * @author Lawrence
@@ -35,9 +35,9 @@ public class ClassSelectorDialogCreator implements IDialogCreator, Serializable 
 	
 	private static DialogBuilder getClassSelectorDialog(IAddDialog addable) {
 		GenericExclusiveSelectionPanel selections = 
-				new GenericExclusiveSelectionPanel(StringConstants.CLASS, ClassManager.getInstance().getClasses());
+				new GenericExclusiveSelectionPanel(TripTrackerConstants.CLASS, ClassManager.getInstance().getClasses());
 		
-		DialogBuilder builder = new DialogBuilder(StringConstants.ADD_CLASS);	
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.ADD_CLASS);	
 		
 		builder.addPanel(selections);
 		

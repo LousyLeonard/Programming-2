@@ -14,7 +14,7 @@ import core.events.HideWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import events.GetTripTypeEvent;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.Trip;
 
 /**
@@ -40,9 +40,9 @@ public class TripTypeDialogCreator implements IDialogCreator, Serializable {
 	private static DialogBuilder getTripTypeDialog(IAddTreeDialog addable) {
 		CustomClassLoader<Trip> tripLoader = new CustomClassLoader<Trip>(Trip.class);
 		ArrayList<Trip> trips = tripLoader.getElements();		
-		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(StringConstants.TRIP_TYPE, trips);
+		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(TripTrackerConstants.TRIP_TYPE, trips);
 
-		DialogBuilder builder = new DialogBuilder(StringConstants.NEW_TRIP);		
+		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_TRIP);		
 		
 		builder.addPanel(selections);
 		

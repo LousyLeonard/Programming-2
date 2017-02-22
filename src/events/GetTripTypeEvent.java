@@ -5,7 +5,7 @@ import java.util.Map;
 import core.IAddTreeDialog;
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
-import tripTracker.StringConstants;
+import tripTracker.TripTrackerConstants;
 import uiBuilders.Trip;
 
 /**
@@ -23,7 +23,7 @@ public class GetTripTypeEvent implements IYesNoEvent {
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		Map<String, Object> entries = builder.getEntrys();
-		Trip tripType = (Trip)entries.get(StringConstants.TRIP_TYPE);
+		Trip tripType = (Trip)entries.get(TripTrackerConstants.TRIP_TYPE);
 		
 		// Handles no trip selected
 		if (tripType != null) {
