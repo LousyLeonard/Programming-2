@@ -1,7 +1,6 @@
 package core.ui;
 
 import java.awt.CardLayout;
-import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,16 +18,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 import core.CoreConstants;
 import core.IDialogCreator;
 import core.NotUniqueEntryException;
+import core.UIBFileFilter;
 import core.UIBuilder;
 import core.util.FileUtils;
-import tripTracker.StringConstants;
 
 /**
 *
@@ -72,32 +70,7 @@ public class NavigationFrame extends javax.swing.JFrame {
         fileChooser = new JFileChooser();
         
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.addChoosableFileFilter(new FileFilter() {
-
-			@Override
-			public boolean accept(File file) {
-			    if (file.isDirectory()) {
-			        return true;
-			    }
-
-			    String extension = FileUtils.getExtension(file);
-			    if (extension != null) {
-			        if (extension.equals(FileUtils.uib)) {
-			                return true;
-			        } else {
-			            return false;
-			        }
-			    }
-
-			    return false;
-			}
-
-			@Override
-			public String getDescription() {
-			    return "UIBuilder Trees";
-			}
-        	
-		});
+        fileChooser.addChoosableFileFilter(new UIBFileFilter());
 
         menuBar.add(fileMenu);
         
@@ -220,7 +193,7 @@ public class NavigationFrame extends javax.swing.JFrame {
 		    treeNavigator.importData(readCase);
 		    objectinputstream.close();
 		 } catch (Exception e) {
-		     e.printStackTrace();
+			 JOptionPane.showMessageDialog(this, "File is corrupt! cannot load.");
 		 }
 	}
 	

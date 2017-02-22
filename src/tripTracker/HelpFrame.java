@@ -74,7 +74,7 @@ public class HelpFrame extends JFrame {
 		nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
         	    CardLayout layout = (CardLayout)(layoutPanel.getLayout());
-            	layout.show(layoutPanel, (String)current.getNext().getElement());
+            	layout.show(layoutPanel, current.getNext().getElement());
             	current = current.getNext();
             }
         });	
@@ -82,7 +82,7 @@ public class HelpFrame extends JFrame {
 		prevButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
         	    CardLayout layout = (CardLayout)(layoutPanel.getLayout());
-            	layout.show(layoutPanel, (String)current.getPrev().getElement());
+            	layout.show(layoutPanel, current.getPrev().getElement());
             	current = current.getPrev();
             }
         });

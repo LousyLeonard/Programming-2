@@ -17,16 +17,16 @@ public class CyclicListNode<T> {
 		this.element = element;
 	}
 	
-	public void setNext(CyclicListNode next) {
+	public void setNext(CyclicListNode<T> next) {
 		this.next = next;
 		next.prev = this;
 	}
 
-	public CyclicListNode getNext() {
+	public CyclicListNode<T> getNext() {
 		return this.next;
 	}
 	
-	public CyclicListNode getPrev() {
+	public CyclicListNode<T> getPrev() {
 		return this.prev;
 	}
 	

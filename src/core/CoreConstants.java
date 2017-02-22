@@ -31,4 +31,6 @@ public abstract class CoreConstants {
 	public static final String ELEMENT_TYPE = "Element Type";
 	
 	public static final String NEW_ELEMENT = "New Element";
+	
+	public static final String FILE_EXTENSION_DESC = "UIBuilder Trees";
 }
