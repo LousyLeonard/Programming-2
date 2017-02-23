@@ -15,7 +15,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
  * @author Lawrence
  *
  */
-public class HotelVenue implements VenueBookingable, Serializable {
+public class HotelVenue implements IVenueBooking, Serializable {
 
 	/**
 	 * Appease the gods of serialisation.

@@ -48,7 +48,7 @@ public class NavigationFrame extends javax.swing.JFrame {
      * Creates new form NavigationFrame
      * @param panels
      */
-    public <T> NavigationFrame() {
+    public NavigationFrame() {
         initComponents();
     }
 
@@ -59,7 +59,7 @@ public class NavigationFrame extends javax.swing.JFrame {
      * @param <T>
      */
     @SuppressWarnings("unchecked")
-    private <T> void initComponents() {
+    private void initComponents() {
 
         displayPanel = new javax.swing.JPanel(new CardLayout());
         treeNavigator = new TreeNavigator();
@@ -138,14 +138,6 @@ public class NavigationFrame extends javax.swing.JFrame {
         getContentPane().add(displayPanel);
 
         pack();
-    }                     
-     
-	private <T> ArrayList<UIBuilderPanel> getPanelsfromList(List<UIBuilder<T>> builders) {
-    	ArrayList<UIBuilderPanel> panels = new ArrayList<UIBuilderPanel>();
-    	for(UIBuilder<T> builder : builders) {
-    		panels.add(builder.getPanel());
-    	}
-    	return panels;
     }
 	
 	public void addEntry(Object panel) throws NotUniqueEntryException {
@@ -170,7 +162,7 @@ public class NavigationFrame extends javax.swing.JFrame {
 		return treeNavigator;
 	}
 	
-	public void exportState(File file) {
+	private void exportState(File file) {
 		try {
 			FileOutputStream fout = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -185,7 +177,7 @@ public class NavigationFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	public void importState(File file) {
+	private void importState(File file) {
 		try {
 			FileInputStream streamIn = new FileInputStream(file);
 		    ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);

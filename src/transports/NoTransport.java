@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 *
 * @author Lawrence
 */
-public class NoTransport implements Transportable, Serializable {
+public class NoTransport implements ITransport, Serializable {
 
 	/**
 	 * Appease the gods of serialisation.

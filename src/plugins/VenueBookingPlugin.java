@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import core.ILabelPlugin;
-import venueBookings.VenueBookingable;
+import venueBookings.IVenueBooking;
 
 /**
 *
@@ -23,9 +23,9 @@ public class VenueBookingPlugin implements ILabelPlugin, Serializable {
 	private static String ARRIVAL_DATE_TITLE = "Arrival Date";
 	private static String LENGTH_OF_STAY = "Length of Stay";
 	
-	private VenueBookingable booking;
+	private IVenueBooking booking;
 	
-	public VenueBookingPlugin(VenueBookingable booking) {
+	public VenueBookingPlugin(IVenueBooking booking) {
 		this.booking = booking;
 	}
 	

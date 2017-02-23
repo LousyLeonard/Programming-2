@@ -16,14 +16,12 @@ public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer implements
 	 */
 	private static final long serialVersionUID = -2329509437115052270L;
 	
-	int precision = 0;
-	Number numberValue;
-	NumberFormat nf;
+	private Number numberValue;
+	private NumberFormat nf;
 
 	public MoneyDoubleCellRenderer(int p_precision) {
 	            super();
 	            setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-	            precision = p_precision;
 	            nf = NumberFormat.getNumberInstance();
 	            nf.setMinimumFractionDigits(p_precision);
 	            nf.setMaximumFractionDigits(p_precision);

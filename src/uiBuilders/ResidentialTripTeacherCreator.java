@@ -15,10 +15,10 @@ import plugins.PhoneNumberPlugin;
 import plugins.TransportPlugin;
 import plugins.TripFeePlugin;
 import plugins.VenueBookingPlugin;
-import transports.Transportable;
+import transports.ITransport;
 import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
-import venueBookings.VenueBookingable;
+import venueBookings.IVenueBooking;
 
 /**
 *
@@ -33,11 +33,11 @@ public class ResidentialTripTeacherCreator implements IUIBuilderCreator, Trip {
 		return getTripResidentialTeacherOrganisedObject(
 				(String)entries.get(TripTrackerConstants.TITLE), 
 				(Double)entries.get(TripTrackerConstants.ENTRY_FEE), 
-				(Transportable)entries.get(TripTrackerConstants.TRANSPORT),
-				(VenueBookingable)entries.get(TripTrackerConstants.VENUE_BOOKING));
+				(ITransport)entries.get(TripTrackerConstants.TRANSPORT),
+				(IVenueBooking)entries.get(TripTrackerConstants.VENUE_BOOKING));
 	}
 
-	private static UIBuilder<Student> getTripResidentialTeacherOrganisedObject(String title, Double entryFee, Transportable transport, VenueBookingable booking) {
+	private static UIBuilder<Student> getTripResidentialTeacherOrganisedObject(String title, Double entryFee, ITransport transport, IVenueBooking booking) {
     	UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
     	
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));

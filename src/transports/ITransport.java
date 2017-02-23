@@ -6,7 +6,7 @@ import core.IEntryPanelProvider;
 *
 * @author Lawrence
 */
-public interface Transportable extends IEntryPanelProvider {
+public interface ITransport extends IEntryPanelProvider {
 
 	public String getType();
 	public String getDepartureTime();

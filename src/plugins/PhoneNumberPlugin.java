@@ -22,7 +22,7 @@ public class PhoneNumberPlugin<T> implements IColumnPlugin<T>, Serializable {
 
 	private static String DEFAULT_VALUE = TripTrackerConstants.PHONE_NO_NOT_SUPPLIED;
 
-	ArrayList<T> students;
+	private ArrayList<T> students;
 	
 	/*
 	 * Needs the initial student list to populate with values

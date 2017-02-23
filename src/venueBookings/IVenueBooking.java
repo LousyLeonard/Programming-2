@@ -8,7 +8,7 @@ import core.IEntryPanelProvider;
 *
 * @author Lawrence
 */
-public interface VenueBookingable extends IEntryPanelProvider {
+public interface IVenueBooking extends IEntryPanelProvider {
 
 	public String getType();
 	public Date getArrivalDate();

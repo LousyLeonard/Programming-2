@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import core.ILabelPlugin;
-import transports.Transportable;
+import transports.ITransport;
 
 /**
 *
@@ -22,9 +22,9 @@ public class TransportPlugin implements ILabelPlugin, Serializable {
 	private static String DEPARTURE_TIME_TITLE = "Departure Time";
 	private static String ARRIVAL_TIME_TITLE = "Arrival Time";
 
-	private Transportable transport;
+	private ITransport transport;
 	
-	public TransportPlugin(Transportable transport) {
+	public TransportPlugin(ITransport transport) {
 		this.transport = transport;
 	}
 	

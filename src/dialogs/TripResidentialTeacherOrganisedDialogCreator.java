@@ -18,10 +18,10 @@ import core.ui.entrypanels.GenericNumberEntryPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
 import core.ui.entrypanels.SmartExclusiveSelectionPanel;
 import core.util.ArrayCastingUtils;
-import transports.Transportable;
+import transports.ITransport;
 import tripTracker.TripTrackerConstants;
 import uiBuilders.ResidentialTripTeacherCreator;
-import venueBookings.VenueBookingable;
+import venueBookings.IVenueBooking;
 
 /**
  * @author Lawrence
@@ -46,13 +46,13 @@ public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCrea
 		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
 
-		CustomClassLoader<Transportable> transportLoader = new CustomClassLoader<Transportable>(Transportable.class);
-		ArrayList<Transportable> transports = transportLoader.getElements();		
+		CustomClassLoader<ITransport> transportLoader = new CustomClassLoader<ITransport>(ITransport.class);
+		ArrayList<ITransport> transports = transportLoader.getElements();		
 		ArrayList<IEntryPanelProvider> transportPanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, transports);	
 		SmartExclusiveSelectionPanel transport = new SmartExclusiveSelectionPanel(TripTrackerConstants.TRANSPORT, transportPanels);
 
-		CustomClassLoader<VenueBookingable> venueLoader = new CustomClassLoader<VenueBookingable>(VenueBookingable.class);
-		ArrayList<VenueBookingable> venues = venueLoader.getElements();		
+		CustomClassLoader<IVenueBooking> venueLoader = new CustomClassLoader<IVenueBooking>(IVenueBooking.class);
+		ArrayList<IVenueBooking> venues = venueLoader.getElements();		
 		ArrayList<IEntryPanelProvider> venuePanels = ArrayCastingUtils.convertArray(IEntryPanelProvider.class, venues);	
 		SmartExclusiveSelectionPanel venueBooking = new SmartExclusiveSelectionPanel(TripTrackerConstants.VENUE_BOOKING, venuePanels);
 		

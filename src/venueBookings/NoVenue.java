@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 *
 * @author Lawrence
 */
-public class NoVenue implements VenueBookingable, Serializable {
+public class NoVenue implements IVenueBooking, Serializable {
 
 	/**
 	 * Appease the gods of serialisation.

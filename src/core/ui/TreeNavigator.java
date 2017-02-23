@@ -144,6 +144,7 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
 	}
 	
+	@Override
 	public void addEntry(Object entry) {
 		UIBuilder newPanel = (UIBuilder)entry;
 		

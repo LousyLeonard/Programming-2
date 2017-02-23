@@ -14,7 +14,7 @@ import plugins.PaymentPlugin;
 import plugins.PhoneNumberPlugin;
 import plugins.TransportPlugin;
 import plugins.TripFeePlugin;
-import transports.Transportable;
+import transports.ITransport;
 import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
@@ -31,10 +31,10 @@ public class ResidentialTripExtCreator implements IUIBuilderCreator, Trip {
 		return getTripResidentialExternalProviderObject(
 				(String)entries.get(TripTrackerConstants.TITLE), 
 				(Double)entries.get(TripTrackerConstants.ENTRY_FEE), 
-				(Transportable)entries.get(TripTrackerConstants.TRANSPORT));
+				(ITransport)entries.get(TripTrackerConstants.TRANSPORT));
 	}
 
-	private static UIBuilder<Student> getTripResidentialExternalProviderObject(String title, Double entryFee, Transportable transport) {
+	private static UIBuilder<Student> getTripResidentialExternalProviderObject(String title, Double entryFee, ITransport transport) {
 		UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
 		
     	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));

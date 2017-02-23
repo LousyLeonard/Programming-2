@@ -11,7 +11,7 @@ import core.ui.entrypanels.GenericStringEntryPanel;
 *
 * @author Lawrence
 */
-public class BusTransport implements Transportable, Serializable {
+public class BusTransport implements ITransport, Serializable {
 	
 	/**
 	 * Appease the gods of serialisation.
