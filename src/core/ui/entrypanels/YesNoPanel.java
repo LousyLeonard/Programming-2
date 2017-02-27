@@ -1,11 +1,19 @@
 package core.ui.entrypanels;
 
 import core.NoEventRegisteredException;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
 import core.IYesNoEvent;
 import core.ui.DialogBuilder;
 
 /**
- *
+ * A simple panel that has a Yes & No or configurable positive & negative buttons with
+ * setable events.
+ * 
  * @author Lawrence
  */
 public class YesNoPanel extends javax.swing.JPanel {
@@ -19,10 +27,15 @@ public class YesNoPanel extends javax.swing.JPanel {
     private IYesNoEvent yesEvent;
     private IYesNoEvent noEvent;
 
+    // Handle to the containing DialogBuilder
     private DialogBuilder builder;
     
     /**
-     * Creates new form YesNoPanel
+     * CONSTRUCTOR
+     * 
+     * @param builder - The containing DialogBuilder.
+     * @param yesLabel - The positive button label.
+     * @param noLabel - The negative button label.
      */
     public YesNoPanel(DialogBuilder builder, String yesLabel, String noLabel) {
     	this.builder = builder;
@@ -30,27 +43,45 @@ public class YesNoPanel extends javax.swing.JPanel {
         initComponents(yesLabel, noLabel);
     }
     
+    /**
+     * CONSTRUCTOR
+     * 
+     * @param builder - The containing DialogBuilder.
+     */
     public YesNoPanel(DialogBuilder builder) {
     	this(builder, DEFAULT_YES, DEFAULT_NO);
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Setup the GUI components.
+     * 
+     * @param yesLabel - The positive button label.
+     * @param noLabel - The negative button label.
+     */
     private void initComponents(String yesLabel, String noLabel) {
 
         yesButton = new javax.swing.JButton();
         noButton = new javax.swing.JButton();
 
         yesButton.setText(yesLabel);
-        yesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doYesEvent();
+        yesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                	doYesEvent();
+                } catch (NoEventRegisteredException e) {
+       			 	JOptionPane.showMessageDialog(null, "Something has gone wrong, no event registered.");
+                }
             }
         });
 
         noButton.setText(noLabel);
-        noButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doNoEvent();
+        noButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+					doNoEvent();
+				} catch (NoEventRegisteredException e) {
+       			 	JOptionPane.showMessageDialog(null, "Something has gone wrong, no event registered.");
+				}
             }
         });
 
@@ -76,27 +107,47 @@ public class YesNoPanel extends javax.swing.JPanel {
         );
     }             
     
+	/**
+	 * Register an event to do on occasion of the positive button being selected.
+	 * 
+	 * @param yesEvent - The event to register.
+	 */
 	public void registerYesEvent(IYesNoEvent yesEvent) {
 		this.yesEvent = yesEvent;
 	}
 	
-	public void doYesEvent() {
+	/**
+	 * Execute the Yes Event.
+	 * 
+	 * @throws NoEventRegisteredException if no event is registered.
+	 */
+	public void doYesEvent() throws NoEventRegisteredException {
         if(yesEvent != null) {
         	yesEvent.doEvent(builder);
         } else {
-        	System.out.println(new NoEventRegisteredException());
+        	throw new NoEventRegisteredException();
         }
 	}
 	
+	/**
+	 * Register an event to do on occasion of the negative button being selected.
+	 * 
+	 * @param yesEvent - The event to register.
+	 */
 	public void registerNoEvent(IYesNoEvent noEvent) {
 		this.noEvent = noEvent;
 	}
 	
-	public void doNoEvent() {
+	/**
+	 * Execute the No Event.
+	 * 
+	 * @throws NoEventRegisteredException if no event is registered.
+	 */
+	public void doNoEvent() throws NoEventRegisteredException {
     	if(noEvent != null) {
         	noEvent.doEvent(builder);
         } else {
-        	System.out.println(new NoEventRegisteredException());
+        	throw new NoEventRegisteredException();
         }
 	}
 }

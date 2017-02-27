@@ -17,10 +17,12 @@ import core.IEntryPanelProvider;
 import core.util.ArrayCastingUtils;
 
 /**
-*
-* @author Lawrence
-*/
-public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider{
+ * Generic selector presented as a series of checkboxes only one of which may be selected.
+ * Upon selection a series of input fields will be revealed for additional entry.
+ *
+ * @author Lawrence
+ */
+public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider {
 
 	private String title;
 	
@@ -29,9 +31,17 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 	
 	private ButtonGroup buttonGroup;
 	
+	// Providers to display between.
 	private List<IEntryPanelProvider> contents;
+	
 	private IEntryPanelProvider current;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param title - The title to display.
+	 * @param selectionToDisplays - The list of inputs to choose between.
+	 */
 	public SmartExclusiveSelectionPanel(String title, List<IEntryPanelProvider> selectionToDisplays) {
 		this.title = title;
 		this.contents = selectionToDisplays;
@@ -39,6 +49,9 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 		init();
 	}
 	
+	/**
+	 * Setup the GUI components.
+	 */
 	private void init() {
 		buttonGroup = new javax.swing.ButtonGroup();
 		displayPanel = new JPanel(new CardLayout());
@@ -72,16 +85,25 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
         this.add(displayPanel);
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getContent()
+	 */
 	@Override
 	public Object getContent() {
 		return current.getContent();
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getPanel()
+	 */
 	@Override
 	public JPanel getPanel() {
 		return this;

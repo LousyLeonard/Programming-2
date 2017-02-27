@@ -1,6 +1,7 @@
 package core;
 
 /**
+* Common String constants used throughout the Core framework.
 *
 * @author Lawrence
 */
@@ -33,4 +34,9 @@ public abstract class CoreConstants {
 	public static final String NEW_ELEMENT = "New Element";
 	
 	public static final String FILE_EXTENSION_DESC = "UIBuilder Trees";
+	
+	public static final String FILE_EXTENSION = "uib";
+
+	public static final String DOT = ".";
+
 }

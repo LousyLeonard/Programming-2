@@ -14,6 +14,11 @@ import javax.swing.JRadioButton;
 import core.IEntryPanelProvider;
 import core.util.EnumUtils;
 
+/**
+ * Generic selector presented as a series of checkboxes only one of which may be selected.
+ * 
+ * @author Lawrence
+ */
 public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPanelProvider {
 	
 	private javax.swing.JLabel titleLabel;
@@ -25,12 +30,24 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 	
     private String title;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param title - The title of the selector.
+	 * @param arrayList - The values to display.
+	 */
 	public GenericExclusiveSelectionPanel(String title, ArrayList<?> arrayList) {
 		this.title = title;
 		
 		init((ArrayList<Object>) arrayList);
 	}
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param title - The title of the selector.
+	 * @param enumClass - An enumeration representing the values to display.
+	 */
 	public <E extends Enum<E>> GenericExclusiveSelectionPanel(String title, Class<E> enumClass) {
 		this.title = title;
 		
@@ -39,6 +56,11 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 		init(selections);
 	}
 
+	/**
+	 * Setup the GUI components.
+	 * 
+	 * @param selections - The values selections to display.
+	 */
 	private void init(ArrayList<Object> selections) {
 		titleLabel = new javax.swing.JLabel();
 		selectionPanel = new javax.swing.JPanel();
@@ -48,6 +70,7 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 				
 		buttonRepresentationMap = new HashMap<JRadioButton, Object>();
 		
+		// for all values add a checkbox.
 		Boolean first = true;
 		for(Object selection : selections) {
 			javax.swing.JRadioButton tempButton = new javax.swing.JRadioButton(selection.toString());
@@ -85,6 +108,11 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
         );
 	}
 	
+	/**
+	 * Add an additional option the selector.
+	 * 
+	 * @param element - The option to add.
+	 */
 	public void addOption(Object element) {
 		javax.swing.JRadioButton tempButton = new javax.swing.JRadioButton(element.toString());
 		buttonGroup.add(tempButton);
@@ -92,11 +120,17 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 		selectionPanel.add(tempButton);
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getContent()
+	 */
 	@Override
 	public Object getContent() {
 		for(JRadioButton key : buttonRepresentationMap.keySet()) {
@@ -107,11 +141,19 @@ public class GenericExclusiveSelectionPanel extends JPanel implements IEntryPane
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getPanel()
+	 */
 	@Override
 	public JPanel getPanel() {
 		return this;
 	}
 	
+	/**
+	 * Adds an action listener to all of the buttons in the Button Group.
+	 * 
+	 * @param listener - The ActionListener to add.
+	 */
 	public void addActionListener(ActionListener listener) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();

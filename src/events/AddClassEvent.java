@@ -17,13 +17,19 @@ import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 /**
+ * Event to add a Class to a Trip.
+ * 
  * @author Lawrence
- *
  */
 public class AddClassEvent implements IYesNoEvent {
 	
 	private IAddDialog addable;
 
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param addable - The element to add to.
+	 */
 	public AddClassEvent(IAddDialog addable) {
 		this.addable = addable;
 	}
@@ -46,6 +52,12 @@ public class AddClassEvent implements IYesNoEvent {
 		}
 	}
 	
+	/**
+	 * Parse the given input.
+	 * 
+	 * @param entries - The given input.
+	 * @return The list of students in the requested class.
+	 */
 	private ArrayList<Student> parse(Map<String, Object> entries) {
 		UIBuilder<Student> studentBuilder = (UIBuilder<Student>) entries.get(TripTrackerConstants.CLASS);
 		

@@ -3,7 +3,8 @@ package core.util;
 import java.io.Serializable;
 
 /**
-*
+* Simple Triplet class mapping together three values.
+* 
 * @author Lawrence
 */
 public class Triplet<T1, T2, T3> implements Serializable {
@@ -17,24 +18,49 @@ public class Triplet<T1, T2, T3> implements Serializable {
 	private T2 second;
 	private T3 third;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param first - The first value to map.
+	 * @param second - The second value to map.
+	 * @param third - The third value to map.
+	 */
 	public Triplet(T1 first, T2 second, T3 third) {
 		this.first = first;
 		this.second = second;
 		this.third = third;
 	}
 	
+	/**
+	 * Get the first mapped value.
+	 * 
+	 * @return the first value.
+	 */
 	public T1 getFirst() {
 		return first;
 	}
-
+	
+	/**
+	 * Get the second mapped value.
+	 * 
+	 * @return the second value.
+	 */
 	public T2 getSecond() {
 		return second;
 	}
 	
+	/**
+	 * Get the third mapped value.
+	 * 
+	 * @return the third value.
+	 */
 	public T3 getThird() {
 		return third;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 	    if (obj == null) {

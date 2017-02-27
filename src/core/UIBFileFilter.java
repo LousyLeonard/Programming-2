@@ -10,8 +10,11 @@ import javax.swing.filechooser.FileFilter;
 import core.util.FileUtils;
 
 /**
+ * A FileFilter to be used with the FileChooser which will filter out
+ * all extensions that are not .uib files. Also only permits the 
+ * saving of .uib files.
+ * 
  * @author Lawrence
- *
  */
 public class UIBFileFilter extends FileFilter {
 
@@ -26,7 +29,7 @@ public class UIBFileFilter extends FileFilter {
 
 	    String extension = FileUtils.getExtension(f);
 	    if (extension != null) {
-	        if (extension.equals(FileUtils.uib)) {
+	        if (extension.equals(CoreConstants.FILE_EXTENSION)) {
 	                return true;
 	        } else {
 	            return false;

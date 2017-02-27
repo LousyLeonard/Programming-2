@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import core.IAddDialog;
 import core.IDialogCreator;
-import core.events.HideWindowEvent;
+import core.events.CloseWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import events.AddClassEvent;
@@ -15,8 +15,9 @@ import tripTracker.ClassManager;
 import tripTracker.TripTrackerConstants;
 
 /**
+ * A Dialog creator for selecting a class to add to an IAddDialog.
+ * 
  * @author Lawrence
- *
  */
 public class ClassSelectorDialogCreator implements IDialogCreator, Serializable {
 	
@@ -33,6 +34,12 @@ public class ClassSelectorDialogCreator implements IDialogCreator, Serializable 
 		return getClassSelectorDialog(addable);
 	}
 	
+	/**
+	 * Create a new class selector dialog.
+	 * 
+	 * @param addable - The element to add to.
+	 * @return the new class selector DialogBuilder.
+	 */
 	private static DialogBuilder getClassSelectorDialog(IAddDialog addable) {
 		GenericExclusiveSelectionPanel selections = 
 				new GenericExclusiveSelectionPanel(TripTrackerConstants.CLASS, ClassManager.getInstance().getClasses());
@@ -41,7 +48,7 @@ public class ClassSelectorDialogCreator implements IDialogCreator, Serializable 
 		
 		builder.addPanel(selections);
 		
-		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerNoEvent(new CloseWindowEvent());
 		builder.registerYesEvent(new AddClassEvent(addable));
 				
 		return builder;

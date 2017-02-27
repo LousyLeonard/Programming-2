@@ -7,15 +7,16 @@ import java.io.Serializable;
 
 import core.IAddDialog;
 import core.IDialogCreator;
-import core.events.HideWindowEvent;
+import core.events.CloseWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericStringEntryPanel;
 import events.AddStudentEvent;
 import tripTracker.TripTrackerConstants;
 
 /**
+ * A Dialog creator for adding a student to a IAddDialog.
+ *  
  * @author Lawrence
- *
  */
 public class AddStudentDialogCreator implements IDialogCreator, Serializable {
 
@@ -32,6 +33,12 @@ public class AddStudentDialogCreator implements IDialogCreator, Serializable {
 		return getAddStudentDialog(addable);
 	}
 	
+	/**
+	 * Create a new add student dialog.
+	 * 
+	 * @param addable - The element to add to.
+	 * @return the add new student DialogBuilder.
+	 */
 	private static DialogBuilder getAddStudentDialog(IAddDialog addable) {
 		GenericStringEntryPanel firstName = new GenericStringEntryPanel(TripTrackerConstants.FIRST_NAME);
 		GenericStringEntryPanel secondName = new GenericStringEntryPanel(TripTrackerConstants.SECOND_NAME);
@@ -43,7 +50,7 @@ public class AddStudentDialogCreator implements IDialogCreator, Serializable {
 		builder.addPanel(secondName);
 		builder.addPanel(phoneNumber);
 		
-		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerNoEvent(new CloseWindowEvent());
 		builder.registerYesEvent(new AddStudentEvent(addable));
 		
 		return builder;

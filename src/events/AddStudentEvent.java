@@ -12,17 +12,26 @@ import core.IAddDialog;
 import core.NotUniqueEntryException;
 
 /**
-*
-* @author Lawrence
-*/
+ * Event to add a Student to a Class.
+ * 
+ * @author Lawrence
+ */
 public class AddStudentEvent implements IYesNoEvent {
 
 	private IAddDialog addable;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param addable - The element to add to.
+	 */
 	public AddStudentEvent(IAddDialog addable) {
 		this.addable = addable;
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IYesNoEvent#doEvent(core.ui.DialogBuilder)
+	 */
 	@Override
 	public void doEvent(DialogBuilder builder) {
 		try {
@@ -34,6 +43,12 @@ public class AddStudentEvent implements IYesNoEvent {
 				    JOptionPane.WARNING_MESSAGE);		}
 	}
 
+	/**
+	 * Parse the given input.
+	 * 
+	 * @param entries - The given input.
+	 * @return The students represented by the input.
+	 */
 	private Student parse(Map<String, Object> entries) {
 		return new Student(
 				(String)entries.get(TripTrackerConstants.FIRST_NAME), 

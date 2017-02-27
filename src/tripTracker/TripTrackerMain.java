@@ -13,35 +13,38 @@ import uiBuilders.StudentClassCreator;
 import venueBookings.NoVenue;
 
 /**
-*
+* The main runnable for the TripTracker application.
+* 
 * @author Lawrence
 */
 public class TripTrackerMain {
 
     /**
+     * Run the trip tracker instance.
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
     	ClassManager.getInstance();
     	
-    	ArrayList<UIBuilder<Student>> trips = new ArrayList<UIBuilder<Student>>();
-    	
-    	DayTripTeacherCreator fac = new DayTripTeacherCreator();
-    	HashMap<String, Object> entries = new HashMap<String, Object>();
-    	entries.put(TripTrackerConstants.TITLE, "test-day-teach");
-    	entries.put(TripTrackerConstants.ENTRY_FEE, 230.00);
-    	entries.put(TripTrackerConstants.TRANSPORT, new NoTransport());
-    	entries.put(TripTrackerConstants.VENUE_BOOKING, new NoVenue());
-    	trips.add(fac.getNewInstance(entries));
+//    	ArrayList<UIBuilder<Student>> trips = new ArrayList<UIBuilder<Student>>();
+//    	
+//    	DayTripTeacherCreator fac = new DayTripTeacherCreator();
+//    	HashMap<String, Object> entries = new HashMap<String, Object>();
+//    	entries.put(TripTrackerConstants.TITLE, "test-day-teach");
+//    	entries.put(TripTrackerConstants.ENTRY_FEE, 230.00);
+//    	entries.put(TripTrackerConstants.TRANSPORT, new NoTransport());
+//    	entries.put(TripTrackerConstants.VENUE_BOOKING, new NoVenue());
+//    	trips.add(fac.getNewInstance(entries));
     	    	
-    	entries = new HashMap<String, Object>();
+    	HashMap<String, Object> entries = new HashMap<String, Object>();
     	entries.put(TripTrackerConstants.NEW_CLASS, "Default");
     	StudentClassCreator factory = new StudentClassCreator();
     	UIBuilder<Student> defaultClass = factory.getNewInstance(entries);
     	
-    	for (UIBuilder<Student> trip : trips) {
-        	addStudents(trip);
-    	}
+//    	for (UIBuilder<Student> trip : trips) {
+//        	addStudents(trip);
+//    	}
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -52,9 +55,9 @@ public class TripTrackerMain {
                 frame.addFolder(TripTrackerConstants.TRIPS, new TripTypeDialogCreator());
                 frame.addFolder(TripTrackerConstants.CLASSES, new AddClassDialogCreator());
                 
-            	for (UIBuilder<Student> trip : trips) {
-                    frame.addObject(frame.getFolder(TripTrackerConstants.TRIPS), trip, true);
-            	}
+//            	for (UIBuilder<Student> trip : trips) {
+//                    frame.addObject(frame.getFolder(TripTrackerConstants.TRIPS), trip, true);
+//            	}
             	
             	frame.addObject(frame.getFolder(TripTrackerConstants.CLASSES), defaultClass, true);
             	frame.getJMenuBar().add(new HelpMenu());

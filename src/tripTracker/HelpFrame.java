@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import core.util.CyclicListNode;
 
 /**
+ * A frame to contain the help information.
+ * 
  * @author Lawrence
  *
  */
@@ -34,6 +36,9 @@ public class HelpFrame extends JFrame {
 	
 	private CyclicListNode<String> current;
 	
+	/**
+	 * CONSTRUCTOR
+	 */
 	public HelpFrame() {
 		super();
 		
@@ -47,6 +52,9 @@ public class HelpFrame extends JFrame {
 		init();
 	}
 	
+	/**
+	 * Setup the GUI Components.
+	 */
 	private void init() {
 		
 		this.buttonPanel.setLayout(new BoxLayout(this.buttonPanel, BoxLayout.LINE_AXIS));
@@ -101,6 +109,12 @@ public class HelpFrame extends JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Create a label with the requested image on.
+	 * 
+	 * @param path - The path of the requested image.
+	 * @return the label with the image loaded on.
+	 */
 	private JLabel getImageLabel(String path) {
 		JLabel result = new JLabel();
 		

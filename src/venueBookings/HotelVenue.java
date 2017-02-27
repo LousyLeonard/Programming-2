@@ -12,8 +12,9 @@ import javax.swing.JPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
 
 /**
+ * A VenueBooking representing a Hotel Venue.
+ * 
  * @author Lawrence
- *
  */
 public class HotelVenue implements IVenueBooking, Serializable {
 
@@ -35,6 +36,9 @@ public class HotelVenue implements IVenueBooking, Serializable {
 	private Date arrDate;
 	private Date depdate;
 	
+	/**
+	 * CONSTRUCTOR
+	 */
 	public HotelVenue() {
 		lengthOfStay = new String();
 		arrDate = new Date();
@@ -45,11 +49,17 @@ public class HotelVenue implements IVenueBooking, Serializable {
 		depDatePanel = new GenericStringEntryPanel(DEP_DATE_LABEL);
 	}
 		
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return TYPE;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getContent()
+	 */
 	@Override
 	public Object getContent() {
 		this.lengthOfStay = (String)lengthOfStayPanel.getContent();
@@ -59,6 +69,9 @@ public class HotelVenue implements IVenueBooking, Serializable {
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IEntryPanelProvider#getPanel()
+	 */
 	@Override
 	public JPanel getPanel() {
 		JPanel hotelPanel = new JPanel();
@@ -73,36 +86,57 @@ public class HotelVenue implements IVenueBooking, Serializable {
 		return hotelPanel;
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#getType()
+	 */
 	@Override
 	public String getType() {
 		return TYPE;
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#getArrivalDate()
+	 */
 	@Override
 	public Date getArrivalDate() {
 		return new Date();
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#getDepartureDate()
+	 */
 	@Override
 	public Date getDepartureDate() {
 		return new Date();
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#setArrivalDate(java.util.Date)
+	 */
 	@Override
 	public void setArrivalDate(Date arrDate) {
 		this.arrDate = arrDate;
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#setDepartureDate(java.util.Date)
+	 */
 	@Override
 	public void setDepartureDate(Date depdate) {
 		this.depdate = depdate;
 	}
 
+	/* (non-Javadoc)
+	 * @see venueBookings.IVenueBooking#getLengthOfStay()
+	 */
 	@Override
 	public String getLengthOfStay() {
 		return lengthOfStay;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return TYPE;

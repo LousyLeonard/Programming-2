@@ -3,23 +3,29 @@ package core.util;
 import java.io.File;
 
 /**
-*
+* File Utilities.
+* 
 * @author Lawrence
 */
 public abstract class FileUtils {
-
-    public final static String uib = "uib";
-    public final static String dot = ".";
-
-
-    /*
+ 
+   /**
      * Get the extension of a file.
-     */  
-    public static String getExtension(File file) {
+     * 
+     * @param file - The file to get the extension of.
+     * @return the file extension.
+     */
+     public static String getExtension(File file) {
         return getExtension(file.getName());
     }
 
-	public static String getExtension(String n) {
+     /**
+     * Get the extension of a file.
+	 * 
+     * @param n - The String to get the extension of.
+     * @return the file extension.
+	 */
+		public static String getExtension(String n) {
 		String name = n;
         String extension = "";
         int i = name.lastIndexOf('.');

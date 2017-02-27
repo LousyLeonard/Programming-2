@@ -1,6 +1,5 @@
 package core.ui;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +20,20 @@ import core.NoDialogRegisteredException;
 import core.UIBuilder;
 import core.dialogs.ElementTypeDialogCreator;
 import core.CoreConstants;
-import core.events.GetElementTypeEvent;
-import core.events.HideWindowEvent;
-import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import core.util.GraphicUtils;
 import core.util.Pair;
 
 /**
-*
+* The tree model of the explorer is stored here. The given display panel
+* is updated with the appropriate display upon tree selection.
+* 
 * @author Lawrence
 */
 public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	
+	/**
+	 * A List of the UIBuilder panels to show in the display panel.
+	 */
 	private List<UIBuilderPanel> panels;
 
     private JScrollPane scrollPane;
@@ -43,13 +44,23 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
     
     private JPanel displayPanel;
     
+    /**
+     * DialogCreator for adding to the tree.
+     */
     private IDialogCreator addDialogCreator;
     
 	private DefaultMutableTreeNode root;
 	private DefaultTreeModel model;
 	
+	/**
+	 * DialogCreators for adding to the respective top level elements
+	 * of the tree.
+	 */
 	private ArrayList<Pair<String, IDialogCreator>> topLevelElements;
 	
+	/**
+	 * CONSTRUCTOR
+	 */
 	public TreeNavigator() {
 		this.topLevelElements = new ArrayList<Pair<String, IDialogCreator>>();
 		this.panels = new ArrayList<UIBuilderPanel>();
@@ -63,6 +74,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		createTree();
 	}
 	
+	/**
+	 * Setup the tree.
+	 */
 	private void createTree() {	
 		tree.expandRow(0);
 		tree.setRootVisible(false);
@@ -70,9 +84,11 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 					
 		tree.setModel(model);
-
 	}
 	
+	/**
+	 * Setup the GUI components.
+	 */
 	private void init() {
         scrollPane = new javax.swing.JScrollPane();
         tree = new JTree();
@@ -138,12 +154,20 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
         );
 	}
 	
+	/**
+	 * Set the panel that is desired to update when the tree is selected.
+	 * 
+	 * @param displayPanel - The panel to update.
+	 */
 	public void setDisplayPanel(JPanel displayPanel) {
 		this.displayPanel = displayPanel;
 		//Listen for when the selection changes.
 		tree.addTreeSelectionListener(new TreeNavigatorSelectionListener(tree, displayPanel));
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IAddDialog#addEntry(java.lang.Object)
+	 */
 	@Override
 	public void addEntry(Object entry) {
 		UIBuilder newPanel = (UIBuilder)entry;
@@ -162,6 +186,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	    addEntry(parentNode, newPanel, true);
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IAddTreeDialog#addEntry(javax.swing.tree.DefaultMutableTreeNode, java.lang.Object, boolean)
+	 */
 	@Override
 	public void addEntry(DefaultMutableTreeNode parent,
 	                                        Object entry,
@@ -182,18 +209,31 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 	    }
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IAddTreeDialog#addFolderEntry(java.lang.String, core.IDialogCreator)
+	 */
 	public void addFolderEntry(String folderName, IDialogCreator dialog) {
 		DefaultMutableTreeNode folder = new DefaultMutableTreeNode(folderName);
 	    model.insertNodeInto(folder, root, root.getChildCount());
 	    topLevelElements.add(new Pair<String, IDialogCreator>(folderName, dialog));
 	}
 
+	/**
+	 * Remove an Entry from the tree.
+	 * 
+	 * @param node - The entry to remove.
+	 */
 	public void removeEntry(DefaultMutableTreeNode node) {
 		panels.remove(((UIBuilder)node.getUserObject()).getPanel());
 		displayPanel.remove(((UIBuilder)node.getUserObject()).getPanel());
 		model.removeNodeFromParent(node);
 	}
 	
+    /**
+     * Operations to do in the case of the remove button being selected.
+     * 
+     * @param evt - The event information.
+     */
     private void removeButtonActionPerformed(ActionEvent evt) {
         //Returns the last path element of the selection.
         //This method is useful only when the selection model allows a single selection.
@@ -206,14 +246,26 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
     	removeEntry(node);
 	}
     
+	/**
+     * Operations to do in the case of the aadd button being selected.
+     * 
+     * @param evt - The event information.
+     * @throws NoDialogRegisteredException if no DialogBuilder has been registered.
+     */
 	private void addButtonActionPerformed(ActionEvent evt) throws NoDialogRegisteredException {
 		getAddDialog().setVisible(true);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IAddDialog#registerAddDialog(core.IDialogCreator)
+	 */
 	public void registerAddDialog(IDialogCreator addDialogCreator) {
 		this.addDialogCreator = addDialogCreator;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IAddDialog#getAddDialog()
+	 */
 	public DialogBuilder getAddDialog() throws NoDialogRegisteredException {
 		if(addDialogCreator == null) {
 			throw new NoDialogRegisteredException();
@@ -221,6 +273,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return addDialogCreator.getNewInstance(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IAddTreeDialog#getAddDialogForString(java.lang.String)
+	 */
 	public DialogBuilder getAddDialogForString(String folder) {		
 		for(Pair<String, IDialogCreator> element : topLevelElements) {
 			if(element.getFirst().equals(folder)) {
@@ -230,6 +285,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IAddTreeDialog#getFolder(java.lang.String)
+	 */
 	public DefaultMutableTreeNode getFolder(String folderName) {
 		DefaultMutableTreeNode result = null;
 		
@@ -242,6 +300,9 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.IAddTreeDialog#getTopLevelElements()
+	 */
 	public ArrayList<String> getTopLevelElements() {
 		ArrayList<String> elements = new ArrayList<String>();
 		
@@ -256,6 +317,12 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return model;
 	}
 	
+	/**
+	 * Import the given data into the tree, overwriting what is currently present in
+	 * the tree.
+	 * 
+	 * @param data - The data to import.
+	 */
 	public void importData(ArrayList<Object> data) {
 		this.model = (DefaultTreeModel) data.get(1);
 		this.topLevelElements = (ArrayList<Pair<String, IDialogCreator>>) data.get(0);
@@ -283,6 +350,12 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		}
 	}
 	
+	/**
+	 * Return all the data necessary to import this tree structure at 
+	 * a later time.
+	 * 
+	 * @return the necessary tree data.
+	 */
 	public ArrayList<Object> getExportData(){
 		ArrayList<Object> data = new ArrayList<Object>();
 		
@@ -292,6 +365,12 @@ public class TreeNavigator extends JPanel implements IAddTreeDialog {
 		return data;
 	}
 	
+	/**
+	 * Recursively expand all the nodes in the tree.
+	 * 
+	 * @param startingIndex - The index to start from.
+	 * @param rowCount - The index in the children that has been reached.
+	 */
 	private void expandAllNodes(int startingIndex, int rowCount){
 	    for(int i=startingIndex;i<rowCount;++i){
 	        tree.expandRow(i);

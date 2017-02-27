@@ -1,7 +1,8 @@
 package tripTracker;
 
 /**
-*
+* A Container for Trip tracker string constants used throughout the application.
+* 
 * @author Lawrence
 */
 public abstract class TripTrackerConstants {

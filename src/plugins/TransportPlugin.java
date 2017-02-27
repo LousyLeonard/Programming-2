@@ -7,7 +7,8 @@ import core.ILabelPlugin;
 import transports.ITransport;
 
 /**
-*
+* A Label representing the Transport information.
+* 
 * @author Lawrence
 */
 public class TransportPlugin implements ILabelPlugin, Serializable {
@@ -24,15 +25,26 @@ public class TransportPlugin implements ILabelPlugin, Serializable {
 
 	private ITransport transport;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param transport - The transport to represent.
+	 */
 	public TransportPlugin(ITransport transport) {
 		this.transport = transport;
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.ILabelPlugin#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return PLUGIN_TITLE;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.ILabelPlugin#getInfo()
+	 */
 	@Override
 	public HashMap<String, String> getInfo() {
 		HashMap<String, String> infoBoxes = new HashMap<String, String>();

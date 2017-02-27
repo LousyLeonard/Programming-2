@@ -6,7 +6,8 @@ import java.text.NumberFormat;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
-*
+* CellRenderer for displaying monetary values. i.e. £0.##
+* 
 * @author Lawrence
 */
 public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer implements Serializable {
@@ -19,14 +20,22 @@ public class MoneyDoubleCellRenderer extends DefaultTableCellRenderer implements
 	private Number numberValue;
 	private NumberFormat nf;
 
-	public MoneyDoubleCellRenderer(int p_precision) {
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param precision - The number of decimal places to show.
+	 */
+	public MoneyDoubleCellRenderer(int precision) {
 	            super();
 	            setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 	            nf = NumberFormat.getNumberInstance();
-	            nf.setMinimumFractionDigits(p_precision);
-	            nf.setMaximumFractionDigits(p_precision);
+	            nf.setMinimumFractionDigits(precision);
+	            nf.setMaximumFractionDigits(precision);
 	        }
 
+	/* (non-Javadoc)
+	 * @see javax.swing.table.DefaultTableCellRenderer#setValue(java.lang.Object)
+	 */
 	@Override
 	public void setValue(Object value) {
 		if ((value != null) && (value instanceof Number)) {

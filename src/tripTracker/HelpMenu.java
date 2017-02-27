@@ -10,13 +10,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
+ * The help menu selector.
+ * 
  * @author Lawrence
- *
  */
 public class HelpMenu extends JMenu {
 
 	private JMenuItem helpMenuItem;
 	
+	/**
+	 * CONSTRUCTOR
+	 */
 	public HelpMenu() {
 		super(TripTrackerConstants.HELP);
 		
@@ -27,6 +31,9 @@ public class HelpMenu extends JMenu {
 		init();
 	}
 	
+	/**
+	 * Setup GUI components.
+	 */
 	private void init() {
 		
 		helpMenuItem.addActionListener(new ActionListener() {
@@ -35,7 +42,6 @@ public class HelpMenu extends JMenu {
 			public void actionPerformed(ActionEvent e) {
 				HelpFrame helpFrame = new HelpFrame();
 			}
-			
 		});
 	}
 	

@@ -7,7 +7,8 @@ import core.ILabelPlugin;
 import venueBookings.IVenueBooking;
 
 /**
-*
+* A Label representing the Venue Booking.
+* 
 * @author Lawrence
 */
 public class VenueBookingPlugin implements ILabelPlugin, Serializable {
@@ -25,15 +26,26 @@ public class VenueBookingPlugin implements ILabelPlugin, Serializable {
 	
 	private IVenueBooking booking;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param booking - The VenueBooking to represent.
+	 */
 	public VenueBookingPlugin(IVenueBooking booking) {
 		this.booking = booking;
 	}
 	
+	/* (non-Javadoc)
+	 * @see core.ILabelPlugin#getTitle()
+	 */
 	@Override
 	public String getTitle() {
 		return PLUGIN_TITLE;
 	}
 
+	/* (non-Javadoc)
+	 * @see core.ILabelPlugin#getInfo()
+	 */
 	@Override
 	public HashMap<String, String> getInfo() {
 		HashMap<String, String> infoBoxes = new HashMap<String, String>();

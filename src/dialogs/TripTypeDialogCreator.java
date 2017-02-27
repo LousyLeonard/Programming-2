@@ -10,16 +10,17 @@ import core.CustomClassLoader;
 import core.IAddDialog;
 import core.IAddTreeDialog;
 import core.IDialogCreator;
-import core.events.HideWindowEvent;
+import core.events.CloseWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericExclusiveSelectionPanel;
 import events.GetTripTypeEvent;
 import tripTracker.TripTrackerConstants;
-import uiBuilders.Trip;
+import uiBuilders.ITrip;
 
 /**
+ * A Trip type selector for selecting a trip type for adding to an IAddTreeDialog.
+ *  
  * @author Lawrence
- *
  */
 public class TripTypeDialogCreator implements IDialogCreator, Serializable {
 
@@ -33,20 +34,25 @@ public class TripTypeDialogCreator implements IDialogCreator, Serializable {
 	 */
 	@Override
 	public DialogBuilder getNewInstance(IAddDialog addable) {
-		// TODO Auto-generated method stub
 		return getTripTypeDialog((IAddTreeDialog)addable);
 	}
 	
+	/**
+	 * Create a new trip dialog.
+	 * 
+	 * @param addable - The element to add to.
+	 * @return the new trip type selector DialogBuilder.
+	 */
 	private static DialogBuilder getTripTypeDialog(IAddTreeDialog addable) {
-		CustomClassLoader<Trip> tripLoader = new CustomClassLoader<Trip>(Trip.class);
-		ArrayList<Trip> trips = tripLoader.getElements();		
+		CustomClassLoader<ITrip> tripLoader = new CustomClassLoader<ITrip>(ITrip.class);
+		ArrayList<ITrip> trips = tripLoader.getElements();		
 		GenericExclusiveSelectionPanel selections = new GenericExclusiveSelectionPanel(TripTrackerConstants.TRIP_TYPE, trips);
 
 		DialogBuilder builder = new DialogBuilder(TripTrackerConstants.NEW_TRIP);		
 		
 		builder.addPanel(selections);
 		
-		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerNoEvent(new CloseWindowEvent());
 		builder.registerYesEvent(new GetTripTypeEvent(addable));
 
 		return builder;

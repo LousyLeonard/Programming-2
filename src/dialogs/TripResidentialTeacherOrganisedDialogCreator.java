@@ -12,7 +12,7 @@ import core.IAddTreeDialog;
 import core.IDialogCreator;
 import core.IEntryPanelProvider;
 import core.events.AddTreeEvent;
-import core.events.HideWindowEvent;
+import core.events.CloseWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericNumberEntryPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
@@ -24,8 +24,9 @@ import uiBuilders.ResidentialTripTeacherCreator;
 import venueBookings.IVenueBooking;
 
 /**
+ * A Dialog creator for adding a trip to an IAddTreeDialog.
+ * 
  * @author Lawrence
- *
  */
 public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCreator, Serializable {
 
@@ -42,6 +43,12 @@ public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCrea
 		return getTripResidentialTeacherOrganisedDialog((IAddTreeDialog)addable);
 	}
 	
+	/**
+	 * Create a new trip dialog.
+	 * 
+	 * @param addable - The element to add to.
+	 * @return the new trip DialogBuilder.
+	 */
 	private static DialogBuilder getTripResidentialTeacherOrganisedDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
@@ -63,7 +70,7 @@ public class TripResidentialTeacherOrganisedDialogCreator implements IDialogCrea
 		builder.addPanel(transport);
 		builder.addPanel(venueBooking);
 		
-		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerNoEvent(new CloseWindowEvent());
 		builder.registerYesEvent(new AddTreeEvent(addable, new ResidentialTripTeacherCreator(), TripTrackerConstants.TRIPS));
 		
 		return builder;

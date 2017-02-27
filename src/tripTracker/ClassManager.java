@@ -11,8 +11,10 @@ import core.UIBuilder;
 import uiBuilders.StudentClassCreator;
 
 /**
+ * A Singleton instance of the ClassManager. This hold information of all of the 
+ * created classes in the application and provides access to them.
+ * 
  * @author Lawrence
- *
  */
 public final class ClassManager implements IListener, Serializable {
 
@@ -23,8 +25,12 @@ public final class ClassManager implements IListener, Serializable {
 
 	private static ClassManager instance;
 	
+	// list of created classes.
 	private static ArrayList<UIBuilder> classes;
 		
+	/**
+	 * CONSTRUCTOR
+	 */
 	private ClassManager() {
 		classes = new ArrayList<UIBuilder>();
 				
@@ -32,6 +38,11 @@ public final class ClassManager implements IListener, Serializable {
 		factoryInstance.registerListener(this);
 	}
 	
+	/**
+	 * Get an instance of ClassManager.
+	 * 
+	 * @return the instance of ClassManager.
+	 */
 	public static ClassManager getInstance() {
 		if(instance == null) {
 			instance = new ClassManager();
@@ -39,14 +50,27 @@ public final class ClassManager implements IListener, Serializable {
 		return instance;
 	}
 	
+	/**
+	 * Get the Classes held in the manager.
+	 * 
+	 * @return The classes.
+	 */
 	public ArrayList<UIBuilder> getClasses() {
 		return classes;
 	}
 	
-	public void addClass(UIBuilder newClass) {
+	/**
+	 * Add a class to the list of classes.
+	 * 
+	 * @param newClass - The class the add.
+	 */
+	private void addClass(UIBuilder newClass) {
 		classes.add(newClass);
 	}
 
+	/* (non-Javadoc)
+	 * @see core.IListener#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Object element) {
 		addClass((UIBuilder)element);

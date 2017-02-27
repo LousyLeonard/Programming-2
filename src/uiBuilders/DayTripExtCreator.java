@@ -16,13 +16,17 @@ import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
 
 /**
-*
+* A Trip creator for the Day Trip provided by External Provider trip type.
+* 
 * @author Lawrence
 */
-public class DayTripExtCreator implements IUIBuilderCreator, Trip {
+public class DayTripExtCreator implements IUIBuilderCreator, ITrip {
 
 	private static final String TYPE = "Day Trip by External Provider ";
 	
+	/* (non-Javadoc)
+	 * @see core.IUIBuilderCreator#getNewInstance(java.util.Map)
+	 */
 	@Override
 	public UIBuilder getNewInstance(Map<String, Object> entries) {
 		return getTripDayExternalProviderObject(
@@ -31,11 +35,19 @@ public class DayTripExtCreator implements IUIBuilderCreator, Trip {
 				(ITransport)entries.get(TripTrackerConstants.TRANSPORT));
 	}
 	
+	/**
+	 * Create a Day Trip provided by External Provider trip instance.
+	 * 
+	 * @param title - The title of the trip.
+	 * @param entryFee - The entry fee.
+	 * @param transport - The transport.
+	 * @return a new instance of a trip.
+	 */
 	private static UIBuilder<Student> getTripDayExternalProviderObject(String title, Double entryFee, ITransport transport) {
     	UIBuilder<Student> trip = new UIBuilder<Student>(title, TripTrackerConstants.STUDENTS);
     	
-    	trip.addPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
-    	trip.addPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), TripTrackerConstants.PAYMENTS));
+    	trip.addColumnPlugin(new PhoneNumberPlugin<Student>(trip.getPrimaryKeyList()));
+    	trip.addColumnPlugin(new PaymentPlugin<Student>(trip.getPrimaryKeyList(), TripTrackerConstants.PAYMENTS));
     	
     	trip.addLabelPlugin(new TripFeePlugin(entryFee));
     	trip.addLabelPlugin(new TransportPlugin(transport));
@@ -45,11 +57,17 @@ public class DayTripExtCreator implements IUIBuilderCreator, Trip {
 		return trip; 
 	}
 	
+	/* (non-Javadoc)
+	 * @see uiBuilders.ITrip#getAddDialog(core.IAddTreeDialog)
+	 */
 	@Override
 	public DialogBuilder getAddDialog(IAddTreeDialog addable) {
 		return new ClassSelectorDialogCreator().getNewInstance(addable);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return TYPE;

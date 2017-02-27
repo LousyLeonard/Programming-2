@@ -12,7 +12,7 @@ import core.IAddTreeDialog;
 import core.IDialogCreator;
 import core.IEntryPanelProvider;
 import core.events.AddTreeEvent;
-import core.events.HideWindowEvent;
+import core.events.CloseWindowEvent;
 import core.ui.DialogBuilder;
 import core.ui.entrypanels.GenericNumberEntryPanel;
 import core.ui.entrypanels.GenericStringEntryPanel;
@@ -23,6 +23,8 @@ import tripTracker.TripTrackerConstants;
 import uiBuilders.DayTripExtCreator;
 
 /**
+ * A Dialog creator for adding a trip to an IAddTreeDialog.
+ *  
  * @author Lawrence
  *
  */
@@ -41,6 +43,12 @@ public class TripDayExternalProviderDialogCreator implements IDialogCreator, Ser
 		return getTripDayExternalProviderDialog((IAddTreeDialog)addable);
 	}
 	
+	/**
+	 * Create a new trip dialog.
+	 * 
+	 * @param addable - The element to add to.
+	 * @return the new trip DialogBuilder.
+	 */
 	private static DialogBuilder getTripDayExternalProviderDialog(IAddTreeDialog addable) {
 		GenericStringEntryPanel title = new GenericStringEntryPanel(TripTrackerConstants.TITLE);
 		GenericNumberEntryPanel entryFee = new GenericNumberEntryPanel(TripTrackerConstants.ENTRY_FEE);
@@ -56,7 +64,7 @@ public class TripDayExternalProviderDialogCreator implements IDialogCreator, Ser
 		builder.addPanel(entryFee);
 		builder.addPanel(transport);
 		
-		builder.registerNoEvent(new HideWindowEvent());
+		builder.registerNoEvent(new CloseWindowEvent());
 		builder.registerYesEvent(new AddTreeEvent(addable, new DayTripExtCreator(), TripTrackerConstants.TRIPS));
 		
 		return builder;

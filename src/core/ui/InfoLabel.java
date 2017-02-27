@@ -11,7 +11,8 @@ import core.util.LabelFunctions;
 import core.util.Triplet;
 
 /**
-*
+* A GUI Object to represent the Labels on the UIBuilder.
+* 
 * @author Lawrence
 */
 public class InfoLabel extends JPanel implements Serializable {
@@ -27,9 +28,22 @@ public class InfoLabel extends JPanel implements Serializable {
 	private ArrayList<
 				Triplet<javax.swing.JPanel, javax.swing.JLabel, javax.swing.JLabel>> infoLabels;
 	
+	/**
+	 * The title of the label.
+	 */
 	private String title;
+	
+	/**
+	 * A title to text representation of the requested data.
+	 */
 	private Map<String, String> info;
 	
+	/**
+	 * CONSTRUCTOR
+	 * 
+	 * @param title - The title of the Label.
+	 * @param info - A title to text representation of the requested data.
+	 */
 	public InfoLabel(String title, Map<String, String> info) {
 		titlePanel = new javax.swing.JPanel();
 		titleLabel = new javax.swing.JLabel();
@@ -44,6 +58,9 @@ public class InfoLabel extends JPanel implements Serializable {
 		init();
 	}
 	
+	/**
+	 * Setup the GUI components.
+	 */
 	private void init() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
@@ -66,6 +83,9 @@ public class InfoLabel extends JPanel implements Serializable {
 		}
 	}
 	
+	/**
+	 * Create a row on the label for each of the stored title to text data.
+	 */
 	private void populateInfoLabels() {
 		
     	for ( String key : info.keySet() ) {

@@ -10,25 +10,30 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
-*
+* A Selection Listener for a tree to display the current selections
+* UIBuilderPanel in the display panel.
+* 
 * @author Lawrence
 */
 public class TreeNavigatorSelectionListener implements TreeSelectionListener, Serializable {
-
-	/**
-	 *  Appease the gods of serialisation.
-	 */
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1560023016677523829L;
 	
 	private JTree parentTree;
 	private JPanel displayPanel;	
     
+    /**
+     * CONSTRUCTOR
+     * 
+     * @param parentTree - The tree to listen to.
+     * @param displayPanel - The panel to update.
+     */
     public TreeNavigatorSelectionListener(JTree parentTree, JPanel displayPanel) {
     	this.parentTree = parentTree;
     	this.displayPanel = displayPanel;
     }
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+	 */
 	@Override
     public void valueChanged(TreeSelectionEvent e) {
     		//Returns the last path element of the selection.
