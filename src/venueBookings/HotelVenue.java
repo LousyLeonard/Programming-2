@@ -33,16 +33,20 @@ public class HotelVenue implements IVenueBooking, Serializable {
 	private GenericStringEntryPanel depDatePanel;
 
 	private String lengthOfStay;
-	private Date arrDate;
-	private Date depdate;
+//TODO
+//	private Date arrDate;
+//	private Date depdate;
+	
+	private String arrDate;
+	private String depDate;
 	
 	/**
 	 * CONSTRUCTOR
 	 */
 	public HotelVenue() {
 		lengthOfStay = new String();
-		arrDate = new Date();
-		depdate = new Date();
+		arrDate = "No arrival date";
+		depDate = "No departure date";
 		
 		lengthOfStayPanel = new GenericStringEntryPanel(LENGTH_OF_STAY_LABEL);
 		arrDatePanel = new GenericStringEntryPanel(ARR_DATE_LABEL);
@@ -63,8 +67,8 @@ public class HotelVenue implements IVenueBooking, Serializable {
 	@Override
 	public Object getContent() {
 		this.lengthOfStay = (String)lengthOfStayPanel.getContent();
-		this.arrDate = new Date();
-		this.depdate = new Date();
+		this.arrDate = (String)arrDatePanel.getContent();
+		this.depDate = (String)depDatePanel.getContent();
 		
 		return this;
 	}
@@ -98,23 +102,23 @@ public class HotelVenue implements IVenueBooking, Serializable {
 	 * @see venueBookings.IVenueBooking#getArrivalDate()
 	 */
 	@Override
-	public Date getArrivalDate() {
-		return new Date();
+	public String getArrivalDate() {
+		return arrDate;
 	}
 
 	/* (non-Javadoc)
 	 * @see venueBookings.IVenueBooking#getDepartureDate()
 	 */
 	@Override
-	public Date getDepartureDate() {
-		return new Date();
+	public String getDepartureDate() {
+		return depDate;
 	}
 
 	/* (non-Javadoc)
 	 * @see venueBookings.IVenueBooking#setArrivalDate(java.util.Date)
 	 */
 	@Override
-	public void setArrivalDate(Date arrDate) {
+	public void setArrivalDate(String arrDate) {
 		this.arrDate = arrDate;
 	}
 
@@ -122,8 +126,8 @@ public class HotelVenue implements IVenueBooking, Serializable {
 	 * @see venueBookings.IVenueBooking#setDepartureDate(java.util.Date)
 	 */
 	@Override
-	public void setDepartureDate(Date depdate) {
-		this.depdate = depdate;
+	public void setDepartureDate(String depdate) {
+		this.depDate = depdate;
 	}
 
 	/* (non-Javadoc)

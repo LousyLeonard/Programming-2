@@ -39,7 +39,7 @@ public class UIBuilder<T> implements IAddDialog<T>, Serializable {
 	 */
 	private transient UIBuilderPanel<T> panel;
 	
-	private transient IDialogCreator addDialogCreator;
+	private IDialogCreator addDialogCreator;
 
 	/**
 	 * CONSTRUCTOR

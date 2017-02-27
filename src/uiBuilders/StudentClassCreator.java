@@ -3,6 +3,7 @@
  */
 package uiBuilders;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -21,7 +22,12 @@ import tripTracker.Student;
  * 
  * @author Lawrence
  */
-public class StudentClassCreator implements IUIBuilderCreator, INotifier {
+public class StudentClassCreator implements IUIBuilderCreator, INotifier, Serializable {
+	
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = 8082890594706200604L;
 	
 	private static ArrayList<IListener> listeners = new ArrayList<IListener>();
 

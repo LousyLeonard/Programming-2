@@ -6,6 +6,7 @@ package tripTracker;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import core.IAddTreeDialog;
 import core.IListener;
 import core.UIBuilder;
 import uiBuilders.StudentClassCreator;
@@ -75,5 +76,4 @@ public final class ClassManager implements IListener, Serializable {
 	public void update(Object element) {
 		addClass((UIBuilder)element);
 	}
-
 }

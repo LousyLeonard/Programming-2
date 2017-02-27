@@ -1,5 +1,6 @@
 package events;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import core.IAddTreeDialog;
@@ -9,12 +10,17 @@ import tripTracker.TripTrackerConstants;
 import uiBuilders.ITrip;
 
 /**
-* Event to create a trip entry dialog from a trip type seleection.
+* Event to create a trip entry dialog from a trip type selection.
 * 
 * @author Lawrence
 */
-public class GetTripTypeEvent implements IYesNoEvent {
+public class GetTripTypeEvent implements IYesNoEvent, Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -4004775997932427757L;
+	
 	private IAddTreeDialog addable;
 	
 	/**

@@ -31,16 +31,16 @@ public class NoVenue implements IVenueBooking, Serializable {
 	 * @see venueBookings.IVenueBooking#getArrivalDate()
 	 */
 	@Override
-	public Date getArrivalDate() {
-		return new Date();
+	public String getArrivalDate() {
+		return "N/A";
 	}
 
 	/* (non-Javadoc)
 	 * @see venueBookings.IVenueBooking#getDepartureDate()
 	 */
 	@Override
-	public Date getDepartureDate() {
-		return new Date();
+	public String getDepartureDate() {
+		return "N/A";
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +79,7 @@ public class NoVenue implements IVenueBooking, Serializable {
 	 * @see venueBookings.IVenueBooking#setArrivalDate(java.util.Date)
 	 */
 	@Override
-	public void setArrivalDate(Date arrDate) {
+	public void setArrivalDate(String arrDate) {
 		//Intentionally Blank
 	}
 
@@ -87,7 +87,7 @@ public class NoVenue implements IVenueBooking, Serializable {
 	 * @see venueBookings.IVenueBooking#setDepartureDate(java.util.Date)
 	 */
 	@Override
-	public void setDepartureDate(Date depdate) {
+	public void setDepartureDate(String depdate) {
 		//Intentionally Blank	
 	}
 

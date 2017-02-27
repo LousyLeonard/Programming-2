@@ -23,28 +23,28 @@ public interface IVenueBooking extends IEntryPanelProvider {
 	 * 
 	 * @return the arrival date.
 	 */
-	public Date getArrivalDate();
+	public String getArrivalDate();
 	
 	/**
 	 * Set the arrival date of the venue booking.
 	 * 
 	 * @param arrDate - The arrival date.
 	 */
-	public void setArrivalDate(Date arrDate);
+	public void setArrivalDate(String arrDate);
 	
 	/**
 	 * Get the departure date of the venue booking.
 	 * 
 	 * @return the departure date.
 	 */
-	public Date getDepartureDate();
+	public String getDepartureDate();
 	
 	/**
 	 * Set the departure date of the venue booking.
 	 * 
 	 * @param arrDate - The departure date.
 	 */
-	public void setDepartureDate(Date depdate);
+	public void setDepartureDate(String depdate);
 	
 	/**
 	 * Get the length of the stay.

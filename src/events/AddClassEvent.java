@@ -3,6 +3,7 @@
  */
 package events;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -21,7 +22,12 @@ import tripTracker.Student;
  * 
  * @author Lawrence
  */
-public class AddClassEvent implements IYesNoEvent {
+public class AddClassEvent implements IYesNoEvent, Serializable {
+	
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -7355811889480469666L;
 	
 	private IAddDialog addable;
 

@@ -7,6 +7,7 @@ import core.IUIBuilderCreator;
 import core.UIBuilder;
 import core.ui.DialogBuilder;
 import dialogs.ClassSelectorDialogCreator;
+import dialogs.TripDayExternalProviderDialogCreator;
 import plugins.PaymentPlugin;
 import plugins.PhoneNumberPlugin;
 import plugins.TransportPlugin;
@@ -62,7 +63,7 @@ public class DayTripExtCreator implements IUIBuilderCreator, ITrip {
 	 */
 	@Override
 	public DialogBuilder getAddDialog(IAddTreeDialog addable) {
-		return new ClassSelectorDialogCreator().getNewInstance(addable);
+		return new TripDayExternalProviderDialogCreator().getNewInstance(addable);
 	}
 	
 	/* (non-Javadoc)

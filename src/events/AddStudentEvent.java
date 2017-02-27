@@ -1,5 +1,6 @@
 package events;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -16,8 +17,13 @@ import core.NotUniqueEntryException;
  * 
  * @author Lawrence
  */
-public class AddStudentEvent implements IYesNoEvent {
+public class AddStudentEvent implements IYesNoEvent, Serializable {
 
+	/**
+	 * Appease the gods of serialisation.
+	 */
+	private static final long serialVersionUID = -1003884309706649425L;
+	
 	private IAddDialog addable;
 	
 	/**
