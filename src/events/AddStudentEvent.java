@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import core.IYesNoEvent;
+import core.InvalidEntryException;
 import core.ui.DialogBuilder;
 import tripTracker.TripTrackerConstants;
 import tripTracker.Student;
@@ -46,7 +47,13 @@ public class AddStudentEvent implements IYesNoEvent, Serializable {
 			JOptionPane.showMessageDialog(null,
 				    "WARNING.",
 				    "Warning",
-				    JOptionPane.WARNING_MESSAGE);		}
+				    JOptionPane.WARNING_MESSAGE);		
+		} catch (InvalidEntryException e) {
+			JOptionPane.showMessageDialog(null,
+				    "Invalid entry added for field: " + e.getPanelName(),
+				    "Warning",
+				    JOptionPane.WARNING_MESSAGE);				
+		}	
 	}
 
 	/**

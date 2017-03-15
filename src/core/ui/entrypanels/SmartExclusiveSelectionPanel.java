@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
+import core.InvalidEntryException;
 import core.util.ArrayCastingUtils;
 
 /**
@@ -97,7 +98,7 @@ public class SmartExclusiveSelectionPanel extends JPanel implements IEntryPanelP
 	 * @see core.IEntryPanelProvider#getContent()
 	 */
 	@Override
-	public Object getContent() {
+	public Object getContent() throws InvalidEntryException {
 		return current.getContent();
 	}
 

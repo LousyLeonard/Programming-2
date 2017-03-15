@@ -23,7 +23,7 @@ public interface IEntryPanelProvider {
 	 * 
 	 * @return The content of the input field.
 	 */
-	public Object getContent();
+	public Object getContent() throws InvalidEntryException;
 	
 	/**
 	 * The actual panel needed for the input of data.

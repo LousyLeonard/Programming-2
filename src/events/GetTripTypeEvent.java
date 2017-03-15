@@ -3,8 +3,11 @@ package events;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import core.IAddTreeDialog;
 import core.IYesNoEvent;
+import core.InvalidEntryException;
 import core.ui.DialogBuilder;
 import tripTracker.TripTrackerConstants;
 import uiBuilders.ITrip;
@@ -37,17 +40,24 @@ public class GetTripTypeEvent implements IYesNoEvent, Serializable {
 	 */
 	@Override
 	public void doEvent(DialogBuilder builder) {
-		Map<String, Object> entries = builder.getEntrys();
-		ITrip tripType = (ITrip)entries.get(TripTrackerConstants.TRIP_TYPE);
-		
-		// Handles no trip selected
-		if (tripType != null) {
-					
-			DialogBuilder tripEntryDialog;
-			tripEntryDialog = tripType.getAddDialog(addable);
-			tripEntryDialog.setVisible(true);
-			builder.setVisible(false);
-		}
+		try {
+			Map<String, Object> entries = builder.getEntrys();
+			ITrip tripType = (ITrip)entries.get(TripTrackerConstants.TRIP_TYPE);
+			
+			// Handles no trip selected
+			if (tripType != null) {
+						
+				DialogBuilder tripEntryDialog;
+				tripEntryDialog = tripType.getAddDialog(addable);
+				tripEntryDialog.setVisible(true);
+				builder.setVisible(false);
+			}
+		} catch (InvalidEntryException e) {
+			JOptionPane.showMessageDialog(null,
+				    "Invalid entry added for field: " + e.getPanelName(),
+				    "Warning",
+				    JOptionPane.WARNING_MESSAGE);				
+		}	
 	}
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import core.IAddDialog;
 import core.IYesNoEvent;
+import core.InvalidEntryException;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.ui.DialogBuilder;
@@ -55,7 +56,12 @@ public class AddClassEvent implements IYesNoEvent, Serializable {
 				    "WARNING.",
 				    "Warning",
 				    JOptionPane.WARNING_MESSAGE);		
-		}
+		} catch (InvalidEntryException e) {
+			JOptionPane.showMessageDialog(null,
+				    "Invalid entry added for field: " + e.getMessage(),
+				    "Warning",
+				    JOptionPane.WARNING_MESSAGE);				
+		}	
 	}
 	
 	/**

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import core.IEntryPanelProvider;
+import core.InvalidEntryException;
 
 /**
 * Generic IEntryPanelProvider that allows the entry of a number in via a textfield.
@@ -82,7 +83,6 @@ public class GenericNumberEntryPanel extends JPanel implements IEntryPanelProvid
      * @param evt - The event information.
      */
     private void entryFieldActionPerformed(ActionEvent evt) {                                            
-        valid = isNumberValid(entryField.getText());
         updateIcon();
     }
     
@@ -97,17 +97,12 @@ public class GenericNumberEntryPanel extends JPanel implements IEntryPanelProvid
     /* (non-Javadoc)
      * @see core.IEntryPanelProvider#getContent()
      */
-    public Object getContent() {
+    public Object getContent() throws InvalidEntryException {
     	try {
     		return Double.parseDouble(entryField.getText());
     	} catch (NumberFormatException e) {
-    		JOptionPane.showMessageDialog(null,
-				    "Invalid numeric entry.",
-				    "Warning",
-				    JOptionPane.WARNING_MESSAGE);
+        	throw new InvalidEntryException(title);
     	}
-    	//TODO
-		return 0.0;
     }
     
     /**
@@ -117,17 +112,6 @@ public class GenericNumberEntryPanel extends JPanel implements IEntryPanelProvid
      */
     public boolean getValid() {
 		return valid;	
-    }
-    
-    /**
-     * Check to see if the given string is a number.
-     * 
-     * @param input - String to check.
-     * @return boolean - true for is a number.
-     */
-    private boolean isNumberValid(String input) {
-    	//TODO
-    	return false;
     }
 
 	/* (non-Javadoc)

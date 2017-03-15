@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import core.IAddTreeDialog;
 import core.IUIBuilderCreator;
 import core.IYesNoEvent;
+import core.InvalidEntryException;
 import core.NotUniqueEntryException;
 import core.UIBuilder;
 import core.ui.DialogBuilder;
@@ -62,6 +63,11 @@ public class AddTreeEvent implements IYesNoEvent {
 				    "An entry by this name already exists.",
 				    "Warning",
 				    JOptionPane.WARNING_MESSAGE);		
+		} catch (InvalidEntryException e) {
+			JOptionPane.showMessageDialog(null,
+				    "Invalid entry added for field: " + e.getPanelName(),
+				    "Warning",
+				    JOptionPane.WARNING_MESSAGE);				
 		}
 	}
 	

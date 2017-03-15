@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 
 import core.IYesNoEvent;
+import core.InvalidEntryException;
 import core.ui.entrypanels.YesNoPanel;
 import core.IEntryPanelProvider;
 import core.IListener;
@@ -122,11 +123,11 @@ public class DialogBuilder extends JDialog implements IListener {
      * 
      * @return A map of the titles to data for the IEntryPanelProviders.
      */
-    public Map<String, Object> getEntrys() {
+    public Map<String, Object> getEntrys() throws InvalidEntryException {
     	HashMap<String, Object> fields = new HashMap<String, Object>();
     	
     	for(IEntryPanelProvider panel : panelList) {
-    		fields.put(panel.getTitle(), panel.getContent());
+       		fields.put(panel.getTitle(), panel.getContent());
     	}
     	
 		return fields;
